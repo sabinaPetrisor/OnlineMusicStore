@@ -1,0 +1,149 @@
+*{
+  font-family: 'Rubik', sans-serif;
+  /*margin: 2%;
+  padding: 2%;*/
+  box-sizing: border-box;
+  outline: none;
+  border: none;
+  text-decoration: none;
+  color:darkgrey;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+  scroll-padding-top: 6.5rem;
+  text-align: center;
+}
+
+body{
+  background-color:beige;
+}
+
+section{
+  padding: 3rem 2rem;
+  max-width: 1200px;
+  margin:0 auto;
+}
+
+.btn, .delete-btn{
+  width: 50%;
+  display: block;
+  margin-top: 1rem;
+  border-radius: 0.5rem;
+  color: beige;
+  font-size: 1rem;
+  padding: 0.5rem 0.5rem;
+  cursor: pointer;
+  justify-self: center;
+  text-transform: capitalize;
+}
+
+.btn{
+  background-color: mediumseagreen;
+}
+
+.btn:hover, .delete-btn:hover{
+  background-color:darkolivegreen;
+}
+
+.message{
+  top: 0;
+  position: sticky;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  z-index: 10000;
+}
+
+.message span{
+  font-size: 1rem;
+}
+
+.message i{
+  cursor: pointer;
+  color: tomato;
+
+}
+
+.message i:hover{
+  color: dimgray;
+}
+
+.form-container{
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.form-container form{
+  width: 50%;
+  background-color:white;
+  border-radius: 0.5rem;
+  box-shadow: 0 0.5rem 1rem black;
+  border: 0.2rem solid darkgrey;
+  /*text-align: center;*/
+  padding: 2rem;
+}
+
+.form-container label{
+  color: dimgray;
+}
+
+.form-container form h1{
+  font-size: 2rem;
+  color:black;
+  margin-bottom: 1rem;
+  text-transform: uppercase;
+}
+
+.form-container form .box{
+  width: 100%;
+  font-size: 0.9rem;
+  margin: 0.5rem 0;
+  border-radius: 0.5rem;
+  border: 0.1rem solid darkgrey;
+  padding: 0.7rem 0.7rem;
+  color: dimgray;
+  background-color: beige;
+}
+
+.form-container form p{
+  margin-top: 1.5rem;
+  color:dimgray;
+  font-size: 1rem;
+}
+
+.form-container form p a{
+  color:mediumseagreen;
+}
+
+.form-container form p a:hover{
+  text-decoration: underline;
+  color: darkolivegreen;
+}
+
+label.error{
+  color: tomato;
+  text-transform: uppercase;
+}
+
+label.error, .form-container label{
+  display: flex;
+  justify-content: center;
+}
+
+/*media -> responsiveness*/
+@media (max-width:990px){
+  *{
+    font-size: 75%;
+  }
+}
+
+@media (max-width:450px){
+  *{
+    font-size: 60%;
+  }
+}
