@@ -21,8 +21,7 @@ $(document).ready(function(){
             },
             ppicture:{
                 accept: "image/jpg|image/jpeg|image/png",
-                filesize: 5,
-
+                filesize: 5
             }
         },
         messages:{
@@ -51,39 +50,34 @@ $(document).ready(function(){
     });
 
     $("#register-form").on("submit", function(e) {
-        //e.preventDefault();
-        var username = $("#username").val();
-        var email = $("#email").val();
-        var pass = $("#password").val();
-        var ppicture = $("#ppicture")[0].files;
-        /*data.append('file', $(profile_picture)[0]);*/
-        var data = new FormData();
-        data.append('username', username);
-        data.append('email', email);
-        data.append('password', pass);
-        data.append('ppicture', ppicture);
-        /*var ppicture = $("#profile-picture")[0].files;*/
+        e.preventDefault();
+        var ppicture_length = $("#ppicture")[0].files.length;
+        if(ppicture_length == 0) var ppicture = 'default-profile-pic.png';
+        else var ppicture = $("#ppicture")[0].files[0].name;
+        var data = {
+            'username': $("#username").val(),
+            'email': $("#email").val(),
+            'password': $("#password").val(),
+            'ppicture': ppicture
+        };
+        dataToJson = JSON.stringify(data); 
+        console.log(dataToJson);
         $.ajax({
-            type: "POST",
-            url: form.attr("action"),
-            data: data,
-            processData: false,
-            contentType: false,
-            cache: false,
-            success: function(data){
-                var json_response = JSON.parse(data);
-                if(json_response.status == "success"){
-                    console.log(JSON.stringify(data));
-                    alert(json_response.message);
-
-                }
-                else{
-                    alert("Error: " + json_response.message);
-                }
+            method: "POST",
+            url: '../php/register.php',
+            //dataType: "json",
+            data: {data: dataToJson},
+            //processData: false,
+            //cache: false,
+            //async: false,
+            success: function(response){
+                console.log("Response is: ", response.data);
+                if(response.status == "succes") alert(response.message);
+                else alert(response.message);
             },
-            error: function(){
-                alert("Error on Ajax form processing!");
-            }
+            error: function(xhr)  {
+                alert(xhr.responseText);
+            }            
         });
     });
 });

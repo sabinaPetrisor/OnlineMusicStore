@@ -1,81 +1,44 @@
 <?php
     include 'config.php';
-    /*$val = isset($_POST['submit']);
-    $response['isset'] = $val;
-    if(isset($_POST['submit'])){*/
     $response = array();
-    $username = htmlspecialchars($_POST['username'], ENT_QUOTES);
-    $email = htmlspecialchars($_POST['email'], ENT_QUOTES);
-    $password = password_hash(htmlspecialchars($_POST['password'], ENT_QUOTES), PASSWORD_DEFAULT);
-    /*$cpassword = md5(htmlspecialchars($_POST['cpass'], ENT_QUOTES));*/
-    /*$ppicture = $_FILES['profile_picture']['name'];*/
-    if(empty($_FILES['ppicture'])) {
-        $ppicture = '';
+    $data = json_decode($_POST['data'], true);
+    $username = htmlspecialchars($data['username'], ENT_QUOTES);
+    $email = htmlspecialchars($data['email'], ENT_QUOTES);
+    $select = sqlsrv_query($conn, "SELECT * FROM users WHERE email = ?", [$email]);
+    if(!sqlsrv_has_rows($select)){
+        $password = password_hash(htmlspecialchars($data['password'], ENT_QUOTES), PASSWORD_DEFAULT);
+        $ppicture = $data['ppicture'];
+        //echo 'ppicture = '.$ppicture.'<br>';
+        if(strcmp($ppicture, 'default-profile-pic.png') != 0) {
+            //echo 'Am gasit o imagine!<br>';
+            //$filename = $_FILES['ppicture']['name'];
+            $filename_tmp_name = sys_get_temp_dir();
+            $ppicture = uniqid(). '_' . basename($ppicture);
+            //echo 'Noul nume al imaginii este: '.$ppicture_tmp_name.'<br>';
+            $ppicture_folder = '../pictures/'.$ppicture;
+            if(!move_uploaded_file($filename_tmp_name, $ppicture_folder)){
+                $response['status'] = 'error';
+                $response['message'] = 'Failed to upload profile picture!';
+                $response['data'] = [];
+            }
+        }
         $response['status'] = 'success';
         $response['message'] = 'Registration successful!';
-        $response['data'] = array(
+        $response['data'] = [
             'username' => $username,
             'email' => $email,
             'password' => $password,
-            'profile_picture' => ''
-        );
-    }
-    else {
-        $ppicture = $_FILES['ppicture']['name'];
-        $ppicture_size = $_FILES['ppicture']['size'];
-        $ppicture_tmp_name = $_FILES['ppicture']['tmp_name'];
-        $new_filename = uniqid(). '_' . basename($ppicture);
-        //echo 'Noul nume al imaginii este: '.$ppicture_tmp_name.'<br>';
-        echo 'Numele imaginii este: '.$ppicture.'<br>';
-        $ppicture_folder = '../pictures/'.$new_filename;
-        if(move_uploaded_file($ppicture_tmp_name, $ppicture_folder)){
-
-            $response['status'] = 'success';
-            $response['message'] = 'Registration successful!';
-            $response['data'] = array(
-                'username' => $username,
-                'email' => $email,
-                'password' => $password,
-                'profile_picture' => $new_filename
-            );
-        }
-        else{
-            $response['status'] = 'error';
-            $response['message'] = 'Failed to upload profile picture!';
-        }
-    }
-    $select = sqlsrv_query($conn, "SELECT * FROM users WHERE email = ?", [$email]);
-    /*$select = sqlsrv_execute($select);*/
-    
-    if(!sqlsrv_has_rows($select)){
-        $insert = sqlsrv_query($conn, "INSERT INTO users (name, email, password, profile_picture) VALUES (?, ?, ?, ?)", [$username, $email, $password, $ppicture]);
+            'profile_picture' => $ppicture
+        ];
+        $insert = sqlsrv_query($conn, "INSERT INTO users (username, email, password, profile_picture) VALUES (?, ?, ?, ?)", [$username, $email, $password, $ppicture]);
         sqlsrv_execute($insert);
-        /*if(strcmp($ppicture, 'default-profile-pic.png') != 0) {
-            if(move_uploaded_file($ppicture_tmp_name, $ppicture_folder)){
-
-                $response['status'] = 'success';
-                $response['message'] = 'Registration successful!';
-                $response['data'] = array(
-                    'username' => $username,
-                    'email' => $email,
-                    'password' => $password,
-                    'profile_picture' => $new_filename
-                );
-            }
-            else{
-                $response['status'] = 'error';
-                $response['message'] = 'Failed to upload profile picture!';
-            }
-        }*/
     }
     else{
         $response['status'] = 'error';
         $response['message'] = 'Email already exists!';
+        $response['data'] = [];
     }
-/*}
-else{
-    $response['status'] = 'error';
-    $response['message'] = 'Failed form submission!';
-}*/
+
+    header('Content-Type: application/json');
     echo json_encode($response);
 ?>
