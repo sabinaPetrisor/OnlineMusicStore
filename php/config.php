@@ -1,11 +1,9 @@
 <?php
-    $serverName = "DESKTOP-0N239VO";
-    $connectionOptions = [
-        "Database" => "web_test",
-        "UID" => "",
-        "PWD" => ""
-    ];
-    $conn = sqlsrv_connect($serverName, $connectionOptions);
-    if($conn == false) die(print_r(sqlsrv_errors(), true));
-    //else echo "Conectare reusita la web_test!";
+    $serverName = "localhost";
+    $username = "root";
+    $password = "";
+    $database = "web_test";
+    $conn = new mysqli($serverName, $username, $password, $database);
+    if ($conn->connect_error) die("Eroare de conectare: " . $conn->connect_error);
+    //else echo "Conectare reușită la baza de date '$database'!<br>";
 ?>

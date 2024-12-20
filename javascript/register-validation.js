@@ -53,23 +53,18 @@ $(document).ready(function(){
         e.preventDefault();
         var ppicture_length = $("#ppicture")[0].files.length;
         if(ppicture_length == 0) var ppicture = 'default-profile-pic.png';
-        else var ppicture = $("#ppicture")[0].files[0].name;
-        var data = {
-            'username': $("#username").val(),
-            'email': $("#email").val(),
-            'password': $("#password").val(),
-            'ppicture': ppicture
-        };
-        dataToJson = JSON.stringify(data); 
-        console.log(dataToJson);
+        else var ppicture = $("#ppicture")[0].files[0];
+        dataForm = new FormData(this);
+        dataForm.append('username', $("#username").val());
+        dataForm.append('email', $("#email").val());
+        dataForm.append('password', $("#password").val());
+        dataForm.append('ppicture', $("#ppicture"));
         $.ajax({
             method: "POST",
             url: '../php/register.php',
-            //dataType: "json",
-            data: {data: dataToJson},
-            //processData: false,
-            //cache: false,
-            //async: false,
+            data: dataForm,
+            processData: false,
+            contentType: false,
             success: function(response){
                 console.log("Response is: ", response.data);
                 if(response.status == "succes") alert(response.message);
