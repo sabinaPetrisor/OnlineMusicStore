@@ -7,48 +7,46 @@
         $select = "SELECT * FROM users WHERE email = ?";
         $select_stmt = mysqli_prepare($conn, $select);
         mysqli_stmt_execute($select_stmt, [$email]);
-        $r = mysqli_stmt_get_result($select_stmt);
-        if($r != false) {
-            if(mysqli_num_rows($r) == 0) {
-                $password = password_hash(htmlspecialchars($_POST['password'], ENT_QUOTES), PASSWORD_DEFAULT);
-                if(isset($_FILES['ppicture']) && $_FILES['ppicture']['error'] == 0) {
-                    $filename_tmp_name = $_FILES['ppicture']['tmp_name'];
-                    $ppicture = uniqid().'_'.basename($_FILES['ppicture']['name']);
-                    $ppicture_folder = '../pictures/'.$ppicture;
-                    $muf = move_uploaded_file($filename_tmp_name, $ppicture_folder);
-                    if(!$muf){
-                        $response['status'] = 'error';
-                        $response['message'] = 'Failed to upload profile picture!';
-                        $response['data'] = [];
-                    }
-                }
-                else $ppicture = 'default-profile-pic.png';
-                mysqli_free_result($r);
-                mysqli_stmt_close($select_stmt);
-                $insert = "INSERT INTO users (username, email, password, profile_picture) VALUES (?,?,?,?)";
-                $insert_stmt = mysqli_prepare($conn, $insert);
-                mysqli_stmt_bind_param($insert_stmt, 'ssss', $username, $email, $password, $ppicture);
-                if(mysqli_stmt_execute($insert_stmt)) {
-                    $response['status'] = 'success';
-                    $response['message'] = 'Registration successful!';
-                    $response['data'] = [
-                        'username' => $username,
-                        'email' => $email,
-                        'password' => $password,
-                        'ppicture' => $ppicture
-                    ];
-                }
-                else {
+        $res = mysqli_stmt_get_result($select_stmt);
+        if(mysqli_num_rows($res) == 0) {
+            $password = password_hash(htmlspecialchars($_POST['password'], ENT_QUOTES), PASSWORD_DEFAULT);
+            if(isset($_FILES['ppicture']) && $_FILES['ppicture']['error'] == 0) {
+                $filename_tmp_name = $_FILES['ppicture']['tmp_name'];
+                $ppicture = uniqid().'_'.basename($_FILES['ppicture']['name']);
+                $ppicture_folder = '../pictures/'.$ppicture;
+                $muf = move_uploaded_file($filename_tmp_name, $ppicture_folder);
+                if(!$muf){
                     $response['status'] = 'error';
-                    $response['message'] = 'Error when inserting into database!';
+                    $response['message'] = 'Failed to upload profile picture!';
                     $response['data'] = [];
                 }
             }
-            else{
+            else $ppicture = 'default-profile-pic.png';
+            mysqli_free_result($res);
+            mysqli_stmt_close($select_stmt);
+            $insert = "INSERT INTO users (username, email, password, profile_picture) VALUES (?,?,?,?)";
+            $insert_stmt = mysqli_prepare($conn, $insert);
+            mysqli_stmt_bind_param($insert_stmt, 'ssss', $username, $email, $password, $ppicture);
+            if(mysqli_stmt_execute($insert_stmt)) {
+                $response['status'] = 'success';
+                $response['message'] = 'Registration successful!';
+                $response['data'] = [
+                    'username' => $username,
+                    'email' => $email,
+                    'password' => $password,
+                    'ppicture' => $ppicture
+                ];
+            }
+            else {
                 $response['status'] = 'error';
-                $response['message'] = 'Email already exists!';
+                $response['message'] = 'Error when inserting into database!';
                 $response['data'] = [];
             }
+        }
+        else{
+            $response['status'] = 'error';
+            $response['message'] = 'Email already exists!';
+            $response['data'] = [];
         }
         header('Content-Type: application/json');
         echo json_encode($response);

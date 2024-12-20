@@ -61,13 +61,16 @@ $(document).ready(function(){
         dataForm.append('ppicture', $("#ppicture"));
         $.ajax({
             method: "POST",
-            url: '../php/register.php',
+            url: 'http://localhost/OnlineMusicStore/php/register.php',
             data: dataForm,
             processData: false,
             contentType: false,
             success: function(response){
                 console.log("Response is: ", response.data);
-                if(response.status == "succes") alert(response.message);
+                if(response.status == "success") {
+                        alert(response.message);
+                        window.location.href = "http://localhost/OnlineMusicStore/html/login-page.html";
+                }
                 else alert(response.message);
             },
             error: function(xhr)  {

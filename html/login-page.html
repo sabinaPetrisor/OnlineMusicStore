@@ -2,30 +2,24 @@
 <html>
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Register</title>
+        <title>Login</title>
         <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script type="text/javascript" src="http://ajax.microsoft.com/ajax/jquery.validate/1.7/jquery.validate.min.js"></script>
         <script type="text/javascript" src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/additional-methods.min.js"></script>
-        <script type="text/javascript" src="../javascript/register-validation.js"></script>
+        <script type="text/javascript" src="../javascript/login-validation.js"></script>
         <link rel="stylesheet" href="../css/styles.css">
     </head>
 
     <body>
         <section class="form-container">
-            <form id="register-form" enctype="multipart/form-data">
-                <h1>Register</h1>
-                <label for="username">Username:</label>
-                <input type="text" name="username" class="box" id="username" placeholder="Enter your username" autocomplete="off">
+            <form id="login-form" enctype="multipart/form-data">
+                <h1>Login</h1>
                 <label for="email">Email:</label>
                 <input type="text" name="email" class="box" id="email" placeholder="Enter your email" autocomplete="off">
                 <label for="password">Password:</label>
                 <input type="password" name="password" class="box" id="password" placeholder="Enter a password" autocomplete="new-password">
-                <label for="cpass">Confirm Password:</label>
-                <input type="password" name="cpass" class="box" id="cpass" placeholder="Confirm your password">
-                <label for="ppicture">Profile Picture (in format jpg, jpeg or png) (Optional):</label>
-                <input type="file" name="ppicture" id="ppicture" class="box">
-                <input type="submit" value="Register" id="submit" name="submit" class="btn">
-                <p>Already have an account? <a href="http://localhost/OnlineMusicStore/html/login-page.html">Login here!</a></p>
+                <input type="submit" value="Login" id="submit" name="submit" class="btn">
+                <p>Don't have an account? <a href="http://localhost/OnlineMusicStore/html/register-page.html">Register here!</a></p>
             </form>
         </section>
     </body>
