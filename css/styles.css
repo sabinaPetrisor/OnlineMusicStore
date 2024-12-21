@@ -1,12 +1,15 @@
 *{
   font-family: 'Rubik', sans-serif;
-  /*margin: 2%;
-  padding: 2%;*/
+  margin: 0;
+  padding: 0;
   box-sizing: border-box;
   outline: none;
   border: none;
   text-decoration: none;
   color:darkgrey;
+}
+
+html{
   overflow-x: hidden;
   scroll-behavior: smooth;
   scroll-padding-top: 6.5rem;
@@ -24,7 +27,7 @@ section{
 }
 
 .btn, .delete-btn{
-  width: 50%;
+  width: 100%;
   display: block;
   margin-top: 1rem;
   border-radius: 0.5rem;
@@ -37,14 +40,22 @@ section{
 }
 
 .btn{
-  background-color: mediumseagreen;
+  background-color: rgb(108,59,170);
 }
 
-.btn:hover, .delete-btn:hover{
-  background-color:darkolivegreen;
+.delete-btn{
+  background-color: rgb(255, 8, 0);
 }
 
-.message{
+.btn:hover{
+  background-color: rgb(98, 78, 154);
+}
+
+.delete-btn:hover{
+  background-color: rgb(237, 41, 57);
+}
+
+/*.message{
   top: 0;
   position: sticky;
   max-width: 1200px;
@@ -69,7 +80,7 @@ section{
 
 .message i:hover{
   color: dimgray;
-}
+}*/
 
 .form-container{
   min-height: 100vh;
@@ -92,14 +103,15 @@ section{
   color: dimgray;
 }
 
-.form-container form h1{
+.title{
   font-size: 2rem;
   color:black;
-  margin-bottom: 1rem;
+  margin-top: 0.5rem;
+  margin-bottom: 0.2rem;
   text-transform: uppercase;
 }
 
-.form-container form .box{
+.box{
   width: 100%;
   font-size: 0.9rem;
   margin: 0.5rem 0;
@@ -117,12 +129,13 @@ section{
 }
 
 .form-container form p a{
-  color:mediumseagreen;
+  font-weight: bold;
+  color:rgb(108,59,170);
 }
 
 .form-container form p a:hover{
   text-decoration: underline;
-  color: darkolivegreen;
+  color: rgb(98, 78, 154);
 }
 
 label.error{
@@ -135,6 +148,148 @@ label.error, .form-container label{
   justify-content: center;
 }
 
+.header{
+  background: white;
+  position: sticky;
+  z-index: 1000;
+  top: 0;
+  left: 0;
+  right: 0;
+  border-bottom: 0.2rem solid darkgrey;
+}
+
+.header .flex{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem;
+  margin: 0 auto;
+  max-width: 1200px;
+  position: relative;
+}
+
+.header .flex .logo{
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: black;
+}
+
+.header .flex .logo span{
+  font-size: 1.5rem;
+  color: rgb(108,59,170);
+}
+
+.header .flex .navbar a{
+  margin: 0 1rem;
+  font-size: 1.1rem;
+  color: dimgray;
+}
+
+.header .flex .navbar a:hover{
+  text-decoration: underline;
+  color: rgb(98, 78, 154);
+}
+
+.header .flex .icons{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.header .flex .icons > *{ /* > * inseamna ca se aplica atributele la fiecare copil al acestei clase */
+  cursor: pointer;
+  margin-left: 3rem;
+}
+
+.header .flex .icons .fas.fa-bars{
+  color: gray;
+  font-size: 1.5rem;
+}
+
+.header .flex .icons .profile-picture img{
+  border-radius: 50%;
+  height: 2.5rem;
+  width: 2.5rem;
+  object-fit: cover;
+}
+
+.header .flex .icons .fas.fa-bars:hover{
+  color: rgb(98, 78, 154);
+}
+
+.header .flex .icons .profile-picture img:hover{
+  border: 0.15rem solid rgb(98, 78, 154);
+  padding: 0.05rem;
+}
+
+#menu-btn {
+  display: none;
+}
+
+@keyframes fadeIn{
+  0%{
+    transform: translateY(-1rem);
+  }
+}
+
+.header .flex .profile{
+  position: absolute;
+  top: 120%;
+  right: 0;
+  border: 0.2rem solid darkgrey;
+  border-radius: 0.5rem;
+  padding: 2rem;
+  text-align: center;
+  background-color: white;
+  width: 20rem;
+  display: none;
+  animation: fadeIn .2s linear;
+}
+
+.header .flex .profile.active{
+  display: inline-block;
+}
+
+.header .flex .profile img{
+  height: 8rem;
+  width: 8rem;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 0.5rem;
+}
+
+.header .flex .profile p{
+  color: dimgray;
+}
+
+.update-profile{
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.update-profile form{
+  max-width: 70rem;
+  margin: 0 auto;
+  background-color: white;
+  border: 0.2rem solid darkgrey;
+  border-radius: 0.5rem;
+  padding: 2rem;
+}
+
+.update-profile form img{
+  height: 8rem;
+  width: 8rem;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 0.5rem;
+}
+
+.update-profile form .input-box label{
+  color: dimgray;
+}
+
 /*media -> responsiveness*/
 @media (max-width:990px){
   *{
@@ -142,8 +297,32 @@ label.error, .form-container label{
   }
 }
 
+@media (max-width:750px){
+  #menu-btn {
+    display: inline-block;
+  }
+  .header .flex .navbar{
+    border-top: 0.2rem solid darkgrey;
+    border-bottom: 0.2rem solid darkgrey;
+    background-color: white;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    transition: 0.2s linear;
+    clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
+  }
+  .header .flex .navbar.active{
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+  }
+  .header .flex .navbar a{
+    display: block;
+    margin: 1rem;
+  }
+}
+
 @media (max-width:450px){
   *{
-    font-size: 60%;
+    font-size: 65%;
   }
 }
