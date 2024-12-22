@@ -167,7 +167,6 @@ label.error, .form-container label{
   justify-content: space-between;
   padding: 1rem;
   margin: 0 auto;
-  max-width: 1200px;
   position: relative;
 }
 
@@ -229,24 +228,24 @@ label.error, .form-container label{
   display: none;
 }
 
-@keyframes fadeIn{
+/*@keyframes fadeIn{
   0%{
     transform: translateY(-1rem);
   }
-}
+}*/
 
 .header .flex .profile{
   position: absolute;
-  top: 120%;
+  top: 100%;
   right: 0;
   border: 0.2rem solid darkgrey;
-  border-radius: 0.5rem;
-  padding: 2rem;
+  /*border-radius: 0.5rem;*/
+  padding: 1rem;
   text-align: center;
   background-color: white;
   width: 20rem;
   display: none;
-  animation: fadeIn .2s linear;
+  /*animation: fadeIn .2s linear;*/
 }
 
 .header .flex .profile.active{
@@ -370,7 +369,22 @@ label.error, .form-container label{
   .header .flex .navbar a{
     display: block;
     margin: 1rem;
+    font-size: 0.8rem;
   }
+
+  .header .flex .profile{
+    width: 15rem;
+  }
+
+  .header .flex .profile img{
+    height: 6rem;
+    width: 6rem;
+  }
+  
+  .header .flex .profile p{
+    font-size: 0.7rem;
+  }
+  
 }
 
 @media (max-width:450px){
@@ -403,6 +417,15 @@ label.error, .form-container label{
     margin-top: 1.5rem;
     color:dimgray;
     font-size: 0.8rem;
+  }
+
+  .header .flex .profile{
+    width: 12rem;
+  }
+
+  .header .flex .profile img{
+    height: 4rem;
+    width: 4rem;
   }
 
   .update-profile form img{

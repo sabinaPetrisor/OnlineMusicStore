@@ -9,7 +9,7 @@
         mysqli_stmt_execute($select_stmt, [$email]);
         $res = mysqli_stmt_get_result($select_stmt);
         if(mysqli_num_rows($res) == 0) {
-            $password = password_hash(htmlspecialchars($_POST['password'], ENT_QUOTES), PASSWORD_DEFAULT);
+            $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
             if(isset($_FILES['ppicture']) && $_FILES['ppicture']['error'] == 0) {
                 $filename_tmp_name = $_FILES['ppicture']['tmp_name'];
                 $ppicture = uniqid().'_'.basename($_FILES['ppicture']['name']);
