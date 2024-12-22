@@ -27,7 +27,8 @@ section{
 }
 
 .btn, .delete-btn{
-  width: 100%;
+  width: 65%;
+  /*height: 2.9rem;*/
   display: block;
   margin-top: 1rem;
   border-radius: 0.5rem;
@@ -36,7 +37,6 @@ section{
   padding: 0.5rem 0.5rem;
   cursor: pointer;
   justify-self: center;
-  text-transform: capitalize;
 }
 
 .btn{
@@ -48,7 +48,7 @@ section{
 }
 
 .btn:hover{
-  background-color: rgb(98, 78, 154);
+  background-color: rgb(130, 93, 177);
 }
 
 .delete-btn:hover{
@@ -91,16 +91,18 @@ section{
 
 .form-container form{
   width: 50%;
+  display: block;
   background-color:white;
   border-radius: 0.5rem;
   box-shadow: 0 0.5rem 1rem black;
   border: 0.2rem solid darkgrey;
   /*text-align: center;*/
-  padding: 2rem;
+  padding: 3rem;
 }
 
 .form-container label{
   color: dimgray;
+  margin-top: 0.3rem;
 }
 
 .title{
@@ -113,11 +115,12 @@ section{
 
 .box{
   width: 100%;
+  height: 2.5rem;
   font-size: 0.9rem;
-  margin: 0.5rem 0;
+  margin-bottom: 0.5rem;
   border-radius: 0.5rem;
   border: 0.1rem solid darkgrey;
-  padding: 0.7rem 0.7rem;
+  padding: 0.3rem 0.3rem;
   color: dimgray;
   background-color: beige;
 }
@@ -135,7 +138,7 @@ section{
 
 .form-container form p a:hover{
   text-decoration: underline;
-  color: rgb(98, 78, 154);
+  color: rgb(130, 93, 177);
 }
 
 label.error{
@@ -187,7 +190,7 @@ label.error, .form-container label{
 
 .header .flex .navbar a:hover{
   text-decoration: underline;
-  color: rgb(98, 78, 154);
+  color: rgb(130, 93, 177);
 }
 
 .header .flex .icons{
@@ -214,11 +217,11 @@ label.error, .form-container label{
 }
 
 .header .flex .icons .fas.fa-bars:hover{
-  color: rgb(98, 78, 154);
+  color: rgb(130, 93, 177);
 }
 
 .header .flex .icons .profile-picture img:hover{
-  border: 0.15rem solid rgb(98, 78, 154);
+  border: 0.15rem solid rgb(130, 93, 177);
   padding: 0.05rem;
 }
 
@@ -263,14 +266,13 @@ label.error, .form-container label{
 }
 
 .update-profile{
-    min-height: 100vh;
+    max-width: 70rem;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
 }
 
 .update-profile form{
-  max-width: 70rem;
   margin: 0 auto;
   background-color: white;
   border: 0.2rem solid darkgrey;
@@ -286,18 +288,68 @@ label.error, .form-container label{
   margin-bottom: 0.5rem;
 }
 
+.update-profile form .input-box-container{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.update-profile form .input-box{
+  width: 100%;
+  margin-left: 0.5rem;
+  margin-right: 0.5rem;
+}
+
 .update-profile form .input-box label{
   color: dimgray;
+  display: block;
+  margin-top: 0.3rem;
 }
 
 /*media -> responsiveness*/
-@media (max-width:990px){
+/*@media (max-width:990px){
   *{
     font-size: 75%;
   }
-}
+}*/
 
 @media (max-width:750px){
+  .title{
+    font-size: 1.5rem;
+  }
+  .box{
+    font-size: 0.7rem;
+    padding: 0.5rem;
+  }
+
+  .btn, .delete-btn{
+    font-size: 0.8rem;
+  }
+  
+  .form-container form{
+    padding: 2rem;
+  }
+  
+  .form-container label{
+    color: dimgray;
+    margin-top: 0.3rem;
+    font-size: 0.7rem;
+  }
+  
+  .form-container form p{
+    margin-top: 1.5rem;
+    color:dimgray;
+    font-size: 0.8rem;
+  }
+
+  .update-profile form img{
+    height: 5rem;
+    width: 5rem;
+  }
+
+  .update-profile form .input-box label{
+    font-size: 0.7rem;
+  }
   #menu-btn {
     display: inline-block;
   }
@@ -323,6 +375,51 @@ label.error, .form-container label{
 
 @media (max-width:450px){
   *{
-    font-size: 65%;
+    font-size: 90%;
+  }
+  .title{
+    font-size: 1rem;
+  }
+  .box{
+    font-size: 0.7rem;
+    padding: 0.5rem;
+  }
+
+  .btn, .delete-btn{
+    font-size: 0.8rem;
+  }
+  
+  .form-container form{
+    padding: 2rem;
+  }
+  
+  .form-container label{
+    color: dimgray;
+    margin-top: 0.3rem;
+    font-size: 0.7rem;
+  }
+  
+  .form-container form p{
+    margin-top: 1.5rem;
+    color:dimgray;
+    font-size: 0.8rem;
+  }
+
+  .update-profile form img{
+    height: 5rem;
+    width: 5rem;
+  }
+
+  .update-profile form .input-box-container{
+    display: block;
+  }
+
+  .update-profile form .input-box{
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  .update-profile form .input-box label{
+    font-size: 0.7rem;
   }
 }
