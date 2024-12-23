@@ -46,20 +46,18 @@ $(document).ready(function(){
             error.insertAfter(element);
          },
          submitHandler: function(form) {
-             // Dacă formularul este valid, trimite-l
-             //e.preventDefault();
             dataForm = new FormData(form);
             console.log(dataForm);
             $.ajax({
                 method: "POST",
-                url: 'http://localhost/OnlineMusicStore/php/admin-update-profile.php',
+                url: 'http://localhost/OnlineMusicStore/php/user-update-profile.php',
                 data: dataForm,
                 processData: false,
                 contentType: false,
                 success: function(response){
                     if(response.overall_status == "success") {
                         if(response.message !== "") alert(response.message);
-                        window.location.href = "http://localhost/OnlineMusicStore/php/admin-page.php?id="+response.data['admin_id'];
+                        window.location.href = "http://localhost/OnlineMusicStore/php/home-page.php?id="+response.data['user_id'];
                     }
                     else alert(response.message);
                 },
@@ -69,27 +67,4 @@ $(document).ready(function(){
             });
         }
     });
-    
-    /*$("#admin-update-form").on("submit", function(e) {
-        e.preventDefault();
-        dataForm = new FormData(this);
-        console.log(dataForm);
-        $.ajax({
-            method: "POST",
-            url: 'http://localhost/OnlineMusicStore/php/admin-update-profile.php',
-            data: dataForm,
-            processData: false,
-            contentType: false,
-            success: function(response){
-                if(response.overall_status == "success") {
-                    if(response.message !== "") alert(response.message);
-                    window.location.href = "http://localhost/OnlineMusicStore/php/admin-page.php?id="+response.data['admin_id'];
-                }
-                else alert(response.message);
-            },
-            error: function(xhr)  {
-                alert(xhr.responseText);
-            }            
-        });
-    });*/
 });

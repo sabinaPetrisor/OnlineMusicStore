@@ -20,7 +20,7 @@
                         'password' => $user['password'],
                         'user_type' => $user['user_type'],
                         'user_id' => $user['id'],
-                        'url' => 'http://localhost/OnlineMusicStore/html/home-page.html'
+                        'url' => 'http://localhost/OnlineMusicStore/php/home-page.php'
                     ];
                 }
                 else {
@@ -31,7 +31,7 @@
                         'email' => $email,
                         'password' => $user['password'],
                         'user_type' => $user['user_type'],
-                        'user_id' => $user['id'],
+                        'admin_id' => $user['id'],
                         'url' => 'http://localhost/OnlineMusicStore/php/admin-page.php'
                     ];
                 }

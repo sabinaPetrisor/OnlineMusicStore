@@ -55,33 +55,6 @@ section{
   background-color: rgb(237, 41, 57);
 }
 
-/*.message{
-  top: 0;
-  position: sticky;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 2rem;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1.5rem;
-  z-index: 10000;
-}
-
-.message span{
-  font-size: 1rem;
-}
-
-.message i{
-  cursor: pointer;
-  color: tomato;
-
-}
-
-.message i:hover{
-  color: dimgray;
-}*/
-
 .form-container{
   min-height: 100vh;
   display: flex;
@@ -158,7 +131,8 @@ label.error, .form-container label{
   top: 0;
   left: 0;
   right: 0;
-  border-bottom: 0.2rem solid darkgrey;
+  /*border-bottom: 0.2rem solid darkgrey;*/
+  box-shadow: 0 1rem 1rem rgba(0,0,0,.1);
 }
 
 .header .flex{
@@ -305,6 +279,69 @@ label.error, .form-container label{
   margin-top: 0.3rem;
 }
 
+.footer{
+  background-color: white;
+}
+
+.footer .box-container{
+  display: flex;
+  justify-content: center;
+  /*margin: 0 auto;*/
+  padding: 1rem;
+}
+
+.footer .box-container .footer-box{
+  margin-right: 5rem;
+}
+
+.footer .box-container .footer-box h3{
+  color: dimgray;
+}
+
+.footer .box-container .footer-box a,
+.footer .box-container .footer-box p{
+  color: dimgray;
+  display: block;
+  padding: 0.7rem;
+  text-align: left;
+}
+
+.footer .box-container .footer-box a:hover{
+  text-decoration: underline;
+  color: rgb(130, 93, 177);
+}
+
+.footer .box-container .footer-box a i,
+.footer .box-container .footer-box p i{
+  color: rgb(130, 93, 177);
+  padding-right: 0.5rem;
+}
+
+.dashboard .box-container{
+  margin-top: 2rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
+  gap: 1.5rem;
+  align-items: flex-start;
+}
+
+.dashboard .box-container .box-subcontainer{
+  padding: 1rem;
+  border: 0.1rem solid darkgrey;
+  box-shadow: 0 1rem 1rem rgba(0, 0, 0, 0.1);
+  border-radius: 0.5rem;
+  background-color: white;
+}
+
+.dashboard .box-container h2{
+  color: dimgray;
+}
+
+.dashboard .box-container p{
+  color: dimgray;
+
+}
+
 /*media -> responsiveness*/
 /*@media (max-width:990px){
   *{
@@ -384,6 +421,20 @@ label.error, .form-container label{
   .header .flex .profile p{
     font-size: 0.7rem;
   }
+
+  .footer .box-container .footer-box h3{
+    font-size: 1rem;
+  }
+
+  .footer .box-container .footer-box a,
+.footer .box-container .footer-box p{
+  font-size: 0.7rem;
+}
+
+.footer .box-container .footer-box a i,
+.footer .box-container .footer-box p i{
+  font-size: 0.7rem;
+}
   
 }
 

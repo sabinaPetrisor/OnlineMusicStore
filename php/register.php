@@ -18,7 +18,6 @@
                 if(!$muf){
                     $response['status'] = 'error';
                     $response['message'] = 'Failed to upload profile picture!';
-                    $response['data'] = [];
                 }
             }
             else $ppicture = 'default-profile-pic.png';
@@ -28,25 +27,27 @@
             $insert_stmt = mysqli_prepare($conn, $insert);
             mysqli_stmt_bind_param($insert_stmt, 'ssss', $username, $email, $password, $ppicture);
             if(mysqli_stmt_execute($insert_stmt)) {
+                $user_id = mysqli_insert_id($conn);
+                session_start();
+                $_SESSION['user_id'] = $user_id;
                 $response['status'] = 'success';
                 $response['message'] = 'Registration successful!';
                 $response['data'] = [
                     'username' => $username,
                     'email' => $email,
                     'password' => $password,
-                    'ppicture' => $ppicture
+                    'ppicture' => $ppicture,
+                    'user_id' => $user_id
                 ];
             }
             else {
                 $response['status'] = 'error';
                 $response['message'] = 'Error when inserting into database!';
-                $response['data'] = [];
             }
         }
         else{
             $response['status'] = 'error';
             $response['message'] = 'Email already exists!';
-            $response['data'] = [];
         }
         header('Content-Type: application/json');
         echo json_encode($response);

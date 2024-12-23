@@ -1,7 +1,7 @@
 <?php
     include 'config.php';
     session_start();
-    $admin_id = $_SESSION['admin_id'];
+    $user_id = $_SESSION['user_id'];
 
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $response = array();
@@ -12,7 +12,7 @@
         $response['password_update_state'] = '';
         $select = "SELECT * FROM users WHERE id = ?";
         $select_stmt = mysqli_prepare($conn, $select);
-        mysqli_stmt_bind_param($select_stmt, 'i', $admin_id);
+        mysqli_stmt_bind_param($select_stmt, 'i', $user_id);
         mysqli_stmt_execute($select_stmt);
         $res = mysqli_stmt_get_result($select_stmt);
         $user = mysqli_fetch_assoc($res);
@@ -20,7 +20,7 @@
         if(!($username === $user['username']) && !empty($username)) {
             $update = "UPDATE users SET username = ? WHERE id = ?";
             $update_stmt = mysqli_prepare($conn, $update);
-            mysqli_stmt_bind_param($update_stmt, 'si', $username, $admin_id);
+            mysqli_stmt_bind_param($update_stmt, 'si', $username, $user_id);
             if(mysqli_stmt_execute($update_stmt)) {
                 $response['username_update_state'] = 'success';
             }
@@ -33,7 +33,7 @@
         if(!($email === $user['email']) && !empty($email)) {
             $update = "UPDATE users SET email = ? WHERE id = ?";
             $update_stmt = mysqli_prepare($conn, $update);
-            mysqli_stmt_bind_param($update_stmt, 'si', $email, $admin_id);
+            mysqli_stmt_bind_param($update_stmt, 'si', $email, $user_id);
             if(mysqli_stmt_execute($update_stmt)) {
                 $response['email_update_state'] = 'success';
             }
@@ -56,7 +56,7 @@
                 }
                 $update = "UPDATE users SET profile_picture = ? WHERE id = ?";
                 $update_stmt = mysqli_prepare($conn, $update);
-                mysqli_stmt_bind_param($update_stmt, 'si', $ppicture, $admin_id);
+                mysqli_stmt_bind_param($update_stmt, 'si', $ppicture, $user_id);
                 if(mysqli_stmt_execute($update_stmt)) {
                     $response['profile_pic_update_state'] = 'success';
                 }
@@ -73,7 +73,7 @@
                 $new_pass = password_hash($new_pass, PASSWORD_DEFAULT);
                 $update = "UPDATE users SET password = ? WHERE id = ?";
                 $update_stmt = mysqli_prepare($conn, $update);
-                mysqli_stmt_bind_param($update_stmt, 'si', $new_pass, $admin_id);
+                mysqli_stmt_bind_param($update_stmt, 'si', $new_pass, $user_id);
                 if(mysqli_stmt_execute($update_stmt)) {
                     $response['password_update_state'] = 'success';
                 }
@@ -91,13 +91,13 @@
             $response['overall_status'] = 'success';
             $response['message'] = 'Admin Profile Update Sucessful!';
             $response['data'] = [
-                'admin_id' => $admin_id
+                'user_id' => $user_id
             ];
         }
         else if(empty($response['message']) && empty($response['username_update_state']) && empty($response['email_update_state']) && empty($response['profile_pic_update_state']) && empty($response['password_update_state'])) {
             $response['overall_status'] = 'success';
             $response['data'] = [
-                'admin_id' => $admin_id
+                'user_id' => $user_id
             ];
         }
         header('Content-Type: application/json');
@@ -115,12 +115,12 @@
         <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script type="text/javascript" src="http://ajax.microsoft.com/ajax/jquery.validate/1.7/jquery.validate.min.js"></script>
         <script type="text/javascript" src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/additional-methods.min.js"></script>
-        <script type="text/javascript" src="../javascript/update-profile.js"></script>
+        <script type="text/javascript" src="../javascript/update-admin.js"></script>
         <link rel="stylesheet" href="../css/styles.css">
     </head>
 
     <body>
-        <?php include 'admin-header.php';?>
+        <?php include 'header-logged-in.php';?>
         <script type="text/javascript" src="../javascript/dropdown-menu.js"></script>
         <h1 class="title">Update Profile</h1>
         <section class="update-profile">
@@ -128,7 +128,7 @@
                 <?php 
                     $select = "SELECT * FROM users WHERE id = ?";
                     $select_stmt = mysqli_prepare($conn, $select);
-                    mysqli_stmt_bind_param($select_stmt, 'i', $admin_id);
+                    mysqli_stmt_bind_param($select_stmt, 'i', $user_id);
                     mysqli_stmt_execute($select_stmt);
                     $res = mysqli_stmt_get_result($select_stmt);
                     $user = mysqli_fetch_assoc($res);
