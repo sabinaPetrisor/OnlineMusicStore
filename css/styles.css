@@ -81,7 +81,7 @@ section{
 .title{
   font-size: 2rem;
   color:black;
-  margin-top: 0.5rem;
+  margin-top: 2rem;
   margin-bottom: 0.2rem;
   text-transform: uppercase;
 }
@@ -239,7 +239,7 @@ label.error, .form-container label{
 }
 
 .update-profile{
-    max-width: 70rem;
+    max-width: 50rem;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -261,19 +261,19 @@ label.error, .form-container label{
   margin-bottom: 0.5rem;
 }
 
-.update-profile form .input-box-container{
+/*.update-profile form */.input-box-container{
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-.update-profile form .input-box{
+/*.update-profile form */.input-box{
   width: 100%;
   margin-left: 0.5rem;
   margin-right: 0.5rem;
 }
 
-.update-profile form .input-box label{
+/*.update-profile form */.input-box label{
   color: dimgray;
   display: block;
   margin-top: 0.3rem;
@@ -317,15 +317,15 @@ label.error, .form-container label{
   padding-right: 0.5rem;
 }
 
-.dashboard .box-container{
+/*.dashboard */.box-container{
   margin-top: 2rem;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(20rem, 1fr));
   gap: 1.5rem;
-  align-items: flex-start;
+  align-items: center;
 }
 
-.dashboard .box-container .box-subcontainer{
+/*.dashboard .box-container */.box-subcontainer{
   padding: 1rem;
   border: 0.1rem solid darkgrey;
   box-shadow: 0 1rem 1rem rgba(0, 0, 0, 0.1);
@@ -340,6 +340,30 @@ label.error, .form-container label{
 .dashboard .box-container p{
   color: dimgray;
 
+}
+
+.add-products {
+  max-width: 50rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.add-products form{
+  margin: 0 auto;
+  background-color: white;
+  border: 0.2rem solid darkgrey;
+  border-radius: 0.5rem;
+  padding: 2rem;
+}
+
+.add-products form option{
+  color: dimgray;
+}
+
+.show-products .box-container .box-subcontainer img{
+  height: 10rem;
+  width: 10rem;
 }
 
 /*media -> responsiveness*/
@@ -383,7 +407,7 @@ label.error, .form-container label{
     width: 5rem;
   }
 
-  .update-profile form .input-box label{
+  /*.update-profile form*/ .input-box label{
     font-size: 0.7rem;
   }
   #menu-btn {
@@ -435,7 +459,6 @@ label.error, .form-container label{
 .footer .box-container .footer-box p i{
   font-size: 0.7rem;
 }
-  
 }
 
 @media (max-width:450px){
@@ -484,11 +507,11 @@ label.error, .form-container label{
     width: 5rem;
   }
 
-  .update-profile form .input-box-container{
+  /*.update-profile form */.input-box-container{
     display: block;
   }
 
-  .update-profile form .input-box{
+  /*.update-profile form */.input-box{
     margin-left: 0;
     margin-right: 0;
   }

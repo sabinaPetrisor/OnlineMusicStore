@@ -119,7 +119,7 @@
                             $all_accounts_number = mysqli_num_rows($res);
                         }
                     ?>
-                    <p>Total number of user accounts</p>
+                    <p>Total number of accounts</p>
                     <h2><?php echo $all_accounts_number;?></h2>
                     <a href="#" class="btn">See Users</a>
                 </div>
