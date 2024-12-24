@@ -124,7 +124,7 @@
         <script type="text/javascript" src="../javascript/dropdown-menu.js"></script>
         <h1 class="title">Update Profile</h1>
         <section class="update-profile">
-            <form id="update-form" enctype="multipart/form-data">
+            <form id="update-form" class="update-form" enctype="multipart/form-data">
                 <?php 
                     $select = "SELECT * FROM users WHERE id = ?";
                     $select_stmt = mysqli_prepare($conn, $select);

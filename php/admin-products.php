@@ -62,6 +62,22 @@
         echo json_encode($response);
         exit;
     }
+    if(isset($_GET['delete'])) {
+        $delete_id = (int) $_GET['delete'];
+        $select = "SELECT cover FROM products WHERE id = ?";
+        $select_stmt = mysqli_prepare($conn, $select);
+        mysqli_stmt_bind_param($select_stmt, 'i', $delete_id);
+        if(mysqli_stmt_execute($select_stmt)) {
+            $res = mysqli_stmt_get_result($select_stmt);
+            $cover = mysqli_fetch_assoc($res);
+            unlink('../covers/'.$cover['cover']);
+            $delete = "DELETE FROM products WHERE id = ?";
+            $delete_stmt = mysqli_prepare($conn, $delete);
+            mysqli_stmt_bind_param($delete_stmt, 'i', $delete_id);
+            mysqli_stmt_execute($delete_stmt);
+            header('location:http://localhost/OnlineMusicStore/php/admin-products.php?id='.$admin_id);
+        }
+    }
 ?>
 <!DOCTYPE html>
 <html>
@@ -102,6 +118,7 @@
                         <option value="" selected disabled>Select Category</option>
                         <option value="Studio Album">Studio Album</option>
                         <option value="EP">EP</option>
+                        <option value="Mixtape">Mixtape</option>
                         <option value="Single">Single</option>
                         <option value="Soundtrack">Soundtrack</option>
                     </select>
@@ -132,22 +149,22 @@
             ?>
             <div class="box-subcontainer">
                 <img src="../covers/<?php echo $product['cover']; ?>" alt="">
-                <div class="prod_title">Title: <?php echo $product['title']; ?></div>
-                <div class="artist">Artist: <?php echo $product['artist']; ?></div>
-                <div class="category">Category: <?php echo $product['category']; ?></div>
-                <div class="tracklist">Tracklist: <?php echo $product['tracklist']; ?></div>
-                <div class="release-date">Release Date: <?php echo $product['release_date']; ?></div>
-                <div class="price">Price: <?php echo $product['price']; ?></div>
-                <div class="stock">Stock: <?php echo $product['stock']; ?></div>
+                <p>Title: <?php echo $product['title']; ?><p>
+                <p>Artist: <?php echo $product['artist']; ?><p>
+                <p>Category: <?php echo $product['category']; ?><p>
+                <p>Tracklist: <?php echo $product['tracklist']; ?><p>
+                <p>Release Date: <?php echo $product['release_date']; ?><p>
+                <p>Price: <?php echo $product['price']; ?>€<p>
+                <p>Stock: <?php echo $product['stock']; ?><p>
                 <div class="buttons">
-                    <a href="#" class="btn">Update</a>
-                    <a href="#" class="delete-btn">Delete</a>
+                    <a href="http://localhost/OnlineMusicStore/php/admin-update-product.php?id=<?php echo $admin_id; ?>&update=<?php echo $product['id']; ?>" class="btn">Update</a>
+                    <a href="http://localhost/OnlineMusicStore/php/admin-products.php?id=<?php echo $admin_id; ?>&delete=<?php echo $product['id']; ?>" class="delete-btn" onclick="return confirm('Delete this product?');">Delete</a>
                 </div>
             </div>
             <?php
                     }
                 }
-                else echo '<p class="empty">No products added yet!</p>';
+                else echo '<h2 class="empty">No products added yet!</h2>';
             ?>
         </div>
     </section>

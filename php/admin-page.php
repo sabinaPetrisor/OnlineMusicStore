@@ -107,7 +107,7 @@
                     ?>
                     <p>Total number of products</p>
                     <h2><?php echo $all_products_number;?></h2>
-                    <a href="admin-products.php" class="btn">See Products</a>
+                    <a href="admin-products.php?id=<?php echo $admin_id; ?>" class="btn">See Products</a>
                 </div>
 
                 <div class="box-subcontainer">

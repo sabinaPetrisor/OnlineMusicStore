@@ -245,7 +245,7 @@ label.error, .form-container label{
     justify-content: space-between;
 }
 
-.update-profile form{
+.update-form{
   margin: 0 auto;
   background-color: white;
   border: 0.2rem solid darkgrey;
@@ -322,7 +322,7 @@ label.error, .form-container label{
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(20rem, 1fr));
   gap: 1.5rem;
-  align-items: center;
+  align-items: stretch;
 }
 
 /*.dashboard .box-container */.box-subcontainer{
@@ -331,6 +331,11 @@ label.error, .form-container label{
   box-shadow: 0 1rem 1rem rgba(0, 0, 0, 0.1);
   border-radius: 0.5rem;
   background-color: white;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 }
 
 .dashboard .box-container h2{
@@ -344,9 +349,9 @@ label.error, .form-container label{
 
 .add-products {
   max-width: 50rem;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .add-products form{
@@ -361,9 +366,35 @@ label.error, .form-container label{
   color: dimgray;
 }
 
+.show-products .box-container .box-subcontainer p{
+  color: dimgray;
+}
+
+.show-products .box-container .box-subcontainer .buttons{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.show-products .box-container .box-subcontainer .buttons > *{
+  margin-left: 0.2rem;
+  margin-right: 0.2rem;
+}
+
 .show-products .box-container .box-subcontainer img{
   height: 10rem;
   width: 10rem;
+}
+
+.empty {
+  color: dimgray;
+}
+
+.update-product .update-form img{
+  height: 10rem;
+  width: 10rem;
+  object-fit: cover;
+  margin-bottom: 0.5rem;
 }
 
 /*media -> responsiveness*/
