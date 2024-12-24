@@ -53,12 +53,12 @@
                 }
             }
             $category = $_POST['category'];
-            if(empty($category)) $category = $product['category'];
+            //if(empty($category)) $category = $product['category'];
             if($category !== $product['category']) {
                 $insert = "UPDATE products SET category = ? WHERE id = ?";
                 $insert_stmt = mysqli_prepare($conn, $insert);
                 mysqli_stmt_bind_param($insert_stmt, 'si', $category, $update_id);
-                if(mysqli_stmt_execute($insert_stmt)) $response['category_update_state'] = 'success';
+                if(mysqli_stmt_execute($insert_stmt)) $response['category_update_status'] = 'success';
                 else {
                     $response['category_update_status'] = 'error';
                     $response['message'] = 'Error when updating category!';
@@ -88,12 +88,12 @@
                     $response['message'] = 'Error when updating release date!';
                 }
             }
-            $price = $_POST['price'];
+            $price = (float) $_POST['price'];
             if(empty($price)) $price = $product['price'];
-            if($price !== $product['price'] && !empty($price)) {
+            if($price != $product['price'] && !empty($price)) {
                 $insert = "UPDATE products SET price = ? WHERE id = ?";
                 $insert_stmt = mysqli_prepare($conn, $insert);
-                mysqli_stmt_bind_param($insert_stmt, 'si', $price, $update_id);
+                mysqli_stmt_bind_param($insert_stmt, 'di', $price, $update_id);
                 if(mysqli_stmt_execute($insert_stmt)) $response['price_update_status'] = 'success';
                 else {
                     $response['price_update_status'] = 'error';
@@ -102,10 +102,10 @@
             }
             $stock = $_POST['stock'];
             if(empty($stock)) $stock = $product['stock'];
-            if($stock !== $product['stock'] && !empty($stock)) {
+            if($stock != $product['stock'] && !empty($stock)) {
                 $insert = "UPDATE products SET stock = ? WHERE id = ?";
                 $insert_stmt = mysqli_prepare($conn, $insert);
-                mysqli_stmt_bind_param($insert_stmt, 'si', $stock, $update_id);
+                mysqli_stmt_bind_param($insert_stmt, 'ii', $stock, $update_id);
                 if(mysqli_stmt_execute($insert_stmt)) $response['stock_update_status'] = 'success';
                 else {
                     $response['stock_update_status'] = 'error';
@@ -118,8 +118,17 @@
                 $cover = uniqid().'_'.basename($filename);
                 $cover_folder = '../covers/'.$cover;
                 if(move_uploaded_file($cover_tmp_name, $cover_folder)){
-                    unlink('../covers/'.$product['cover']);
-                    $response['cover_update_status'] = 'success';
+                    $insert = "UPDATE products SET cover = ? WHERE id = ?";
+                    $insert_stmt = mysqli_prepare($conn, $select);
+                    mysqli_stmt_bind_param($insert_stmt, 'si', $cover, $update_id);
+                    if(mysqli_stmt_execute($insert_stmt)){
+                        unlink('../covers/'.$product['cover']);
+                        $response['cover_update_status'] = 'success';
+                    }
+                    else {
+                        $response['cover_update_status'] = 'error';
+                        $response['message'] = 'Error when updating cover!';
+                    }
                 }
                 else{
                     $response['cover_update_status'] = 'error';
@@ -136,6 +145,7 @@
             }
             else if(empty($response['message']) && empty($response['title_update_status']) && empty($response['artist_update_status']) && empty($response['category_update_status']) && empty($response['tracklist_update_status']) && empty($response['release_date_update_status']) && empty($response['price_update_status']) && empty($response['stock_update_status']) && empty($response['cover_update_status'])){
                 $response['overall_status'] = 'success';
+                $response['message'] = '';
                 $response['data'] = [
                     'admin_id' => $admin_id
                 ];
@@ -145,7 +155,7 @@
             $response['overall_status'] = 'error';
             $response['message'] = 'The modified product is already existent in the database!';
         }
-        var_dump($response);
+        //var_dump($response);
         header('Content-Type: application/json');
         echo json_encode($response);
         exit;

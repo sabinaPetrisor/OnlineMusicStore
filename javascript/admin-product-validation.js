@@ -136,7 +136,7 @@ $(document).ready(function() {
                 processData: false,
                 contentType: false,
                 success: function(response){
-                    console.log("Response is: ", response.data);
+                    console.log("Response is: ", response);
                     if(response.overall_status == "success") {
                         if(response.message !== "") alert(response.message);
                             window.location.href = "http://localhost/OnlineMusicStore/php/admin-products.php?id="+response.data['admin_id'];
