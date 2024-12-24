@@ -108,7 +108,7 @@
                     <label for="price">Price (€):</label>
                     <input type="text" name="price" class="box" id="price" placeholder="Enter product price">
                     <label for="stock">Stock:</label>
-                    <input type="text" name="stock" class="box" id="stock" placeholder="Enter product stock">
+                    <input type="number" name="stock" class="box" id="stock" placeholder="Enter product stock">
                 </div>
                 <div class="input-box">
                     <label for="artist">Artist:</label>
@@ -128,10 +128,8 @@
                     <input type="file" name="cover" class="box">
                 </div>
             </div>
-            <div class="input-box">
-                <label for="tracklist">Tracklist:</label>
-                <textarea name="tracklist" class="box" placeholder="Enter tracklist" cols="10" rows="10"></textarea>
-            </div>
+            <label for="tracklist">Tracklist:</label>
+            <textarea name="tracklist" class="box" placeholder="Enter tracklist"></textarea>
             <input type="submit" class="btn" name="submit" id="submit">
         </form>
     </section>

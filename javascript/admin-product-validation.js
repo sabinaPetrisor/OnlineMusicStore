@@ -97,4 +97,56 @@ $(document).ready(function() {
             });
          }
     });
+
+    $("#update-form").validate({
+        rules:{
+            price:{
+                number: true,
+                unsignedAndCorrectFloat: true
+            },
+            stock:{
+                number: true,
+                unsignedAndCorrectInt: true
+            },
+            cover:{
+                accept: "image/jpg|image/jpeg|image/png",
+                filesize: 5
+            }
+        },
+        messages:{
+            price:{
+                number: "price must be a number!"
+            },
+            stock:{
+                number: "stock must be a number!"
+            },
+            cover:{
+                accept: "picture type is not valid!"
+            }
+        },
+        errorPlacement: function(error, element) {
+            error.insertAfter(element);
+         },
+         submitHandler: function(form) {
+            var dataForm = new FormData(form);
+            $.ajax({
+                method: "POST",
+                url: "../php/admin-update-product.php",
+                data: dataForm,
+                processData: false,
+                contentType: false,
+                success: function(response){
+                    console.log("Response is: ", response.data);
+                    if(response.overall_status == "success") {
+                        if(response.message !== "") alert(response.message);
+                            window.location.href = "http://localhost/OnlineMusicStore/php/admin-products.php?id="+response.data['admin_id'];
+                    }
+                    else alert(response.message);
+                },
+                error: function(xhr)  {
+                    alert(xhr.responseText);
+                }            
+            });
+         }
+    });
 });

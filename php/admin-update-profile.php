@@ -6,10 +6,10 @@
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $response = array();
         $response['message'] = '';
-        $response['username_update_state'] = '';
-        $response['email_update_state'] = '';
-        $response['profile_pic_update_state'] = '';
-        $response['password_update_state'] = '';
+        $response['username_update_status'] = '';
+        $response['email_update_status'] = '';
+        $response['profile_pic_update_status'] = '';
+        $response['password_update_status'] = '';
         $select = "SELECT * FROM users WHERE id = ?";
         $select_stmt = mysqli_prepare($conn, $select);
         mysqli_stmt_bind_param($select_stmt, 'i', $admin_id);
@@ -22,10 +22,10 @@
             $update_stmt = mysqli_prepare($conn, $update);
             mysqli_stmt_bind_param($update_stmt, 'si', $username, $admin_id);
             if(mysqli_stmt_execute($update_stmt)) {
-                $response['username_update_state'] = 'success';
+                $response['username_update_status'] = 'success';
             }
             else {
-                $response['username_update_state'] = 'error';
+                $response['username_update_status'] = 'error';
                 $response['message'] = 'Error when updating username!';
             }
         }
@@ -35,10 +35,10 @@
             $update_stmt = mysqli_prepare($conn, $update);
             mysqli_stmt_bind_param($update_stmt, 'si', $email, $admin_id);
             if(mysqli_stmt_execute($update_stmt)) {
-                $response['email_update_state'] = 'success';
+                $response['email_update_status'] = 'success';
             }
             else {
-                $response['email_update_state'] = 'error';
+                $response['email_update_status'] = 'error';
                 $response['message'] = 'Error when updating email!';
             }
         }
@@ -51,17 +51,17 @@
                 $ppicture_folder = '../pictures/'.$ppicture;
                 $muf = move_uploaded_file($filename_tmp_name, $ppicture_folder);
                 if(!$muf){
-                    $response['profile_pic_update_state'] = 'error';
+                    $response['profile_pic_update_status'] = 'error';
                     $response['message'] = 'Failed to upload profile picture!';
                 }
                 $update = "UPDATE users SET profile_picture = ? WHERE id = ?";
                 $update_stmt = mysqli_prepare($conn, $update);
                 mysqli_stmt_bind_param($update_stmt, 'si', $ppicture, $admin_id);
                 if(mysqli_stmt_execute($update_stmt)) {
-                    $response['profile_pic_update_state'] = 'success';
+                    $response['profile_pic_update_status'] = 'success';
                 }
                 else {
-                    $response['profile_pic_update_state'] = 'error';
+                    $response['profile_pic_update_status'] = 'error';
                     $response['message'] = 'Error when updating profile picture!';
                 }
             }
@@ -75,26 +75,26 @@
                 $update_stmt = mysqli_prepare($conn, $update);
                 mysqli_stmt_bind_param($update_stmt, 'si', $new_pass, $admin_id);
                 if(mysqli_stmt_execute($update_stmt)) {
-                    $response['password_update_state'] = 'success';
+                    $response['password_update_status'] = 'success';
                 }
                 else {
-                    $response['password_update_state'] = 'error';
+                    $response['password_update_status'] = 'error';
                     $response['message'] = 'Error when updating password!';
                 }
             }
             else {
-                $response['password_update_state'] = 'error';
+                $response['password_update_status'] = 'error';
                 $response['message'] = 'You provided the old password as the new password! These must be different!';
             }
         }
-        if(empty($response['message']) && ($response['username_update_state'] === 'success' || $response['email_update_state'] === 'success' || $response['profile_pic_update_state'] === 'success' || $response['password_update_state'] === 'success')) {
+        if(empty($response['message']) && ($response['username_update_status'] === 'success' || $response['email_update_status'] === 'success' || $response['profile_pic_update_status'] === 'success' || $response['password_update_status'] === 'success')) {
             $response['overall_status'] = 'success';
             $response['message'] = 'Admin Profile Update Sucessful!';
             $response['data'] = [
                 'admin_id' => $admin_id
             ];
         }
-        else if(empty($response['message']) && empty($response['username_update_state']) && empty($response['email_update_state']) && empty($response['profile_pic_update_state']) && empty($response['password_update_state'])) {
+        else if(empty($response['message']) && empty($response['username_update_status']) && empty($response['email_update_status']) && empty($response['profile_pic_update_status']) && empty($response['password_update_status'])) {
             $response['overall_status'] = 'success';
             $response['data'] = [
                 'admin_id' => $admin_id
@@ -115,7 +115,7 @@
         <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script type="text/javascript" src="http://ajax.microsoft.com/ajax/jquery.validate/1.7/jquery.validate.min.js"></script>
         <script type="text/javascript" src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/additional-methods.min.js"></script>
-        <script type="text/javascript" src="../javascript/update-profile.js"></script>
+        <script type="text/javascript" src="../javascript/update-admin.js"></script>
         <link rel="stylesheet" href="../css/styles.css">
     </head>
 

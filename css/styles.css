@@ -238,7 +238,7 @@ label.error, .form-container label{
   color: dimgray;
 }
 
-.update-profile{
+.update-profile, .update-product{
     max-width: 50rem;
     display: flex;
     align-items: center;
@@ -277,6 +277,11 @@ label.error, .form-container label{
   color: dimgray;
   display: block;
   margin-top: 0.3rem;
+}
+
+.update-product .update-form textarea{
+  height: 15rem;
+  color: dimgray;
 }
 
 .footer{
@@ -362,7 +367,16 @@ label.error, .form-container label{
   padding: 2rem;
 }
 
+.add-products form label, .update-product .update-form label{
+   color: dimgray;
+}
+
 .add-products form option{
+  color: dimgray;
+}
+
+.add-products form textarea, .update-product .update-form textarea{
+  height: 15rem;
   color: dimgray;
 }
 

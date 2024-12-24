@@ -115,7 +115,7 @@
         <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script type="text/javascript" src="http://ajax.microsoft.com/ajax/jquery.validate/1.7/jquery.validate.min.js"></script>
         <script type="text/javascript" src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/additional-methods.min.js"></script>
-        <script type="text/javascript" src="../javascript/update-admin.js"></script>
+        <script type="text/javascript" src="../javascript/update-user.js"></script>
         <link rel="stylesheet" href="../css/styles.css">
     </head>
 
