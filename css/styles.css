@@ -398,6 +398,7 @@ label.error, .form-container label{
 .show-products .box-container .box-subcontainer img{
   height: 10rem;
   width: 10rem;
+  object-fit: cover;
 }
 
 .empty {

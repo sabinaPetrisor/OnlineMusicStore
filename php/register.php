@@ -49,6 +49,7 @@
             $response['status'] = 'error';
             $response['message'] = 'Email already exists!';
         }
+        mysqli_free_result($res);
         header('Content-Type: application/json');
         echo json_encode($response);
     }

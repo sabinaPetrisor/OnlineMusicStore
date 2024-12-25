@@ -22,6 +22,7 @@
         mysqli_stmt_execute($select_stmt);
         $res = mysqli_stmt_get_result($select_stmt);
         $product = mysqli_fetch_assoc($res);
+        mysqli_free_result($res);
         $title = htmlspecialchars($_POST['title'], ENT_QUOTES);
         if(empty($title)) $title = $product['title'];
         $artist = htmlspecialchars($_POST['artist'], ENT_QUOTES);
@@ -119,7 +120,7 @@
                 $cover_folder = '../covers/'.$cover;
                 if(move_uploaded_file($cover_tmp_name, $cover_folder)){
                     $insert = "UPDATE products SET cover = ? WHERE id = ?";
-                    $insert_stmt = mysqli_prepare($conn, $select);
+                    $insert_stmt = mysqli_prepare($conn, $insert);
                     mysqli_stmt_bind_param($insert_stmt, 'si', $cover, $update_id);
                     if(mysqli_stmt_execute($insert_stmt)){
                         unlink('../covers/'.$product['cover']);
@@ -156,6 +157,7 @@
             $response['message'] = 'The modified product is already existent in the database!';
         }
         //var_dump($response);
+        mysqli_free_result($res);
         header('Content-Type: application/json');
         echo json_encode($response);
         exit;
@@ -224,6 +226,7 @@
             <label for="tracklist">Tracklist:</label>
             <textarea name="tracklist" class="box" placeholder="Enter tracklist" value="<?php echo $product['tracklist']; ?>"><?php echo $product['tracklist']; ?></textarea>
             <input type="submit" value="Update Product" id="submit" name="submit" class="btn">
+            <?php mysqli_free_result($res); ?>
         </form>
     </section>
     </body>

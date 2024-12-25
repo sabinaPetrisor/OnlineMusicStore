@@ -26,6 +26,7 @@
                     $response['status'] = 'error';
                     $response['message'] = 'Failed to upload cover picture!';
                 }
+                mysqli_free_result($res);
                 $insert = "INSERT INTO products (title, artist, category, tracklist, release_date, price, stock, cover) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
                 $insert_stmt = mysqli_prepare($conn, $insert);
                 mysqli_stmt_bind_param($insert_stmt, 'sssssdis', $title, $artist, $category, $tracklist, $release_date, $price, $stock, $cover);
@@ -75,6 +76,7 @@
             $delete_stmt = mysqli_prepare($conn, $delete);
             mysqli_stmt_bind_param($delete_stmt, 'i', $delete_id);
             mysqli_stmt_execute($delete_stmt);
+            mysqli_free_result($res);
             header('location:http://localhost/OnlineMusicStore/php/admin-products.php?id='.$admin_id);
         }
     }
@@ -163,6 +165,7 @@
                     }
                 }
                 else echo '<h2 class="empty">No products added yet!</h2>';
+                mysqli_free_result($res);
             ?>
         </div>
     </section>

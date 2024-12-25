@@ -19,7 +19,7 @@
                         'email' => $email,
                         'password' => $user['password'],
                         'user_type' => $user['user_type'],
-                        'user_id' => $user['id'],
+                        'id' => $user['id'],
                         'url' => 'http://localhost/OnlineMusicStore/php/home-page.php'
                     ];
                 }
@@ -31,7 +31,7 @@
                         'email' => $email,
                         'password' => $user['password'],
                         'user_type' => $user['user_type'],
-                        'admin_id' => $user['id'],
+                        'id' => $user['id'],
                         'url' => 'http://localhost/OnlineMusicStore/php/admin-page.php'
                     ];
                 }
@@ -47,6 +47,7 @@
             $response['message'] = 'Email incorrect!';
             $response['data'] = [];
         }
+        mysqli_free_result($res);
         header('Content-Type: application/json');
         echo json_encode($response);
     }

@@ -4,7 +4,7 @@
         <nav class="navbar">
             <a href="#">Users</a>
             <a href="admin-products.php?id=<?php echo $admin_id; ?>">Products</a>
-            <a href="#">Orders</a>
+            <a href="admin-orders.php?id=<?php echo $admin_id; ?>">Orders</a>
             <a href="#">Contacts</a>
         </nav>
         <div class="icons">
@@ -28,4 +28,5 @@
             <a href="logout.php" class="delete-btn">Logout</a>
         </div>
     </div>
+    <?php mysqli_free_result($res); ?>
 </header>

@@ -33,7 +33,7 @@ $(document).ready(function(){
                 contentType: false,
                 success: function(response) {
                     console.log("Response is: ", response.data);
-                    if(response.status == "success") window.location.href = response.data['url']+"?id="+response.data['user_id'];
+                    if(response.status == "success") window.location.href = response.data['url']+"?id="+response.data['id'];
                     else alert(response.message);
                 },
                 error: function(xhr) {

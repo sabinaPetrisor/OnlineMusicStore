@@ -28,4 +28,5 @@
             <a href="logout.php" class="delete-btn">Logout</a>
         </div>
     </div>
+    <?php mysqli_free_result($res); ?>
 </header>

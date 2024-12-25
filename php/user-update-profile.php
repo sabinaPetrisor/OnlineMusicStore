@@ -100,6 +100,7 @@
                 'user_id' => $user_id
             ];
         }
+        mysqli_free_result($res);
         header('Content-Type: application/json');
         echo json_encode($response);
         exit;
@@ -155,6 +156,7 @@
                     </div>
                 </div>
                 <input type="submit" value="Update Profile" id="submit" name="submit" class="btn">
+                <?php mysqli_free_result($res); ?>
             </form>
         </section>
     </body>
