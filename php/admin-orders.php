@@ -2,6 +2,25 @@
     include 'config.php';
     session_start();
     $admin_id = $_SESSION['admin_id'];
+
+    if (isset($_POST['submit'])) {
+        $update_id = $_POST['order_id_hidden'];
+        $select = "SELECT payment_status FROM orders WHERE id = ?";
+        $select_stmt = mysqli_prepare($conn, $select);
+        mysqli_stmt_bind_param($select_stmt, 'i', $update_id);
+        mysqli_stmt_execute($select_stmt);
+        $res = mysqli_stmt_get_result($select_stmt);
+        $order = mysqli_fetch_assoc($res);
+        $payment_status = $_POST['payment_status'];
+        if($payment_status !== $order['payment_status']) {
+            $update = "UPDATE orders SET payment_status = ? WHERE id = ?";
+            $update_stmt = mysqli_prepare($conn, $update);
+            mysqli_stmt_bind_param($update_stmt, 'si', $payment_status, $update_id);
+            mysqli_stmt_execute($update_stmt);
+            header('location:http://localhost/OnlineMusicStore/php/admin-orders.php?id='.$admin_id);
+        }
+        mysqli_free_result($res);
+    }
 ?>
 
 <!DOCTYPE html>
@@ -37,15 +56,16 @@
                     <p>Phone number: <?php echo $order['phone_number']; ?><p>
                     <p>Payment method: <?php echo $order['payment_method']; ?><p>
                     <p>Products: <?php echo $order['products_list']; ?><p>
-                    <p>Total price: <?php echo $order['total_price']; ?><p>
+                    <p>Total price: <?php echo $order['total_price']; ?>€<p>
                     <p>Placed on: <?php echo $order['placed_on']; ?><p>
-                    <form method="POST">
+                    <form action="admin-orders.php" method="POST">
                         <input type="hidden" name="order_id_hidden" value="<?php echo $order['id']; ?>">
-                        <select name="Payment status" class="dropdown">
+                        <select name="payment_status" class="dropdown">
                             <option value="" selected disabled><?php echo $order['payment_status']; ?></option>
                             <option value="pending">pending</option>
                             <option value="completed">completed</option>
                         </select>
+                        <input type="hidden" name="order_id_hidden">
                         <input type="submit" value="Update Order" id="submit" name="submit" class="btn">
                     </form>
                 </div>

@@ -31,7 +31,7 @@
                             $res = mysqli_stmt_get_result($select_stmt);
                             $pendings_number = mysqli_num_rows($res);
                             if($pendings_number > 0) {
-                                while($row = mysqli_fetch_assoc($res)) $pendings_total += $res['total_price'];
+                                while($row = mysqli_fetch_assoc($res)) $pendings_total += $row['total_price'];
                             }
                         }
                     ?>
@@ -58,7 +58,7 @@
                             $res = mysqli_stmt_get_result($select_stmt);
                             $completed_number = mysqli_num_rows($res);
                             if($completed_number > 0) {
-                                while($row = mysqli_fetch_assoc($res)) $completed_total += $res['total_price'];
+                                while($row = mysqli_fetch_assoc($res)) $completed_total += $row['total_price'];
                             }
                         }
                     ?>
@@ -83,7 +83,7 @@
                             $res = mysqli_stmt_get_result($select_stmt);
                             $all_orders_number = mysqli_num_rows($res);
                             if($all_orders_number > 0) {
-                                while($row = mysqli_fetch_assoc($res)) $all_orders_total += $res['total_price'];
+                                while($row = mysqli_fetch_assoc($res)) $all_orders_total += $row['total_price'];
                             }
                         }
                     ?>
