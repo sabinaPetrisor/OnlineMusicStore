@@ -27,7 +27,7 @@
 <html>
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Admin Page</title>
+        <title>Orders</title>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
         <link rel="stylesheet" href="../css/styles.css">
     </head>
@@ -65,7 +65,6 @@
                             <option value="pending">pending</option>
                             <option value="completed">completed</option>
                         </select>
-                        <input type="hidden" name="order_id_hidden">
                         <input type="submit" value="Update Order" id="submit" name="submit" class="btn">
                     </form>
                 </div>
