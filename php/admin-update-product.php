@@ -67,15 +67,38 @@
                 }
             }
             //mysqli_free_result($res);
-            $genres_string = htmlspecialchars($_POST['genre'], ENT_QUOTES);
+            $genres_string = strtolower(htmlspecialchars($_POST['genre'], ENT_QUOTES));
             if($genres_string !== $product['genre_list'] && !empty($genres_string)) {
+                $genre_list = explode(', ', $genres_string);
                 $select = "SELECT * FROM genres";
                 $select_stmt = mysqli_prepare($conn, $select);
                 mysqli_stmt_execute($select_stmt);
                 $res = mysqli_stmt_get_result($select_stmt);
+                $all_genres = mysqli_fetch_all($res, MYSQLI_ASSOC);
+                $existent_genres_freq = array_fill(0, count($all_genres), 0);
                 $existent_genres = [];
                 $cntr = -1;
-                while($genre = mysqli_fetch_assoc($res)){
+                foreach($genre_list as $gpost) {
+                    $existent_count = 0;
+                    for($i=0;$i<count($all_genres);$i++) {
+                        if($gpost === strtolower($all_genres[$i]['name'])) {
+                            $existent_count++;
+                            $existent_genres_freq[$i]++;
+                            if($existent_genres_freq[$i] == 2){
+                                $response['status'] = 'error';
+                                $response['message'] = 'Duplicate genre value found!';
+                            }
+                            $cntr += 1;
+                            $existent_genres[$cntr] = $all_genres[$i]['name'];
+                        }
+                    }
+                    if($existent_count == 0) {
+                        $response['status'] = 'error';
+                        $response['message'] = 'Invalid genre value found!';
+                    }
+                }
+                //var_dump($existent_genres);
+                /*while($genre = mysqli_fetch_assoc($res)){
                     if(substr_count($genres_string, strtolower($genre['name'])) == 1) {
                         $cntr += 1;
                         $existent_genres[$cntr] = $genre['name'];
@@ -84,7 +107,7 @@
                         $response['status'] = 'error';
                         $response['message'] = 'Duplicate genre value found!';
                     }
-                }
+                }*/
                 if(count($existent_genres) == 0) {
                     $response['status'] = 'error';
                     $response['message'] = 'No valid genre introduced!';

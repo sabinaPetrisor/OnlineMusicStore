@@ -17,22 +17,29 @@
                 //var_dump($category);
                 $genre_string = strtolower(htmlspecialchars($_POST['genre'], ENT_QUOTES));
                 //var_dump($genre_string);
-                //$genre_list = explode(', ', $genre_string);
+                $genre_list = explode(', ', $genre_string);
                 mysqli_free_result($res);
                 $select = "SELECT * FROM genres";
                 $select_stmt = mysqli_prepare($conn, $select);
                 mysqli_stmt_execute($select_stmt);
                 $res = mysqli_stmt_get_result($select_stmt);
+                $all_genres = mysqli_fetch_all($res, MYSQLI_ASSOC);
+                $existent_genres_freq = array_fill(0, count($all_genres), 0);
                 $existent_genres = [];
                 $cntr = -1;
-                while($genre = mysqli_fetch_assoc($res)){
-                    if(substr_count($genre_string, strtolower($genre['name'])) == 1) {
-                        $cntr += 1;
-                        $existent_genres[$cntr] = $genre['name'];
-                    }
-                    else if(substr_count($genre_string, strtolower($genre['name'])) > 1){
-                        $response['status'] = 'error';
-                        $response['message'] = 'Duplicate genre value found!';
+                foreach($genre_list as $gpost) {
+                    $existent_count = 0;
+                    for($i=0;$i<count($all_genres);$i++) {
+                        if($gpost === strtolower($all_genres[$i]['name'])) {
+                            $existent_count++;
+                            $existent_genres_freq[$i]++;
+                            if($existent_genres_freq[$i] == 2){
+                                $response['status'] = 'error';
+                                $response['message'] = 'Duplicate genre value found!';
+                            }
+                            $cntr += 1;
+                            $existent_genres[$cntr] = $all_genres[$i]['name'];
+                        }
                     }
                 }
                 //var_dump($existent_genres);
