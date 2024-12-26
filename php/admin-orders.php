@@ -17,7 +17,7 @@
             $update_stmt = mysqli_prepare($conn, $update);
             mysqli_stmt_bind_param($update_stmt, 'si', $payment_status, $update_id);
             mysqli_stmt_execute($update_stmt);
-            header('location:http://localhost/OnlineMusicStore/php/admin-orders.php?id='.$admin_id);
+            header('location:http://localhost/OnlineMusicStore/php/admin-orders.php');
         }
         mysqli_free_result($res);
     }
@@ -64,6 +64,7 @@
                             <option value="" selected disabled><?php echo $order['payment_status']; ?></option>
                             <option value="pending">pending</option>
                             <option value="completed">completed</option>
+                            <option value="canceled">canceled</option>
                         </select>
                         <input type="submit" value="Update Order" id="submit" name="submit" class="btn">
                     </form>

@@ -87,7 +87,7 @@ $(document).ready(function() {
                     console.log("Response is: ", response.data);
                     if(response.status == "success") {
                             alert(response.message);
-                            window.location.href = "http://localhost/OnlineMusicStore/php/admin-products.php?id="+response.data['admin_id'];
+                            window.location.href = "http://localhost/OnlineMusicStore/php/admin-products.php";
                     }
                     else alert(response.message);
                 },
@@ -139,7 +139,7 @@ $(document).ready(function() {
                     console.log("Response is: ", response);
                     if(response.overall_status == "success") {
                         if(response.message !== "") alert(response.message);
-                            window.location.href = "http://localhost/OnlineMusicStore/php/admin-products.php?id="+response.data['admin_id'];
+                            window.location.href = "http://localhost/OnlineMusicStore/php/admin-products.php";
                     }
                     else alert(response.message);
                 },

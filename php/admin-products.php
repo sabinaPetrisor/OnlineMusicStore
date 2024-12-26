@@ -77,7 +77,7 @@
             mysqli_stmt_bind_param($delete_stmt, 'i', $delete_id);
             mysqli_stmt_execute($delete_stmt);
             mysqli_free_result($res);
-            header('location:http://localhost/OnlineMusicStore/php/admin-products.php?id='.$admin_id);
+            header('location:http://localhost/OnlineMusicStore/php/admin-products.php');
         }
     }
 ?>
@@ -157,8 +157,8 @@
                 <p>Price: <?php echo $product['price']; ?>€<p>
                 <p>Stock: <?php echo $product['stock']; ?><p>
                 <div class="buttons">
-                    <a href="http://localhost/OnlineMusicStore/php/admin-update-product.php?id=<?php echo $admin_id; ?>&update=<?php echo $product['id']; ?>" class="btn">Update</a>
-                    <a href="http://localhost/OnlineMusicStore/php/admin-products.php?id=<?php echo $admin_id; ?>&delete=<?php echo $product['id']; ?>" class="delete-btn" onclick="return confirm('Delete this product?');">Delete</a>
+                    <a href="http://localhost/OnlineMusicStore/php/admin-update-product.php?update=<?php echo $product['id']; ?>" class="btn">Update</a>
+                    <a href="http://localhost/OnlineMusicStore/php/admin-products.php?delete=<?php echo $product['id']; ?>" class="delete-btn" onclick="return confirm('Delete this product?');">Delete</a>
                 </div>
             </div>
             <?php

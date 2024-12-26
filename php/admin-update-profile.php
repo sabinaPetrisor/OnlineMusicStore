@@ -44,8 +44,8 @@
         }
         if(isset($_FILES['ppicture']) && $_FILES['ppicture']['error'] == 0) {
             $filename = $_FILES['ppicture']['name'];
-            $old_pic_name = $_POST['old_ppicture_hidden'];
-            if(!($filename === $old_pic_name)) {
+            //$old_pic_name = $_POST['old_ppicture_hidden'];
+            if(!($filename === $user['profile_picture'])) {
                 $filename_tmp_name = $_FILES['ppicture']['tmp_name'];
                 $ppicture = uniqid().'_'.basename($_FILES['ppicture']['name']);
                 $ppicture_folder = '../pictures/'.$ppicture;
@@ -68,8 +68,7 @@
         }
         $new_pass = $_POST['new_password'];
         if(!empty($new_pass)){
-            $old_pass = $_POST['old_password_hidden'];
-            if(!password_verify($new_pass, $old_pass)) {
+            if(!password_verify($new_pass, $user['password'])) {
                 $new_pass = password_hash($new_pass, PASSWORD_DEFAULT);
                 $update = "UPDATE users SET password = ? WHERE id = ?";
                 $update_stmt = mysqli_prepare($conn, $update);
@@ -143,10 +142,8 @@
                         <input type="text" name="email" class="box" id="email" placeholder="Enter your email" value="<?php echo $user['email']; ?>">
                         <label for="ppicture">Profile Picture (jpg, jpeg or png):</label>
                         <input type="file" name="ppicture" id="ppicture" class="box">
-                        <input type="hidden" name="old_ppicture_hidden" value="<?php echo $user['profile_picture'];?>">
                     </div>
                     <div class="input-box">
-                        <input type="hidden" name="old_password_hidden" value="<?php echo $user['password'];?>">
                         <!--<label for="old_password">Old Password:</label>
                         <input type="password" name="old_password" class="box" id="old_password" placeholder="Enter your old password" autocomplete="new-password">-->
                         <label for="new_password">New Password:</label>

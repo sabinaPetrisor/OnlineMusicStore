@@ -253,7 +253,7 @@ label.error, .form-container label{
   padding: 2rem;
 }
 
-.update-profile form img{
+.update-profile form img, .users .box-container .box-subcontainer img{
   height: 8rem;
   width: 8rem;
   border-radius: 50%;
@@ -383,7 +383,7 @@ label.error, .form-container label{
   color: dimgray;
 }
 
-.show-products .box-container .box-subcontainer p{
+.show-products .box-container .box-subcontainer p, .users .box-container .box-subcontainer p{
   color: dimgray;
 }
 

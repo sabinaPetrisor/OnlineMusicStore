@@ -48,14 +48,7 @@ $(document).ready(function(){
             error.insertAfter(element);
          },
          submitHandler: function(form) {
-            /*var ppicture_length = $("#ppicture")[0].files.length;
-            if(ppicture_length == 0) var ppicture = 'default-profile-pic.png';
-            else var ppicture = $("#ppicture")[0].files[0];*/
             dataForm = new FormData(form);
-            /*dataForm.append('username', $("#username").val());
-            dataForm.append('email', $("#email").val());
-            dataForm.append('password', $("#password").val());
-            dataForm.append('ppicture', $("#ppicture"));*/
             $.ajax({
                 method: "POST",
                 url: 'http://localhost/OnlineMusicStore/php/register.php',
@@ -66,7 +59,7 @@ $(document).ready(function(){
                     console.log("Response is: ", response.data);
                     if(response.status == "success") {
                             alert(response.message);
-                            window.location.href = "http://localhost/OnlineMusicStore/php/home-page.php?id="+response.data['user_id'];
+                            window.location.href = "http://localhost/OnlineMusicStore/php/home-page.php";
                     }
                     else alert(response.message);
                 },
@@ -76,34 +69,4 @@ $(document).ready(function(){
             });
          }
     });
-
-    /*$("#register-form").on("submit", function(e) {
-        e.preventDefault();
-        var ppicture_length = $("#ppicture")[0].files.length;
-        if(ppicture_length == 0) var ppicture = 'default-profile-pic.png';
-        else var ppicture = $("#ppicture")[0].files[0];
-        dataForm = new FormData(this);
-        dataForm.append('username', $("#username").val());
-        dataForm.append('email', $("#email").val());
-        dataForm.append('password', $("#password").val());
-        dataForm.append('ppicture', $("#ppicture"));
-        $.ajax({
-            method: "POST",
-            url: 'http://localhost/OnlineMusicStore/php/register.php',
-            data: dataForm,
-            processData: false,
-            contentType: false,
-            success: function(response){
-                console.log("Response is: ", response.data);
-                if(response.status == "success") {
-                        alert(response.message);
-                        window.location.href = "http://localhost/OnlineMusicStore/php/home-page.php?id="+response.data['user_id'];
-                }
-                else alert(response.message);
-            },
-            error: function(xhr)  {
-                alert(xhr.responseText);
-            }            
-        });
-    });*/
 });

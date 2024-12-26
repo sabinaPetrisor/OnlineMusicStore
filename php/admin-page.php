@@ -37,13 +37,13 @@
                     ?>
                     <p>Number of pending orders</p>
                     <h2><?php echo $pendings_number;?></h2>
-                    <a href="admin-orders.php?id=<?php echo $admin_id; ?>" class="btn">See Orders</a>
+                    <a href="admin-orders.php" class="btn">See Orders</a>
                 </div>
 
                 <div class="box-subcontainer">
                     <p>Total from pending orders</p>
                     <h2><?php echo $pendings_total;?>&euro;</h2>
-                    <a href="admin-orders.php?id=<?php echo $admin_id; ?>" class="btn">See Orders</a>
+                    <a href="admin-orders.php" class="btn">See Orders</a>
                 </div>
                 <?php mysqli_free_result($res); ?>
 
@@ -64,13 +64,13 @@
                     ?>
                     <p>Number of completed orders</p>
                     <h2><?php echo $completed_number;?></h2>
-                    <a href="admin-orders.php?id=<?php echo $admin_id; ?>" class="btn">See Orders</a>
+                    <a href="admin-orders.php" class="btn">See Orders</a>
                 </div>
 
                 <div class="box-subcontainer">
                     <p>Total from completed orders</p>
                     <h2><?php echo $completed_total;?>&euro;</h2>
-                    <a href="admin-orders.php?id=<?php echo $admin_id; ?>" class="btn">See Orders</a>
+                    <a href="admin-orders.php" class="btn">See Orders</a>
                 </div>
                 <?php mysqli_free_result($res); ?>
 
@@ -89,14 +89,14 @@
                     ?>
                     <p>Total number of orders</p>
                     <h2><?php echo $all_orders_number;?></h2>
-                    <a href="admin-orders.php?id=<?php echo $admin_id; ?>" class="btn">See Orders</a>
+                    <a href="admin-orders.php" class="btn">See Orders</a>
                 </div>
                 <?php mysqli_free_result($res); ?>
 
                 <div class="box-subcontainer">
                     <p>Total from all orders</p>
                     <h2><?php echo $all_orders_total;?>&euro;</h2>
-                    <a href="admin-orders.php?id=<?php echo $admin_id; ?>" class="btn">See Orders</a>
+                    <a href="admin-orders.php" class="btn">See Orders</a>
                 </div>
 
                 <div class="box-subcontainer">
@@ -110,7 +110,7 @@
                     ?>
                     <p>Total number of products</p>
                     <h2><?php echo $all_products_number;?></h2>
-                    <a href="admin-products.php?id=<?php echo $admin_id; ?>" class="btn">See Products</a>
+                    <a href="admin-products.php" class="btn">See Products</a>
                 </div>
                 <?php mysqli_free_result($res); ?>
 
@@ -125,7 +125,7 @@
                     ?>
                     <p>Total number of accounts</p>
                     <h2><?php echo $all_accounts_number;?></h2>
-                    <a href="#" class="btn">See Users</a>
+                    <a href="admin-users.php" class="btn">See Users</a>
                 </div>
                 <?php mysqli_free_result($res); ?>
 
@@ -142,7 +142,7 @@
                     ?>
                     <p>Number of user accounts</p>
                     <h2><?php echo $user_accounts_number;?></h2>
-                    <a href="#" class="btn">See Users</a>
+                    <a href="admin-users.php" class="btn">See Users</a>
                 </div>
                 <?php mysqli_free_result($res); ?>
 
@@ -159,7 +159,7 @@
                     ?>
                     <p>Number of admin accounts</p>
                     <h2><?php echo $admin_accounts_number;?></h2>
-                    <a href="#" class="btn">See Users</a>
+                    <a href="admin-users.php" class="btn">See Users</a>
                 </div>
                 <?php mysqli_free_result($res); ?>
             </div>

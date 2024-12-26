@@ -2,9 +2,9 @@
     <div class="flex">
         <a href="admin-page.php?id=<?php echo $admin_id; ?>" class="logo">Admin<span>Panel</span></a>
         <nav class="navbar">
-            <a href="#">Users</a>
-            <a href="admin-products.php?id=<?php echo $admin_id; ?>">Products</a>
-            <a href="admin-orders.php?id=<?php echo $admin_id; ?>">Orders</a>
+            <a href="admin-users.php">Users</a>
+            <a href="admin-products.php">Products</a>
+            <a href="admin-orders.php">Orders</a>
             <a href="#">Contacts</a>
         </nav>
         <div class="icons">
@@ -24,7 +24,7 @@
         <div class="profile">
             <img src="../pictures/<?php echo $user['profile_picture']; ?>" alt="">
             <p><?php echo $user['username'];?></p>
-            <a href="http://localhost/OnlineMusicStore/php/admin-update-profile.php?id=<?php echo $admin_id; ?>" class="btn">Update profile</a>
+            <a href="http://localhost/OnlineMusicStore/php/admin-update-profile.php" class="btn">Update profile</a>
             <a href="logout.php" class="delete-btn">Logout</a>
         </div>
     </div>

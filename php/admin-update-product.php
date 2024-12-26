@@ -197,7 +197,7 @@
             <img src="../covers/<?php echo $product['cover']; ?>" alt="">
             <div class="input-box-container">
                 <div class="input-box">
-                    <input type="hidden" name="update_id" id="update_id" value=<?php echo $product['id']; ?>>
+                    <input type="hidden" name="update_id" id="update_id" value=<?php echo $update_id; ?>>
                     <label for="title">Title:</label>
                     <input type="text" name="title" class="box" id="title" placeholder="Enter new title" value="<?php echo $product['title']; ?>">
                     <label for="price">Price (€):</label>
