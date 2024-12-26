@@ -66,11 +66,40 @@
                     $response['message'] = 'Error when updating category!';
                 }
             }
-            $genre = htmlspecialchars($_POST['genre'], ENT_QUOTES);
-            if($genre !== $product['genre'] && !empty($genre)) {
-                $insert = "UPDATE products SET genre = ? WHERE id = ?";
+            //mysqli_free_result($res);
+            $genres_string = htmlspecialchars($_POST['genre'], ENT_QUOTES);
+            if($genres_string !== $product['genre_list'] && !empty($genres_string)) {
+                $select = "SELECT * FROM genres";
+                $select_stmt = mysqli_prepare($conn, $select);
+                mysqli_stmt_execute($select_stmt);
+                $res = mysqli_stmt_get_result($select_stmt);
+                $existent_genres = [];
+                $cntr = -1;
+                while($genre = mysqli_fetch_assoc($res)){
+                    if(substr_count($genres_string, strtolower($genre['name'])) == 1) {
+                        $cntr += 1;
+                        $existent_genres[$cntr] = $genre['name'];
+                    }
+                    else if(substr_count($genres_string, strtolower($genre['name'])) > 1){
+                        $response['status'] = 'error';
+                        $response['message'] = 'Duplicate genre value found!';
+                    }
+                }
+                if(count($existent_genres) == 0) {
+                    $response['status'] = 'error';
+                    $response['message'] = 'No valid genre introduced!';
+                }
+                else {
+                    $genre_string = $existent_genres[0];
+                    $cntr = 1;
+                    while($cntr < count($existent_genres)) {
+                        $genre_string = $genre_string.', '.$existent_genres[$cntr];
+                        $cntr += 1;
+                    }
+                }
+                $insert = "UPDATE products SET genre_list = ? WHERE id = ?";
                 $insert_stmt = mysqli_prepare($conn, $insert);
-                mysqli_stmt_bind_param($insert_stmt, 'si', $genre, $update_id);
+                mysqli_stmt_bind_param($insert_stmt, 'si', $genre_string, $update_id);
                 if(mysqli_stmt_execute($insert_stmt)) $response['genre_update_status'] = 'success';
                 else {
                     $response['genre_update_status'] = 'error';
@@ -217,7 +246,7 @@
                     <label for="price">Price (€):</label>
                     <input type="text" name="price" class="box" id="price" placeholder="Enter new price" value="<?php echo $product['price']; ?>">
                     <label for="stock">Stock:</label>
-                    <input type="number" name="stock" class="box" id="stock" placeholder="Enter new stock" value="<?php echo $product['stock']; ?>">
+                    <input type="number" name="stock" min="0" class="box" id="stock" placeholder="Enter new stock" value="<?php echo $product['stock']; ?>">
                 </div>
                 <div class="input-box">
                     <label for="category">Category:</label>
@@ -230,8 +259,8 @@
                             }
                         ?>
                     </select>
-                    <label for="genre">Genre:</label>
-                    <input type="text" name="genre" class="box" id="genre" placeholder="Edit genres" value="<?php echo $product['genre']; ?>">
+                    <label for="genre">Genres (sep: comma and/or a single space):</label>
+                    <input type="text" name="genre" class="box" id="genre" placeholder="Edit genres" value="<?php echo $product['genre_list']; ?>">
                     <label for="release_date">Release Date:</label>
                     <input type="date" name="release_date" value="<?php echo $product['release_date']; ?>" class="box">
                     <label for="cover">Cover (jpg, jpeg or png):</label>

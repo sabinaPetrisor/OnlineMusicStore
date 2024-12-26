@@ -1,6 +1,10 @@
 $.validator.addMethod('filesize', function (value, element, param) {
     return this.optional(element) || (element.files[0].size <= param * 1000000)}, 'File size must be less than {0}MB');
 
+$.validator.addMethod('commaSeparatedValues', function(value, element) {
+    return this.optional(element) || /^(?:\w+|R&B)(?:,(?: )?(?:\w+|R&B))*$/.test(value)
+}, "Values must be separated by comma (,)!");
+
 $.validator.addMethod('unsignedAndCorrectFloat', function(value, element) {
     return this.optional(element) || /^(?:[1-9]\d*|\b0\.\d+)$/.test(value)
 }, "This must be an unsigned floating value!");
@@ -8,6 +12,8 @@ $.validator.addMethod('unsignedAndCorrectFloat', function(value, element) {
 $.validator.addMethod('unsignedAndCorrectInt', function(value, element) {
     return this.optional(element) || /^(?:[1-9]\d*|0)$/.test(value)
 }, "This must be an unsigned integer value!");
+
+
 
 $(document).ready(function() {
     $("#add-products-form").validate({
@@ -22,7 +28,8 @@ $(document).ready(function() {
                 required: true
             },
             genre:{
-                required: true
+                required: true,
+                commaSeparatedValues: true
             },
             tracklist:{
                 required: true
@@ -106,6 +113,9 @@ $(document).ready(function() {
 
     $("#update-form").validate({
         rules:{
+            genre:{
+                commaSeparatedValues: true
+            },
             price:{
                 number: true,
                 unsignedAndCorrectFloat: true

@@ -14,6 +14,42 @@
             $res = mysqli_stmt_get_result($select_stmt);
             if(!mysqli_num_rows($res)) {
                 $category = htmlspecialchars($_POST['category'], ENT_QUOTES);
+                //var_dump($category);
+                $genre_string = strtolower(htmlspecialchars($_POST['genre'], ENT_QUOTES));
+                //var_dump($genre_string);
+                //$genre_list = explode(', ', $genre_string);
+                mysqli_free_result($res);
+                $select = "SELECT * FROM genres";
+                $select_stmt = mysqli_prepare($conn, $select);
+                mysqli_stmt_execute($select_stmt);
+                $res = mysqli_stmt_get_result($select_stmt);
+                $existent_genres = [];
+                $cntr = -1;
+                while($genre = mysqli_fetch_assoc($res)){
+                    if(substr_count($genre_string, strtolower($genre['name'])) == 1) {
+                        $cntr += 1;
+                        $existent_genres[$cntr] = $genre['name'];
+                    }
+                    else if(substr_count($genre_string, strtolower($genre['name'])) > 1){
+                        $response['status'] = 'error';
+                        $response['message'] = 'Duplicate genre value found!';
+                    }
+                }
+                //var_dump($existent_genres);
+                if(count($existent_genres) == 0) {
+                    $response['status'] = 'error';
+                    $response['message'] = 'No valid genre introduced!';
+                }
+                else {
+                    //var_dump(count($existent_genres));
+                    $genre_string = $existent_genres[0];
+                    //var_dump($genre_string);
+                    $cntr = 1;
+                    while($cntr < count($existent_genres)) {
+                        $genre_string = $genre_string.', '.$existent_genres[$cntr];
+                        $cntr += 1;
+                    }
+                }
                 $tracklist = htmlspecialchars($_POST['tracklist'], ENT_QUOTES);
                 $release_date = htmlspecialchars($_POST['release_date'], ENT_QUOTES);
                 $price = (float) $_POST['price'];
@@ -27,9 +63,9 @@
                     $response['message'] = 'Failed to upload cover picture!';
                 }
                 mysqli_free_result($res);
-                $insert = "INSERT INTO products (title, artist, category, tracklist, release_date, price, stock, cover) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+                $insert = "INSERT INTO products (title, artist, category, genre_list, tracklist, release_date, price, stock, cover) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
                 $insert_stmt = mysqli_prepare($conn, $insert);
-                mysqli_stmt_bind_param($insert_stmt, 'sssssdis', $title, $artist, $category, $tracklist, $release_date, $price, $stock, $cover);
+                mysqli_stmt_bind_param($insert_stmt, 'ssssssdis', $title, $artist, $category, $genre_string, $tracklist, $release_date, $price, $stock, $cover);
                 if(mysqli_stmt_execute($insert_stmt)) {
                     $response['status'] = 'success';
                     $response['message'] = 'Product added successfuly!';
@@ -37,6 +73,7 @@
                         'title' => $title,
                         'artist' => $artist,
                         'category' => $category,
+                        'genre' => $genre_string,
                         'tracklist' => $tracklist,
                         'release_date' => $release_date,
                         'price' => $price,
@@ -59,6 +96,7 @@
             $response['status'] = 'error';
             $response['message'] = 'Error when selecting from database!';
         }
+        //var_dump($response);
         header('Content-Type: application/json');
         echo json_encode($response);
         exit;
@@ -112,7 +150,7 @@
                     <label for="price">Price (€):</label>
                     <input type="text" name="price" class="box" id="price" placeholder="Enter product price">
                     <label for="stock">Stock:</label>
-                    <input type="number" name="stock" class="box" id="stock" placeholder="Enter product stock">
+                    <input type="number" name="stock" min="0" class="box" id="stock" placeholder="Enter product stock">
                 </div>
                 <div class="input-box">
                     <label for="category">Category:</label>
@@ -124,7 +162,7 @@
                         <option value="Single">Single</option>
                         <option value="Soundtrack">Soundtrack</option>
                     </select>
-                    <label for="genre">Genre:</label>
+                    <label for="genre">Genres (sep: comma and/or a single space):</label>
                     <input type="text" name="genre" class="box" id="genre" placeholder="Enter genre">
                     <label for="release_date">Release Date:</label>
                     <input type="date" name="release_date" class="box">
@@ -154,7 +192,7 @@
                 <p>Title: <?php echo $product['title']; ?><p>
                 <p>Artist: <?php echo $product['artist']; ?><p>
                 <p>Category: <?php echo $product['category']; ?><p>
-                <p>Genre: <?php echo $product['genre']; ?><p>
+                <p>Genre: <?php echo $product['genre_list']; ?><p>
                 <p>Tracklist: <?php echo $product['tracklist']; ?><p>
                 <p>Release Date: <?php echo $product['release_date']; ?><p>
                 <p>Price: <?php echo $product['price']; ?>€<p>
