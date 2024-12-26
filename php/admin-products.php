@@ -107,23 +107,25 @@
                 <div class="input-box">
                     <label for="title">Title:</label>
                     <input type="text" name="title" class="box" id="title" placeholder="Enter product title">
+                    <label for="artist">Artist:</label>
+                    <input type="text" name="artist" class="box" id="artist" placeholder="Enter artist name">
                     <label for="price">Price (€):</label>
                     <input type="text" name="price" class="box" id="price" placeholder="Enter product price">
                     <label for="stock">Stock:</label>
                     <input type="number" name="stock" class="box" id="stock" placeholder="Enter product stock">
                 </div>
                 <div class="input-box">
-                    <label for="artist">Artist:</label>
-                    <input type="text" name="artist" class="box" id="artist" placeholder="Enter artist name">
                     <label for="category">Category:</label>
                     <select name="category" class="box">
-                        <option value="" selected disabled>Select Category</option>
+                        <option value="" selected disabled hidden>Select Category</option>
                         <option value="Studio Album">Studio Album</option>
                         <option value="EP">EP</option>
                         <option value="Mixtape">Mixtape</option>
                         <option value="Single">Single</option>
                         <option value="Soundtrack">Soundtrack</option>
                     </select>
+                    <label for="genre">Genre:</label>
+                    <input type="text" name="genre" class="box" id="genre" placeholder="Enter genre">
                     <label for="release_date">Release Date:</label>
                     <input type="date" name="release_date" class="box">
                     <label for="cover">Cover (jpg, jpeg or png):</label>
@@ -152,6 +154,7 @@
                 <p>Title: <?php echo $product['title']; ?><p>
                 <p>Artist: <?php echo $product['artist']; ?><p>
                 <p>Category: <?php echo $product['category']; ?><p>
+                <p>Genre: <?php echo $product['genre']; ?><p>
                 <p>Tracklist: <?php echo $product['tracklist']; ?><p>
                 <p>Release Date: <?php echo $product['release_date']; ?><p>
                 <p>Price: <?php echo $product['price']; ?>€<p>

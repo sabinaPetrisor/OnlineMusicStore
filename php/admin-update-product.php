@@ -10,6 +10,7 @@
         $response['title_update_status'] = '';
         $response['artist_update_status'] = '';
         $response['category_update_status'] = '';
+        $response['genre_update_status'] = '';
         $response['tracklist_update_status'] = '';
         $response['release_date_update_status'] = '';
         $response['price_update_status'] = '';
@@ -63,6 +64,17 @@
                 else {
                     $response['category_update_status'] = 'error';
                     $response['message'] = 'Error when updating category!';
+                }
+            }
+            $genre = htmlspecialchars($_POST['genre'], ENT_QUOTES);
+            if($genre !== $product['genre'] && !empty($genre)) {
+                $insert = "UPDATE products SET genre = ? WHERE id = ?";
+                $insert_stmt = mysqli_prepare($conn, $insert);
+                mysqli_stmt_bind_param($insert_stmt, 'si', $genre, $update_id);
+                if(mysqli_stmt_execute($insert_stmt)) $response['genre_update_status'] = 'success';
+                else {
+                    $response['genre_update_status'] = 'error';
+                    $response['message'] = 'Error when updating genre!';
                 }
             }
             $tracklist = htmlspecialchars($_POST['tracklist'], ENT_QUOTES);
@@ -137,14 +149,14 @@
                 }
             }
             else $cover = $product['cover'];
-            if(empty($response['message']) && ($response['title_update_status'] === 'success' || $response['artist_update_status'] === 'success' || $response['category_update_status'] === 'success' || $response['tracklist_update_status'] === 'success' || $response['release_date_update_status'] === 'success' || $response['price_update_status'] === 'success' || $response['stock_update_status'] === 'success' || $response['cover_update_status'] === 'success')){
+            if(empty($response['message']) && ($response['title_update_status'] === 'success' || $response['artist_update_status'] === 'success' || $response['category_update_status'] === 'success' || $response['genre_update_status'] === 'success' || $response['tracklist_update_status'] === 'success' || $response['release_date_update_status'] === 'success' || $response['price_update_status'] === 'success' || $response['stock_update_status'] === 'success' || $response['cover_update_status'] === 'success')){
                 $response['overall_status'] = 'success';
                 $response['message'] = 'Product updated successfuly';
                 $response['data'] = [
                     'admin_id' => $admin_id
                 ];
             }
-            else if(empty($response['message']) && empty($response['title_update_status']) && empty($response['artist_update_status']) && empty($response['category_update_status']) && empty($response['tracklist_update_status']) && empty($response['release_date_update_status']) && empty($response['price_update_status']) && empty($response['stock_update_status']) && empty($response['cover_update_status'])){
+            else if(empty($response['message']) && empty($response['title_update_status']) && empty($response['artist_update_status']) && empty($response['category_update_status']) && empty($response['genre_update_status']) && empty($response['tracklist_update_status']) && empty($response['release_date_update_status']) && empty($response['price_update_status']) && empty($response['stock_update_status']) && empty($response['cover_update_status'])){
                 $response['overall_status'] = 'success';
                 $response['message'] = '';
                 $response['data'] = [
@@ -200,23 +212,26 @@
                     <input type="hidden" name="update_id" id="update_id" value=<?php echo $update_id; ?>>
                     <label for="title">Title:</label>
                     <input type="text" name="title" class="box" id="title" placeholder="Enter new title" value="<?php echo $product['title']; ?>">
+                    <label for="artist">Artist:</label>
+                    <input type="text" name="artist" class="box" id="artist" placeholder="Enter new artist" value="<?php echo $product['artist']; ?>">
                     <label for="price">Price (€):</label>
                     <input type="text" name="price" class="box" id="price" placeholder="Enter new price" value="<?php echo $product['price']; ?>">
                     <label for="stock">Stock:</label>
                     <input type="number" name="stock" class="box" id="stock" placeholder="Enter new stock" value="<?php echo $product['stock']; ?>">
                 </div>
                 <div class="input-box">
-                    <label for="artist">Artist:</label>
-                    <input type="text" name="artist" class="box" id="artist" placeholder="Enter new artist" value="<?php echo $product['artist']; ?>">
                     <label for="category">Category:</label>
                     <select name="category" class="box">
                         <option selected><?php echo $product['category']; ?></option>
-                        <option value="Studio Album">Studio Album</option>
-                        <option value="EP">EP</option>
-                        <option value="Mixtape">Mixtape</option>
-                        <option value="Single">Single</option>
-                        <option value="Soundtrack">Soundtrack</option>
+                        <?php 
+                            $options = ['Studio Album', 'EP', 'Mixtape', 'Single', 'Soundtrack'];
+                            foreach($options as $opt) {
+                                if($opt !== $product['category']) echo '<option value="'.$opt.'">'.$opt.'</option>';
+                            }
+                        ?>
                     </select>
+                    <label for="genre">Genre:</label>
+                    <input type="text" name="genre" class="box" id="genre" placeholder="Edit genres" value="<?php echo $product['genre']; ?>">
                     <label for="release_date">Release Date:</label>
                     <input type="date" name="release_date" value="<?php echo $product['release_date']; ?>" class="box">
                     <label for="cover">Cover (jpg, jpeg or png):</label>

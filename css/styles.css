@@ -284,6 +284,10 @@ label.error, .form-container label{
   color: dimgray;
 }
 
+.update-product .update-form .input-box-container .input-box option {
+  color: dimgray;
+}
+
 .footer{
   background-color: white;
 }

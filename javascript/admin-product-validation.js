@@ -21,6 +21,9 @@ $(document).ready(function() {
             category:{
                 required: true
             },
+            genre:{
+                required: true
+            },
             tracklist:{
                 required: true
             },
@@ -52,6 +55,9 @@ $(document).ready(function() {
             },
             category:{
                 required: "category required!"
+            },
+            genre:{
+                required: "genre required!"
             },
             tracklist:{
                 required: "tracklist required!"
