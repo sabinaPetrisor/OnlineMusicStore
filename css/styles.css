@@ -437,7 +437,7 @@ label.error, .form-container label{
   color: dimgray;
 }
 
-.latest-products .box-container .box-subcontainer .fas.fa-eye{
+.latest-products .box-container .box-subcontainer .icons{
   position: absolute;
   color: dimgray;
   border-radius: 0.5rem;
@@ -445,13 +445,24 @@ label.error, .form-container label{
   width: 4.5rem;
   top: 1rem;
   right: 1rem;
-  line-height: 4.5rem;
-  /*top: 15rem;
-  left: 9rem;*/
+  /*line-height: 4.5rem;*/
   font-size: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
 }
 
-.latest-products .box-container .box-subcontainer .fas.fa-eye:hover{
+.latest-products .box-container .box-subcontainer .icons > *{
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.latest-products .box-container .box-subcontainer .icons > *:hover{
+  color: rgb(130, 93, 177);
+}
+
+.latest-products .box-container .icons .fa-solid.fa-heart.liked{
   color: rgb(130, 93, 177);
 }
 

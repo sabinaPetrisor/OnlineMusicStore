@@ -1,8 +1,8 @@
 <header class="header">
     <div class="flex">
-        <a href="home-page.php?id=<?php echo $user_id; ?>" class="logo">Online<span>MusicStore</span></a>
+        <a href="home-page.php" class="logo">Online<span>MusicStore</span></a>
         <nav class="navbar">
-            <a href="home-page.php?id=<?php echo $user_id; ?>">Home</a>
+            <a href="home-page.php">Home</a>
             <a href="#">Shop</a>
             <a href="#">Orders</a>
             <a href="#">About</a>
