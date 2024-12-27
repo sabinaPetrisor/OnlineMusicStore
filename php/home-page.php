@@ -48,7 +48,7 @@
                     <a href="product-page.php" class="fas fa-eye"></a>
                     <?php 
                         if(!empty($user_id)) { 
-                            echo '<i class="fa-solid fa-heart" data-user-id="'.$user_id.'" data-product-id="'.$product['id'].'"></i>';
+                            echo '<i class="fa-solid fa-heart" data-user-id='.$user_id.' data-product-id='.$product['id'].'></i>';
                         }
                     ?>
                 </div>

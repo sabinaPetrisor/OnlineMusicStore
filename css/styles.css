@@ -407,7 +407,7 @@ label.error, .form-container label{
   width: 100%;
 }
 
-.show-products .box-container .box-subcontainer img, .latest-products .box-container .box-subcontainer img, .favorites .box-container .box-subcontainer img{
+.show-products .box-container .box-subcontainer img, .latest-products .box-container .box-subcontainer img, .favorites .box-container .box-subcontainer img, .shop .box-container .box-subcontainer img{
   height: 10rem;
   width: 10rem;
   object-fit: cover;
@@ -466,6 +466,7 @@ label.error, .form-container label{
 
 .box-container .icons .fa-solid.fa-heart.liked{
   color: rgb(130, 93, 177);
+  cursor: pointer;
 }
 
 

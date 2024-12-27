@@ -1,9 +1,9 @@
 <header class="header">
     <div class="flex">
-        <a href="home-page.php" class="logo">Online<span>MusicStore</span></a>
+        <a href="http://localhost/OnlineMusicStore/php/home-page.php" class="logo">Online<span>MusicStore</span></a>
         <nav class="navbar">
             <a href="home-page.php">Home</a>
-            <a href="#">Shop</a>
+            <a href="http://localhost/OnlineMusicStore/php/shop-page.php">Shop</a>
             <a href="#">Orders</a>
         </nav>
         <div class="icons">

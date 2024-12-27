@@ -6,6 +6,7 @@ $(document).ready(function() {
     });
 });
 function checkIfFavorite(userId, productId, currentElem){
+    //console.log(JSON.stringify({ user_id: userId, product_id: productId }));
     $.ajax({
         method: "POST",
         url: "../php/check-in-wishlist.php",

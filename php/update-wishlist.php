@@ -4,6 +4,7 @@
     if (isset($_SESSION['user_id'])) $user_id = $_SESSION['user_id'];*/
     header('Content-Type: application/json');
     $data = json_decode(file_get_contents("php://input"));
+    //var_dump($data);
     $user_id = $data->user_id;
     $product_id = $data->product_id;
     if($data->is_favorite) {

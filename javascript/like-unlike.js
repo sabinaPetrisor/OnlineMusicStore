@@ -2,7 +2,7 @@ $(document).ready(function() {
     var userId = $(".box-container .box-subcontainer .icons .fa-solid.fa-heart").data("user-id");
     $('.box-container .box-subcontainer .icons .fa-solid.fa-heart').on('click', function() {
         var productId = $(this).data('product-id');
-        var userId = $(".fa-solid.fa-heart").data("user-id");
+        //var userId = $(".fa-solid.fa-heart").data("user-id");
         
         // Verifică dacă inima este deja activată
         if ($(this).hasClass('liked')) {
@@ -19,13 +19,17 @@ $(document).ready(function() {
 
 // Funcția care va trimite datele la server pentru a actualiza baza de date
 function updateFavoriteStatus(userId, productId, isFavorite) {
+    //console.log(JSON.stringify({ user_id: userId, product_id: productId, is_favorite: isFavorite }));
     $.ajax({
         method: "POST",
         url: "../php/update-wishlist.php",
         contentType: 'application/json',
         data: JSON.stringify({ user_id: userId, product_id: productId, is_favorite: isFavorite }),
         success: function(response){
-            if(response.success) console.log("Wishlist updated successfully!");
+            if(response.success) {
+                console.log("Wishlist updated successfully!");
+                window.location.reload();
+            }
             else console.log("Wishlist failed to update!");
         },
         error: function(xhr) {
