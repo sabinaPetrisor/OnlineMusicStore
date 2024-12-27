@@ -345,6 +345,7 @@ label.error, .form-container label{
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  position: relative;
 }
 
 .box-container h2{
@@ -395,11 +396,13 @@ label.error, .form-container label{
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
 }
 
 .buttons > *{
   margin-left: 0.2rem;
   margin-right: 0.2rem;
+  width: 100%;
 }
 
 .show-products .box-container .box-subcontainer img, .latest-products .box-container .box-subcontainer img{
@@ -432,6 +435,24 @@ label.error, .form-container label{
   border: 0.1rem solid darkgrey;
   border-radius: 0.5rem;
   color: dimgray;
+}
+
+.latest-products .box-container .box-subcontainer .fas.fa-eye{
+  position: absolute;
+  color: dimgray;
+  border-radius: 0.5rem;
+  height: 4.5rem;
+  width: 4.5rem;
+  top: 1rem;
+  right: 1rem;
+  line-height: 4.5rem;
+  /*top: 15rem;
+  left: 9rem;*/
+  font-size: 1.5rem;
+}
+
+.latest-products .box-container .box-subcontainer .fas.fa-eye:hover{
+  color: rgb(130, 93, 177);
 }
 
 /*media -> responsiveness*/

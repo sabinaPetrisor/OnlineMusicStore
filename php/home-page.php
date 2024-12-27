@@ -26,7 +26,7 @@
     ?>
     <script type="text/javascript" src="../javascript/dropdown-menu.js"></script>
     <section class="latest-products">
-        <h1 class="title">Latest products</h1>
+        <h1 class="title">Latest</h1>
         <div class="box-container">
             <?php 
                 $select = "SELECT * FROM products ORDER BY id DESC LIMIT 5";
@@ -37,13 +37,12 @@
                     while($product = mysqli_fetch_assoc($res)) {
             ?>
             <div class="box-subcontainer">
+                <a href="#" class="fas fa-eye"></a>
                 <img src="../covers/<?php echo $product['cover']; ?>" alt="">
                 <p>Title: <?php echo $product['title']; ?><p>
                 <p>Artist: <?php echo $product['artist']; ?><p>
                 <p>Category: <?php echo $product['category']; ?><p>
                 <p>Genre: <?php echo $product['genre_list']; ?><p>
-                <p>Tracklist: <?php echo $product['tracklist']; ?><p>
-                <p>Release Date: <?php echo $product['release_date']; ?><p>
                 <p>Price: <?php echo $product['price']; ?>€<p>
                 <p>Stock: <?php echo $product['stock']; ?><p>
                 <div class="buttons">
@@ -53,7 +52,7 @@
                         }
                     ?>
                     <!--<a href="http://localhost/OnlineMusicStore/php/admin-update-product.php?update=<?php echo $product['id']; ?>" class="btn">Update</a>-->
-                    <a href="http://localhost/OnlineMusicStore/php/admin-products.php?delete=<?php echo $product['id']; ?>" class="delete-btn" onclick="return confirm('Delete this product?');">Delete</a>
+                    <a href="http://localhost/OnlineMusicStore/php/admin-products.php?delete=<?php echo $product['id']; ?>" class="btn">Add to Cart</a>
                 </div>
             </div>
             <?php
