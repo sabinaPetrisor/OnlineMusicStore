@@ -5,10 +5,11 @@
             <a href="home-page.php">Home</a>
             <a href="#">Shop</a>
             <a href="#">Orders</a>
-            <a href="#">About</a>
         </nav>
         <div class="icons">
             <div id="menu-btn" class="fas fa-bars"></div>
+            <a href="http://localhost/OnlineMusicStore/php/favorites-page.php" class="fa-solid fa-heart"></a>
+            <a href="#" class="fas fa-shopping-cart"></a>
             <div id="user-btn" class="profile-picture">
                 <?php 
                     $select = "SELECT * FROM users WHERE id = ?";

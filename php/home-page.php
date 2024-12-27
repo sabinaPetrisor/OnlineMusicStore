@@ -2,18 +2,6 @@
     include 'config.php';
     session_start();
     if (isset($_SESSION['user_id'])) $user_id = $_SESSION['user_id'];
-    /*if (isset($_SESSION['user_id'])) {
-        session_unset();  // Elimina toate variabilele din sesiune
-        session_destroy();  // Distruge sesiunea complet
-    }*/
-    /*if(isset($_POST['wishlist_add'])) {
-        $wishlist_prod_id = (int) $_POST['product_id_hidden'];
-        $insert = "INSERT INTO wishlist (user_id, product_id) VALUES (?, ?)";
-        $insert_stmt = mysqli_prepare($conn, $insert);
-        mysqli_stmt_bind_param($insert_stmt, 'ii', $user_id, $wishlist_prod_id);
-        mysqli_stmt_execute($insert_stmt);
-        header('location:http://localhost/OnlineMusicStore/php/home-page.php');
-    }*/
     if(isset($_POST['cart_add'])) {
         $cart_prod_id = (int) $_POST['product_id_hidden'];
         $insert = "INSERT INTO cart (user_id, product_id) VALUES (?, ?)";
@@ -60,7 +48,7 @@
                     <a href="product-page.php" class="fas fa-eye"></a>
                     <?php 
                         if(!empty($user_id)) { 
-                            echo '<i class="fa-solid fa-heart" data-user-id='.$user_id.' data-product-id='.$product['id'].'></i>';
+                            echo '<i class="fa-solid fa-heart" data-user-id="'.$user_id.'" data-product-id="'.$product['id'].'"></i>';
                         }
                     ?>
                 </div>

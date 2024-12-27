@@ -1,6 +1,6 @@
 $(document).ready(function() {
-    var userId = $(".fa-solid.fa-heart").data("user-id");
-    $('.box-container .icons .fa-solid.fa-heart').on('click', function() {
+    var userId = $(".box-container .box-subcontainer .icons .fa-solid.fa-heart").data("user-id");
+    $('.box-container .box-subcontainer .icons .fa-solid.fa-heart').on('click', function() {
         var productId = $(this).data('product-id');
         var userId = $(".fa-solid.fa-heart").data("user-id");
         

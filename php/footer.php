@@ -8,7 +8,6 @@
             ?>
             <a href="#"><i class="fas fa-angle-right"></i>Shop</a>
             <a href="#"><i class="fas fa-angle-right"></i>Orders</a>
-            <a href="#"><i class="fas fa-angle-right"></i>About</a>
         </div>
 
         <div class="footer-box">
