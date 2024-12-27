@@ -23,9 +23,47 @@
             include 'header-logged-in.php';
         }
         else include 'header-not-logged-in.php';
-        include 'footer.php';
     ?>
     <script type="text/javascript" src="../javascript/dropdown-menu.js"></script>
-
+    <section class="latest-products">
+        <h1 class="title">Latest products</h1>
+        <div class="box-container">
+            <?php 
+                $select = "SELECT * FROM products ORDER BY id DESC LIMIT 5";
+                $select_stmt = mysqli_prepare($conn, $select);
+                mysqli_stmt_execute($select_stmt);
+                $res = mysqli_stmt_get_result($select_stmt);
+                if(mysqli_num_rows($res)) {
+                    while($product = mysqli_fetch_assoc($res)) {
+            ?>
+            <div class="box-subcontainer">
+                <img src="../covers/<?php echo $product['cover']; ?>" alt="">
+                <p>Title: <?php echo $product['title']; ?><p>
+                <p>Artist: <?php echo $product['artist']; ?><p>
+                <p>Category: <?php echo $product['category']; ?><p>
+                <p>Genre: <?php echo $product['genre_list']; ?><p>
+                <p>Tracklist: <?php echo $product['tracklist']; ?><p>
+                <p>Release Date: <?php echo $product['release_date']; ?><p>
+                <p>Price: <?php echo $product['price']; ?>€<p>
+                <p>Stock: <?php echo $product['stock']; ?><p>
+                <div class="buttons">
+                    <?php 
+                        if(!empty($user_id)) { 
+                            echo '<a href="http://localhost/OnlineMusicStore/php/admin-update-product.php?update='.$product['id'].' " class="btn">Add to Wishlist</a>';
+                        }
+                    ?>
+                    <!--<a href="http://localhost/OnlineMusicStore/php/admin-update-product.php?update=<?php echo $product['id']; ?>" class="btn">Update</a>-->
+                    <a href="http://localhost/OnlineMusicStore/php/admin-products.php?delete=<?php echo $product['id']; ?>" class="delete-btn" onclick="return confirm('Delete this product?');">Delete</a>
+                </div>
+            </div>
+            <?php
+                    }
+                }
+                else echo '<h2 class="empty">No products added yet!</h2>';
+                mysqli_free_result($res);
+            ?>
+        </div>
+    </section>
+    <?php include 'footer.php'; ?>
     </body>
 </html>

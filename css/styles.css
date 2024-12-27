@@ -387,22 +387,22 @@ label.error, .form-container label{
   color: dimgray;
 }
 
-.show-products .box-container .box-subcontainer p, .users .box-container .box-subcontainer p{
+.box-container .box-subcontainer p{
   color: dimgray;
 }
 
-.show-products .box-container .box-subcontainer .buttons{
+.buttons{
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-.show-products .box-container .box-subcontainer .buttons > *{
+.buttons > *{
   margin-left: 0.2rem;
   margin-right: 0.2rem;
 }
 
-.show-products .box-container .box-subcontainer img{
+.show-products .box-container .box-subcontainer img, .latest-products .box-container .box-subcontainer img{
   height: 10rem;
   width: 10rem;
   object-fit: cover;

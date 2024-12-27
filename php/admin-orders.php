@@ -53,7 +53,8 @@
                     <p>Last name: <?php echo $order['last_name']; ?><p>
                     <p>Email: <?php echo $order['email']; ?><p>
                     <p>Address: <?php echo $order['address']; ?><p>
-                    <p>Phone number: <?php echo $order['phone_number']; ?><p>
+                    <p>Country: <?php echo $order['country']; ?><p>
+                    <p>Phone number: <?php echo $order['country_code'].$order['phone_number']; ?><p>
                     <p>Payment method: <?php echo $order['payment_method']; ?><p>
                     <p>Products: <?php echo $order['products_list']; ?><p>
                     <p>Total price: <?php echo $order['total_price']; ?>€<p>
