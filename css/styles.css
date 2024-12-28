@@ -175,7 +175,7 @@ label.error, .form-container label{
   cursor: pointer;
   margin-left: 1.5rem;
   color: gray;
-  font-size: 1.3rem;
+  font-size: 1.15rem;
 }
 
 /*.header .flex .icons .fas.fa-bars{
@@ -406,7 +406,7 @@ label.error, .form-container label{
   width: 100%;
 }
 
-.show-products .box-container .box-subcontainer img, .latest-products .box-container .box-subcontainer img, .favorites .box-container .box-subcontainer img, .shop .box-container .box-subcontainer img{
+.show-products .box-container .box-subcontainer img, .latest-products .box-container .box-subcontainer img, .favorites .box-container .box-subcontainer img, .shop .box-container .box-subcontainer img, .cart .box-container .box-subcontainer img{
   height: 10rem;
   width: 10rem;
   object-fit: cover;
@@ -477,7 +477,7 @@ label.error, .form-container label{
 }
 
 .specific-product .product-details {
-  margin-top: 0.5rem;
+  margin-top: 3rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -505,6 +505,68 @@ label.error, .form-container label{
   cursor: pointer;
   color: gray;
   font-size: 2rem;
+}
+.specific-product .product-details p{
+  color: dimgray;
+}
+
+.specific-product .product-details .price-and-stock, .specific-product .product-details .all-details{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.specific-product .all-details{
+  margin-top: 2rem;
+}
+
+.specific-product .all-details p{
+  color: dimgray;
+}
+
+.content{
+  margin-bottom: 1.5rem;
+  font-weight: bold;
+}
+
+.specific-product .product-details .price-and-stock .content{
+  margin-bottom: 0.3rem;
+}
+
+.specific-product .product-details .price-and-stock .buttons{
+  margin-bottom: 1rem;
+}
+
+.cart form{
+  margin-top: 0.5rem;
+}
+
+.cart form label{
+  color: dimgray;
+}
+
+.cart .final-total{
+  margin-top: 3rem;
+  margin-bottom: 1.5rem;
+}
+
+.cart .final-total p{
+  color: dimgray;
+  font-weight: bold;
+  font-size: 1.5rem;
+}
+
+.cart .flex-btns{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+}
+
+.cart .flex-btns > *{
+  margin-left: 5rem;
+  margin-right: 5rem;
 }
 
 /*media -> responsiveness*/

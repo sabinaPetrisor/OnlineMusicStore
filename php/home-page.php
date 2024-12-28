@@ -45,7 +45,7 @@
             ?>
             <div class="box-subcontainer">
                 <div class="icons">
-                    <a href="product-page.php" class="fas fa-eye"></a>
+                    <a href="product-page.php?title=<?php echo $product['title']; ?>&artist=<?php echo $product['artist']; ?>" class="fas fa-eye"></a>
                     <?php 
                         if(!empty($user_id)) { 
                             echo '<i class="fa-solid fa-heart" data-user-id='.$user_id.' data-product-id='.$product['id'].'></i>';

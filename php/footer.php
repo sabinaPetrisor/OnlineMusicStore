@@ -9,7 +9,7 @@
 
         <div class="footer-box">
         <h3>Extra links</h3>
-        <a href="#"><i class="fas fa-angle-right"></i>Cart</a>
+        <a href="http://localhost/OnlineMusicStore/php/cart-page.php"><i class="fas fa-angle-right"></i>Cart</a>
         <a href="http://localhost/OnlineMusicStore/php/favorites-page.php"><i class="fas fa-angle-right"></i>Wishlist</a>
         </div>
     </section>

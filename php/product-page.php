@@ -40,12 +40,29 @@
                     <img src="../covers/<?php echo $product['cover']; ?>" alt="">
                     <i class="fa-solid fa-heart" data-user-id=<?php echo $user_id; ?> data-product-id=<?php echo $product['id']; ?>></i>
                 </div>
-                <div class="buttons">
-                    <a href="#" class="btn">Add to Cart</a>
+                <div class="price-and-stock">
+                    <p class="lbl">Price:</p>
+                    <p class="content"><?php echo $product['price']; ?>€</p>
+                    <div class="buttons">
+                        <a href="#" class="btn">Add to Cart</a>
+                    </div>
+                    <p class="lbl">Stock:</p>
+                    <p class="content"><?php echo $product['stock']; ?></p>
                 </div>
             </div>
-            <div class="product-details">
-                
+            <div class="all-details">
+                <p>Title:</p>
+                <p class="content"><?php echo $product['title']; ?></p>
+                <p>Artist:</p>
+                <p class="content"><?php echo $product['artist']; ?></p>
+                <p>Category:</p>
+                <p class="content"><?php echo $product['category']; ?></p>
+                <p>Genre:</p>
+                <p class="content"><?php echo $product['genre_list']; ?></p>
+                <p>Tracklist:</p>
+                <p class="content"><?php echo $product['tracklist']; ?></p>
+                <p>Release Date:</p>
+                <p class="content"><?php echo $product['release_date']; ?></p>
             </div>
         </section>
         <?php 
