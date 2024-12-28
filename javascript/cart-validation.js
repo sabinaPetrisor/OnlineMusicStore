@@ -13,7 +13,7 @@ function calculateTotalPriceOfAllProducts(){
         console.log("quantity = " + quantity);
         var product_total = product_price * quantity;
         total += product_total;
-        $("#total").text("Total: " + total + "€");
+        $("#total").text("Grand Total: " + total + "€");
     });
 }
 

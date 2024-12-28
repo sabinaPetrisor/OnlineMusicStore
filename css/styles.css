@@ -546,12 +546,12 @@ label.error, .form-container label{
   color: dimgray;
 }
 
-.cart .final-total{
+.final-total{
   margin-top: 3rem;
   margin-bottom: 1.5rem;
 }
 
-.cart .final-total p{
+.final-total p{
   color: dimgray;
   font-weight: bold;
   font-size: 1.5rem;
@@ -567,6 +567,10 @@ label.error, .form-container label{
 .cart .flex-btns > *{
   margin-left: 5rem;
   margin-right: 5rem;
+}
+
+.bold-paragraph{
+  font-weight: bold;
 }
 
 /*media -> responsiveness*/

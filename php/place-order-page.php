@@ -24,6 +24,32 @@
         <script type="text/javascript" src="../javascript/dropdown-menu.js"></script>
         <section class="place-order">
             <h1 class="title">Place Order</h1>
+            <div class="box-container">
+                <?php
+                    $select = "SELECT c.quantity, p.title, p.artist, p.price FROM cart AS c JOIN products AS p ON c.product_id = p.id WHERE user_id = ?";
+                    $select_stmt = mysqli_prepare($conn, $select);
+                    mysqli_stmt_bind_param($select_stmt, 'i', $user_id);
+                    mysqli_stmt_execute($select_stmt);
+                    $res = mysqli_stmt_get_result($select_stmt);
+                    while($product = mysqli_fetch_assoc($res)) {
+                ?>
+                <div class="box-subcontainer">
+                    <p class="bold-paragraph">"<?php echo $product['title']; ?>" - <?php echo $product['artist'];?></p>
+                    <p>x <?php echo $product['quantity']; ?></p>
+                    <p id="total-product-price" data-total-product-price="<?php echo $product['price'] * $product['quantity']; ?>">Subtotal: <?php echo $product['price'] * $product['quantity']; ?>€</p>
+                </div>
+                <?php        
+                    }
+                ?>
+            </div>
+            <div class="final-total">
+                <p id="total"></p>
+            </div>
+            <form id="place-order-form">
+                <label for="email">Email:</label>
+                <input type="text" name="email" class="box" id="email" placeholder="Enter your email" autocomplete="off">
+            </form>
         </section>
+        <script type="text/javascript" src="../javascript/order-page.js"></script>
     </body>
 </html>
