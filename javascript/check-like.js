@@ -1,6 +1,13 @@
 $(document).ready(function() {
-    var userId = $(".box-container .box-subcontainer .icons .fa-solid.fa-heart").data("user-id");
+    //var userId = $(".box-container .box-subcontainer .icons .fa-solid.fa-heart").data("user-id");
     $('.box-container .box-subcontainer .icons .fa-solid.fa-heart').each(function() {
+        var userId = $(this).data('user-id');
+        var productId = $(this).data('product-id');
+        checkIfFavorite(userId, productId, $(this));
+    });
+    //var userId = $(".specific-product .product-details .img-and-fav-button .fa-solid.fa-heart").data("user-id");
+    $('.specific-product .product-details .img-and-fav-button .fa-solid.fa-heart').each(function() {
+        var userId = $(this).data('user-id');
         var productId = $(this).data('product-id');
         checkIfFavorite(userId, productId, $(this));
     });

@@ -1,6 +1,25 @@
 $(document).ready(function() {
-    var userId = $(".box-container .box-subcontainer .icons .fa-solid.fa-heart").data("user-id");
+    //var userId = $(".box-container .box-subcontainer .icons .fa-solid.fa-heart").data("user-id");
     $('.box-container .box-subcontainer .icons .fa-solid.fa-heart').on('click', function() {
+        var userId = $(this).data('user-id');
+        var productId = $(this).data('product-id');
+        //var userId = $(".fa-solid.fa-heart").data("user-id");
+        
+        // Verifică dacă inima este deja activată
+        if ($(this).hasClass('liked')) {
+            // Dacă este activă, dezactivează
+            $(this).removeClass('liked');
+            updateFavoriteStatus(userId, productId, false);
+        } else {
+            // Dacă nu este activată, activează
+            $(this).addClass('liked');
+            updateFavoriteStatus(userId, productId, true);
+        }
+    });
+
+    //var userId = $(".specific-product .product-details .img-and-fav-button .fa-solid.fa-heart").data("user-id");
+    $('.specific-product .product-details .img-and-fav-button .fa-solid.fa-heart').on('click', function() {
+        var userId = $(this).data('user-id');
         var productId = $(this).data('product-id');
         //var userId = $(".fa-solid.fa-heart").data("user-id");
         

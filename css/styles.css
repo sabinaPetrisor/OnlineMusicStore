@@ -81,8 +81,7 @@ section{
 .title{
   font-size: 2rem;
   color:black;
-  margin-top: 2rem;
-  margin-bottom: 0.2rem;
+  margin-top: 0.5rem;
   text-transform: uppercase;
 }
 
@@ -328,15 +327,15 @@ label.error, .form-container label{
   padding-right: 0.5rem;
 }
 
-/*.dashboard */.box-container{
-  margin-top: 2rem;
+.box-container{
+  margin-top: 2.5rem;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(20rem, 1fr));
   gap: 1.5rem;
   align-items: stretch;
 }
 
-/*.dashboard .box-container */.box-subcontainer{
+.box-subcontainer{
   padding: 1rem;
   border: 0.1rem solid darkgrey;
   box-shadow: 0 1rem 1rem rgba(0, 0, 0, 0.1);
@@ -460,16 +459,53 @@ label.error, .form-container label{
   margin-bottom: 0.5rem;
 }
 
-.box-container .box-subcontainer .icons > *:hover{
-  color: rgb(130, 93, 177);
-}
-
-.box-container .icons .fa-solid.fa-heart.liked{
+.box-container .box-subcontainer .icons > *:hover, .specific-product .product-details .img-and-fav-button .fa-solid.fa-heart:hover{
   color: rgb(130, 93, 177);
   cursor: pointer;
 }
 
+.box-container .icons .fa-solid.fa-heart.liked, .specific-product .product-details .img-and-fav-button .fa-solid.fa-heart.liked{
+  color: rgb(130, 93, 177);
+  cursor: pointer;
+}
 
+.specific-product{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.specific-product .product-details {
+  margin-top: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 75%;
+}
+
+.specific-product .product-details .img-and-fav-button{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.specific-product .product-details .img-and-fav-button > *{
+  margin-right: 2rem;
+}
+
+.specific-product .product-details .img-and-fav-button img{
+  height: 17rem;
+  width: 17rem;
+  object-fit: cover;
+  margin-bottom: 0.5rem;
+}
+
+.specific-product .product-details .img-and-fav-button .fa-solid.fa-heart{
+  cursor: pointer;
+  color: gray;
+  font-size: 2rem;
+}
 
 /*media -> responsiveness*/
 /*@media (max-width:990px){
@@ -564,6 +600,22 @@ label.error, .form-container label{
 .footer .box-container .footer-box p i{
   font-size: 0.7rem;
 }
+
+.specific-product .product-details{
+  width: 90%;
+}
+
+.specific-product .product-details .img-and-fav-button > *{
+  margin-right: 1rem;
+}
+
+.specific-product .product-details .img-and-fav-button img{
+  height: 12rem;
+  width: 12rem;
+}
+.specific-product .product-details .img-and-fav-button .fa-solid.fa-heart{
+  font-size: 1.5rem;
+}
 }
 
 @media (max-width:450px){
@@ -623,5 +675,15 @@ label.error, .form-container label{
 
   .update-profile form .input-box label{
     font-size: 0.7rem;
+  }
+
+
+  .specific-product .product-details .img-and-fav-button img{
+    height: 10rem;
+    width: 10rem;
+  }
+
+  .specific-product .product-details .img-and-fav-button .fa-solid.fa-heart{
+    font-size: 1.2rem;
   }
 }

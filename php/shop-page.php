@@ -35,7 +35,7 @@
             <h1 class="title">Shop</h1>
             <div class="box-container">
                 <?php 
-                    $select = "SELECT * FROM products ORDER BY title";
+                    $select = "SELECT * FROM products ORDER BY title"; 
                     $select_stmt = mysqli_prepare($conn, $select);
                     mysqli_stmt_execute($select_stmt);
                     $res = mysqli_stmt_get_result($select_stmt);
@@ -44,7 +44,7 @@
                 ?>
                 <div class="box-subcontainer">
                     <div class="icons">
-                        <a href="product-page.php" class="fas fa-eye"></a>
+                        <a href="product-page.php?title=<?php echo $product['title']; ?>&artist=<?php echo $product['artist']; ?>" class="fas fa-eye"></a>
                         <?php 
                             if(!empty($user_id)) { 
                                 echo '<i class="fa-solid fa-heart" data-user-id='.$user_id.' data-product-id='.$product['id'].'></i>';
@@ -72,5 +72,6 @@
                 ?>
             </div>
         </section>
+        <?php include 'footer.php'; ?>
     </body>
 </html>
