@@ -57,7 +57,7 @@
                     <p>Genre: <?php echo $product['genre_list']; ?><p>
                     <p>Price: <?php echo $product['price']; ?>€<p>
                     <p>Stock: <?php echo $product['stock']; ?><p>
-                    <form action="favorites-page.php" method="POST">
+                    <form action="shop-page.php" method="POST">
                         <input type="hidden" name="product_id_hidden" value="<?php echo $product['id']; ?>">
                         <div class="buttons">
                             <input type="submit" name="cart_add" class="btn" value="Add to Cart">

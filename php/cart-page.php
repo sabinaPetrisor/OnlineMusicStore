@@ -55,15 +55,15 @@
                     </div>
                     <img src="../covers/<?php echo $product['cover']; ?>" alt="">
                     <p><?php echo $product['title']; ?> - <?php echo $product['artist'];?></p>
-                    <p id="product_price" data-price="<?php echo $product['price']; ?>">Price/unit: <?php echo $product['price']; ?>€</p>
-                    <p id="total_price">Total price: <?php echo $product['price'] * $product['quantity']; ?>€</p>
+                    <p>Price/unit: <?php echo $product['price']; ?>€</p>
+                    <p class="subtotal" data-subtotal="<?php echo $product['price'] * $product['quantity']; ?>">Total price: <?php echo $product['price'] * $product['quantity']; ?>€</p>
                     <p>Available stock: <?php echo $product['stock']; ?></p>
-                    <form action="cart-page.php" method="POST" id="cart-form">
+                    <form action="cart-page.php" method="POST" class="cart-form">
                         <input type="hidden" name="product_id_hidden" value="<?php echo $product['id']; ?>">
-                        <input type="hidden" name="price_hidden" id="price_hidden" value="<?php echo $product['price']; ?>">
-                        <input type="hidden" name="stock_hidden" id="stock_hidden" value="<?php echo $product['stock']; ?>">
+                        <input type="hidden" name="price_hidden" class="price_hidden" value="<?php echo $product['price']; ?>">
+                        <input type="hidden" name="stock_hidden" class="stock_hidden" value="<?php echo $product['stock']; ?>">
                         <label for="quantity">Quantity:</label>
-                        <input type="number" name="quantity" min="0" id = "quantity" class="box" placeholder="Enter quantity" value="<?php echo $product['quantity']; ?>">
+                        <input type="number" name="quantity" min="1" class="box" placeholder="Enter quantity" value="<?php echo $product['quantity']; ?>">
                         <div class="buttons">
                             <input type="submit" name="modify_quantity" class="btn" value="Modify quantity">
                         </div>
@@ -77,7 +77,7 @@
                 ?>
             </div>
             <div class="final-total">
-                <p id="total"></p>
+                <p class="total"></p>
             </div>
             <div class="flex-btns">
                 <a href="http://localhost/OnlineMusicStore/php/shop-page.php" class="btn">Back to Shop</a>
