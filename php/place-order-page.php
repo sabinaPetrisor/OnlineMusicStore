@@ -11,18 +11,17 @@
         $res = mysqli_stmt_get_result($select_stmt);
         $products = mysqli_fetch_all($res, MYSQLI_ASSOC);
         $products_list = $products[0]['title'].' - '.$products[0]['artist'].' x '.$products[0]['quantity'];
-        $total = $products[0]['price'];
-        for($i = 1; $i < mysqli_num_rows($res); $i++) {
+        $total = $products[0]['price'] * $products[0]['quantity'];
+        for($i = 1; $i < count($products); $i++) {
             $products_list .= ', '.$products[$i]['title'].' - '.$products[$i]['artist'].' x '.$products[$i]['quantity'];
-            $total += $products[$i]['price'];
+            $total += $products[$i]['price'] * $products[$i]['quantity'];
         }
-        mysqli_free_result($res);
         $select = "SELECT MAX(id) FROM orders";
         $select_stmt = mysqli_prepare($conn, $select);
         mysqli_stmt_execute($select_stmt);
         $res = mysqli_stmt_get_result($select_stmt);
         $row = mysqli_fetch_assoc($res);
-        $max_id = $row[0];
+        $max_id = $row['MAX(id)'];
         $id = $max_id + 1;
         $order_number = str_pad($max_id+1, 10, "0", STR_PAD_LEFT);
         $fname = htmlspecialchars($_POST['first_name'], ENT_QUOTES);
@@ -43,6 +42,10 @@
         $insert_stmt = mysqli_prepare($conn, $insert);
         mysqli_stmt_bind_param($insert_stmt, 'isissssssssd', $id, $order_number, $user_id, $fname, $lname, $email, $final_address, $country, $final_phone_number, $payment_method, $products_list, $total);
         if(mysqli_stmt_execute($insert_stmt)) {
+            $delete = "DELETE FROM cart WHERE user_id = ?";
+            $delete_stmt = mysqli_prepare($conn, $delete);
+            mysqli_stmt_bind_param($delete_stmt, 'i', $user_id);
+            mysqli_stmt_execute($delete_stmt);
             $response['status'] = "success";
             $response['message'] = "Order placed successfully!";
             $response['data'] = [
@@ -61,6 +64,14 @@
                 "placed_on" => date('Y-m-d H:i:s')
             ];
         }
+        else {
+            $response['status'] = 'error';
+            $response['message'] = 'Error when placing order!';
+        }
+        //var_dump($response);
+        header('Content-Type: application/json');
+        echo json_encode($response);
+        exit;
     }
 ?>
 <!DOCTYPE html>

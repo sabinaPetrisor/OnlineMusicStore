@@ -69,13 +69,7 @@
                         </div>
                     </form>
                 </div>
-                <?php
-                        }
-                    }
-                    else echo '<h2 class="empty">No products added yet to show!</h2>';
-                    mysqli_free_result($res);
-                ?>
-            </div>
+                </div>
             <div class="final-total">
                 <p class="total"></p>
             </div>
@@ -83,6 +77,12 @@
                 <a href="http://localhost/OnlineMusicStore/php/shop-page.php" class="btn">Back to Shop</a>
                 <a href="http://localhost/OnlineMusicStore/php/place-order-page.php" class="btn">Place Order</a>
             </div>
+                <?php
+                        }
+                    }
+                    else echo '<h2 class="empty">No products added yet to show!</h2>';
+                    mysqli_free_result($res);
+                ?>
         </section>
         <?php include 'footer.php'; ?>
         <script type="text/javascript" src="../javascript/check-like.js"></script>

@@ -1,7 +1,7 @@
 $(document).ready(function(){
     $(".place-order .place-order-form .input-box #country").on("change", function(){
         var countryCode = $(this).find("option:selected").data("country-code");
-        console.log(countryCode);
+        //console.log(countryCode);
         $(".place-order .place-order-form .input-box #phone_number_preffix").prop("readonly", false);
         $(".place-order .place-order-form .input-box #phone_number_preffix").val(countryCode);
         $(".place-order .place-order-form .input-box #phone_number_preffix").prop("readonly", true);
@@ -92,13 +92,13 @@ $(document).ready(function(){
                 data: dataForm,
                 processData: false,
                 contentType: false,
-                success: function(/*response*/){
-                    /*console.log("Response is: ", response.data);
+                success: function(response){
+                    console.log("Response is: ", response.data);
                     if(response.status == "success") {
                         alert(response.message);
                         window.location.href = "http://localhost/OnlineMusicStore/php/home-page.php";
                     }
-                    else alert(response.message);*/
+                    else alert(response.message);
                 },
                 error: function(xhr)  {
                     alert(xhr.responseText);
