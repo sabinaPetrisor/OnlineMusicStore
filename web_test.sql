@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Gazdă: 127.0.0.1
--- Timp de generare: dec. 27, 2024 la 06:05 PM
+-- Timp de generare: dec. 30, 2024 la 12:22 AM
 -- Versiune server: 10.4.32-MariaDB
 -- Versiune PHP: 8.2.12
 
@@ -30,15 +30,19 @@ SET time_zone = "+00:00";
 CREATE TABLE `cart` (
   `id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
-  `product_id` int(11) NOT NULL
+  `product_id` int(11) NOT NULL,
+  `quantity` int(11) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
 -- Eliminarea datelor din tabel `cart`
 --
 
-INSERT INTO `cart` (`id`, `user_id`, `product_id`) VALUES
-(1, 52, 11);
+INSERT INTO `cart` (`id`, `user_id`, `product_id`, `quantity`) VALUES
+(1, 52, 11, 2),
+(2, 52, 3, 1),
+(3, 52, 6, 1),
+(4, 52, 7, 2);
 
 -- --------------------------------------------------------
 
@@ -121,14 +125,12 @@ CREATE TABLE `orders` (
   `last_name` varchar(100) NOT NULL,
   `email` varchar(100) NOT NULL,
   `address` varchar(500) NOT NULL,
-  `country_id` int(11) NOT NULL,
   `country_name` varchar(100) NOT NULL,
   `phone_number` varchar(20) NOT NULL,
-  `country_code` varchar(5) NOT NULL,
   `payment_method` varchar(10) NOT NULL,
   `products_list` varchar(500) NOT NULL,
   `total_price` float NOT NULL,
-  `placed_on` varchar(50) NOT NULL,
+  `placed_on` timestamp NOT NULL DEFAULT current_timestamp(),
   `payment_status` varchar(20) NOT NULL DEFAULT 'pending'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
@@ -136,8 +138,8 @@ CREATE TABLE `orders` (
 -- Eliminarea datelor din tabel `orders`
 --
 
-INSERT INTO `orders` (`id`, `number`, `user_id`, `first_name`, `last_name`, `email`, `address`, `country_id`, `country_name`, `phone_number`, `country_code`, `payment_method`, `products_list`, `total_price`, `placed_on`, `payment_status`) VALUES
-(1, '0000000001', 52, 'Nora', 'Wagner', 'user52@a.b', 'Simling 96, 8 OG, 0757, Berndorf bei Salzburg, Wien', 1, 'Austria', '336002985', '+43', 'card', 'BADLANDS x 1', 10, '2024-12-20', 'completed');
+INSERT INTO `orders` (`id`, `number`, `user_id`, `first_name`, `last_name`, `email`, `address`, `country_name`, `phone_number`, `payment_method`, `products_list`, `total_price`, `placed_on`, `payment_status`) VALUES
+(1, '0000000001', 52, 'Nora', 'Wagner', 'user52@a.b', 'Simling 96, 8 OG, 0757, Berndorf bei Salzburg, Wien', 'Austria', '+43336002985', 'card', 'BADLANDS x 1', 10, '2024-12-19 22:00:00', 'completed');
 
 -- --------------------------------------------------------
 
@@ -247,7 +249,8 @@ INSERT INTO `users` (`id`, `username`, `email`, `password`, `profile_picture`, `
 (49, 'user49', 'user49@a.b', '$2y$10$zt8SrbZX1cLdwLRrvVUCbuwe.oLc/Y/.vaXjJEXpeCkfBKlW.WRKa', 'default-profile-pic.png', 'user'),
 (50, 'user50', 'user50@a.b', '$2y$10$PO.8fuooZ2CTWqIKmDnhFOKLQebWKTdUFRjdVypY.K4FoKt0B3h.u', 'default-profile-pic.png', 'user'),
 (51, 'user51', 'user51@a.b', '$2y$10$pcT2PQ3eCl/L.Lyw9P9OXe6pOuzA7FruPMCHj1Yw.An.ab30w.yHW', '676d1ffde0c14_pexels-bertellifotografia-3792581.jpg', 'admin'),
-(52, 'user52', 'user52@a.b', '$2y$10$OCpDh3T.z3./L3FWjErfPe62VY0w/Z5wappNwQpSMZqNsTFpA91Ou', '6769828f102a3_4k-beautiful-colorful-abstract-wallpaper-photo.jpg', 'user');
+(52, 'user52', 'user52@a.b', '$2y$10$OCpDh3T.z3./L3FWjErfPe62VY0w/Z5wappNwQpSMZqNsTFpA91Ou', '6769828f102a3_4k-beautiful-colorful-abstract-wallpaper-photo.jpg', 'user'),
+(53, 'NULL', 'NULL', 'NULL', 'NULL', 'user');
 
 -- --------------------------------------------------------
 
@@ -266,7 +269,9 @@ CREATE TABLE `wishlist` (
 --
 
 INSERT INTO `wishlist` (`id`, `user_id`, `product_id`) VALUES
-(1, 52, 9);
+(1, 52, 3),
+(2, 52, 5),
+(3, 52, 11);
 
 --
 -- Indexuri pentru tabele eliminate
@@ -300,8 +305,7 @@ ALTER TABLE `genres`
 --
 ALTER TABLE `orders`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `ordersTable_userId_fk` (`user_id`),
-  ADD KEY `ordersTable_countryId_fk` (`country_id`);
+  ADD KEY `ordersTable_userId_fk` (`user_id`);
 
 --
 -- Indexuri pentru tabele `products`
@@ -325,52 +329,6 @@ ALTER TABLE `wishlist`
   ADD KEY `wishlistTable_productId_fk` (`product_id`);
 
 --
--- AUTO_INCREMENT pentru tabele eliminate
---
-
---
--- AUTO_INCREMENT pentru tabele `cart`
---
-ALTER TABLE `cart`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
---
--- AUTO_INCREMENT pentru tabele `countries`
---
-ALTER TABLE `countries`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
-
---
--- AUTO_INCREMENT pentru tabele `genres`
---
-ALTER TABLE `genres`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
-
---
--- AUTO_INCREMENT pentru tabele `orders`
---
-ALTER TABLE `orders`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
---
--- AUTO_INCREMENT pentru tabele `products`
---
-ALTER TABLE `products`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
-
---
--- AUTO_INCREMENT pentru tabele `users`
---
-ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=53;
-
---
--- AUTO_INCREMENT pentru tabele `wishlist`
---
-ALTER TABLE `wishlist`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
---
 -- Constrângeri pentru tabele eliminate
 --
 
@@ -385,7 +343,6 @@ ALTER TABLE `cart`
 -- Constrângeri pentru tabele `orders`
 --
 ALTER TABLE `orders`
-  ADD CONSTRAINT `ordersTable_countryId_fk` FOREIGN KEY (`country_id`) REFERENCES `countries` (`id`),
   ADD CONSTRAINT `ordersTable_userId_fk` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
 
 --

@@ -582,7 +582,7 @@ label.error, .form-container label{
 
 .place-order-form{
   background-color: white;
-  width: 75%;
+  width: 80%;
   border: 0.2rem solid darkgrey;
   box-shadow: 0 1rem 1rem rgba(0, 0, 0, 0.1);
   margin-top: 2.5rem;
@@ -590,12 +590,25 @@ label.error, .form-container label{
   padding: 2rem;
 }
 
+.phone-number {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.phone-number #phone_number_preffix {
+  width: 20%;
+}
+
 /*media -> responsiveness*/
-/*@media (max-width:990px){
-  *{
+@media (max-width:990px){
+  /**{
     font-size: 75%;
+  }*/
+  .phone-number #phone_number_preffix {
+    width: 25%;
   }
-}*/
+}
 
 @media (max-width:750px){
   .title{
@@ -699,6 +712,9 @@ label.error, .form-container label{
 .specific-product .product-details .img-and-fav-button .fa-solid.fa-heart{
   font-size: 1.5rem;
 }
+.phone-number #phone_number_preffix {
+  width: 30%;
+}
 }
 
 @media (max-width:450px){
@@ -768,5 +784,9 @@ label.error, .form-container label{
 
   .specific-product .product-details .img-and-fav-button .fa-solid.fa-heart{
     font-size: 1.2rem;
+  }
+
+  .phone-number #phone_number_preffix {
+    width: 25%;
   }
 }
