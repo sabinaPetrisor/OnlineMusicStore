@@ -68,7 +68,7 @@ section{
   background-color:white;
   border-radius: 0.5rem;
   box-shadow: 0 0.5rem 1rem black;
-  border: 0.2rem solid darkgrey;
+  border: 0.1rem solid darkgrey;
   /*text-align: center;*/
   padding: 3rem;
 }
@@ -380,7 +380,7 @@ label.error, .form-container label{
    color: dimgray;
 }
 
-.add-products form option{
+.add-products form option, .place-order-form option{
   color: dimgray;
 }
 
@@ -571,6 +571,23 @@ label.error, .form-container label{
 
 .bold-paragraph{
   font-weight: bold;
+}
+
+.place-order{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.place-order-form{
+  background-color: white;
+  width: 75%;
+  border: 0.2rem solid darkgrey;
+  box-shadow: 0 1rem 1rem rgba(0, 0, 0, 0.1);
+  margin-top: 2.5rem;
+  border-radius: 0.5rem;
+  padding: 2rem;
 }
 
 /*media -> responsiveness*/
