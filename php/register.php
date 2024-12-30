@@ -23,9 +23,16 @@
             else $ppicture = 'default-profile-pic.png';
             mysqli_free_result($res);
             mysqli_stmt_close($select_stmt);
-            $insert = "INSERT INTO users (username, email, password, profile_picture) VALUES (?,?,?,?)";
+            $select = "SELECT MAX(id) FROM users";
+            $select_stmt = mysqli_prepare($conn, $select);
+            mysqli_stmt_execute($select_stmt);
+            $res = mysqli_stmt_get_result($select_stmt);
+            $row = mysqli_fetch_assoc($res);
+            $max_id = $row['MAX(id)'];
+            $id = $max_id + 1;
+            $insert = "INSERT INTO users (id, username, email, password, profile_picture) VALUES (?, ?,?,?,?)";
             $insert_stmt = mysqli_prepare($conn, $insert);
-            mysqli_stmt_bind_param($insert_stmt, 'ssss', $username, $email, $password, $ppicture);
+            mysqli_stmt_bind_param($insert_stmt, 'issss', $id, $username, $email, $password, $ppicture);
             if(mysqli_stmt_execute($insert_stmt)) {
                 $user_id = mysqli_insert_id($conn);
                 session_start();

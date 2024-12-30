@@ -35,20 +35,20 @@
         $res = mysqli_stmt_get_result($select_stmt);
         if(mysqli_num_rows($res) == 0){
             if($title !== $product['title'] && !empty($title)) {
-                $insert = "UPDATE products SET title = ? WHERE id = ?";
-                $insert_stmt = mysqli_prepare($conn, $insert);
-                mysqli_stmt_bind_param($insert_stmt, 'si', $title, $update_id);
-                if(mysqli_stmt_execute($insert_stmt)) $response['title_update_status'] = 'success';
+                $update = "UPDATE products SET title = ? WHERE id = ?";
+                $update_stmt = mysqli_prepare($conn, $update);
+                mysqli_stmt_bind_param($update_stmt, 'si', $title, $update_id);
+                if(mysqli_stmt_execute($update_stmt)) $response['title_update_status'] = 'success';
                 else {
                     $response['title_update_status'] = 'error';
                     $response['message'] = 'Error when updating title!';
                 }
             }
             if($artist !== $product['artist'] && !empty($artist)) {
-                $insert = "UPDATE products SET artist = ? WHERE id = ?";
-                $insert_stmt = mysqli_prepare($conn, $insert);
-                mysqli_stmt_bind_param($insert_stmt, 'si', $artist, $update_id);
-                if(mysqli_stmt_execute($insert_stmt)) $response['artist_update_status'] = 'success';
+                $update = "UPDATE products SET artist = ? WHERE id = ?";
+                $update_stmt = mysqli_prepare($conn, $update);
+                mysqli_stmt_bind_param($update_stmt, 'si', $artist, $update_id);
+                if(mysqli_stmt_execute($update_stmt)) $response['artist_update_status'] = 'success';
                 else {
                     $response['artist_update_status'] = 'error';
                     $response['message'] = 'Error when updating artist!';
@@ -57,10 +57,10 @@
             $category = $_POST['category'];
             //if(empty($category)) $category = $product['category'];
             if($category !== $product['category']) {
-                $insert = "UPDATE products SET category = ? WHERE id = ?";
-                $insert_stmt = mysqli_prepare($conn, $insert);
-                mysqli_stmt_bind_param($insert_stmt, 'si', $category, $update_id);
-                if(mysqli_stmt_execute($insert_stmt)) $response['category_update_status'] = 'success';
+                $update = "UPDATE products SET category = ? WHERE id = ?";
+                $update_stmt = mysqli_prepare($conn, $update);
+                mysqli_stmt_bind_param($update_stmt, 'si', $category, $update_id);
+                if(mysqli_stmt_execute($update_stmt)) $response['category_update_status'] = 'success';
                 else {
                     $response['category_update_status'] = 'error';
                     $response['message'] = 'Error when updating category!';
@@ -120,10 +120,10 @@
                         $cntr += 1;
                     }
                 }
-                $insert = "UPDATE products SET genre_list = ? WHERE id = ?";
-                $insert_stmt = mysqli_prepare($conn, $insert);
-                mysqli_stmt_bind_param($insert_stmt, 'si', $genre_string, $update_id);
-                if(mysqli_stmt_execute($insert_stmt)) $response['genre_update_status'] = 'success';
+                $update = "UPDATE products SET genre_list = ? WHERE id = ?";
+                $update_stmt = mysqli_prepare($conn, $update);
+                mysqli_stmt_bind_param($update_stmt, 'si', $genre_string, $update_id);
+                if(mysqli_stmt_execute($update_stmt)) $response['genre_update_status'] = 'success';
                 else {
                     $response['genre_update_status'] = 'error';
                     $response['message'] = 'Error when updating genre!';
@@ -132,10 +132,10 @@
             $tracklist = htmlspecialchars($_POST['tracklist'], ENT_QUOTES);
             if(empty($tracklist)) $tracklist = $product['tracklist'];
             if($tracklist !== $product['tracklist'] && !empty($tracklist)) {
-                $insert = "UPDATE products SET tracklist = ? WHERE id = ?";
-                $insert_stmt = mysqli_prepare($conn, $insert);
-                mysqli_stmt_bind_param($insert_stmt, 'si', $tracklist, $update_id);
-                if(mysqli_stmt_execute($insert_stmt)) $response['tracklist_update_status'] = 'success';
+                $update = "UPDATE products SET tracklist = ? WHERE id = ?";
+                $update_stmt = mysqli_prepare($conn, $update);
+                mysqli_stmt_bind_param($update_stmt, 'si', $tracklist, $update_id);
+                if(mysqli_stmt_execute($update_stmt)) $response['tracklist_update_status'] = 'success';
                 else {
                     $response['tracklist_update_status'] = 'error';
                     $response['message'] = 'Error when updating tracklist!';
@@ -144,10 +144,10 @@
             $release_date = $_POST['release_date'];
             if(empty($release_date)) $release_date = $product['release_date'];
             if($release_date !== $product['release_date'] && !empty($release_date)) {
-                $insert = "UPDATE products SET release_date = ? WHERE id = ?";
-                $insert_stmt = mysqli_prepare($conn, $insert);
-                mysqli_stmt_bind_param($insert_stmt, 'si', $release_date, $update_id);
-                if(mysqli_stmt_execute($insert_stmt)) $response['release_date_update_status'] = 'success';
+                $update = "UPDATE products SET release_date = ? WHERE id = ?";
+                $update_stmt = mysqli_prepare($conn, $update);
+                mysqli_stmt_bind_param($update_stmt, 'si', $release_date, $update_id);
+                if(mysqli_stmt_execute($update_stmt)) $response['release_date_update_status'] = 'success';
                 else {
                     $response['release_date_update_status'] = 'error';
                     $response['message'] = 'Error when updating release date!';
@@ -156,10 +156,10 @@
             $price = (float) $_POST['price'];
             if(empty($price)) $price = $product['price'];
             if($price != $product['price'] && !empty($price)) {
-                $insert = "UPDATE products SET price = ? WHERE id = ?";
-                $insert_stmt = mysqli_prepare($conn, $insert);
-                mysqli_stmt_bind_param($insert_stmt, 'di', $price, $update_id);
-                if(mysqli_stmt_execute($insert_stmt)) $response['price_update_status'] = 'success';
+                $update = "UPDATE products SET price = ? WHERE id = ?";
+                $update_stmt = mysqli_prepare($conn, $update);
+                mysqli_stmt_bind_param($update_stmt, 'di', $price, $update_id);
+                if(mysqli_stmt_execute($update_stmt)) $response['price_update_status'] = 'success';
                 else {
                     $response['price_update_status'] = 'error';
                     $response['message'] = 'Error when updating price!';
@@ -168,10 +168,10 @@
             $stock = $_POST['stock'];
             if(empty($stock)) $stock = $product['stock'];
             if($stock != $product['stock'] && !empty($stock)) {
-                $insert = "UPDATE products SET stock = ? WHERE id = ?";
-                $insert_stmt = mysqli_prepare($conn, $insert);
-                mysqli_stmt_bind_param($insert_stmt, 'ii', $stock, $update_id);
-                if(mysqli_stmt_execute($insert_stmt)) $response['stock_update_status'] = 'success';
+                $update = "UPDATE products SET stock = ? WHERE id = ?";
+                $update_stmt = mysqli_prepare($conn, $update);
+                mysqli_stmt_bind_param($update_stmt, 'ii', $stock, $update_id);
+                if(mysqli_stmt_execute($update_stmt)) $response['stock_update_status'] = 'success';
                 else {
                     $response['stock_update_status'] = 'error';
                     $response['message'] = 'Error when updating stock!';
@@ -183,10 +183,10 @@
                 $cover = uniqid().'_'.basename($filename);
                 $cover_folder = '../covers/'.$cover;
                 if(move_uploaded_file($cover_tmp_name, $cover_folder)){
-                    $insert = "UPDATE products SET cover = ? WHERE id = ?";
-                    $insert_stmt = mysqli_prepare($conn, $insert);
-                    mysqli_stmt_bind_param($insert_stmt, 'si', $cover, $update_id);
-                    if(mysqli_stmt_execute($insert_stmt)){
+                    $update = "UPDATE products SET cover = ? WHERE id = ?";
+                    $update_stmt = mysqli_prepare($conn, $update);
+                    mysqli_stmt_bind_param($update_stmt, 'si', $cover, $update_id);
+                    if(mysqli_stmt_execute($update_stmt)){
                         unlink('../covers/'.$product['cover']);
                         $response['cover_update_status'] = 'success';
                     }

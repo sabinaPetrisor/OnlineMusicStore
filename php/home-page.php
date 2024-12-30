@@ -3,10 +3,17 @@
     session_start();
     if (isset($_SESSION['user_id'])) $user_id = $_SESSION['user_id'];
     if(isset($_POST['cart_add'])) {
+        $select = "SELECT MAX(id) FROM cart";
+        $select_stmt = mysqli_prepare($conn, $select);
+        mysqli_stmt_execute($select_stmt);
+        $res = mysqli_stmt_get_result($select_stmt);
+        $row = mysqli_fetch_assoc($res);
+        $max_id = $row['MAX(id)'];
+        $id = $max_id + 1;
         $cart_prod_id = (int) $_POST['product_id_hidden'];
-        $insert = "INSERT INTO cart (user_id, product_id) VALUES (?, ?)";
+        $insert = "INSERT INTO cart (id, user_id, product_id) VALUES (?, ?, ?)";
         $insert_stmt = mysqli_prepare($conn, $insert);
-        mysqli_stmt_bind_param($insert_stmt, 'ii', $user_id, $cart_prod_id);
+        mysqli_stmt_bind_param($insert_stmt, 'iii', $id, $user_id, $cart_prod_id);
         mysqli_stmt_execute($insert_stmt);
         header('location:http://localhost/OnlineMusicStore/php/home-page.php');
     }

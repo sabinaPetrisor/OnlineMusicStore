@@ -70,9 +70,16 @@
                     $response['message'] = 'Failed to upload cover picture!';
                 }
                 mysqli_free_result($res);
-                $insert = "INSERT INTO products (title, artist, category, genre_list, tracklist, release_date, price, stock, cover) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                $select = "SELECT MAX(id) FROM products";
+                $select_stmt = mysqli_prepare($conn, $select);
+                mysqli_stmt_execute($select_stmt);
+                $res = mysqli_stmt_get_result($select_stmt);
+                $row = mysqli_fetch_assoc($res);
+                $max_id = $row['MAX(id)'];
+                $id = $max_id + 1;
+                $insert = "INSERT INTO products (id, title, artist, category, genre_list, tracklist, release_date, price, stock, cover) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
                 $insert_stmt = mysqli_prepare($conn, $insert);
-                mysqli_stmt_bind_param($insert_stmt, 'ssssssdis', $title, $artist, $category, $genre_string, $tracklist, $release_date, $price, $stock, $cover);
+                mysqli_stmt_bind_param($insert_stmt, 'issssssdis', $id, $title, $artist, $category, $genre_string, $tracklist, $release_date, $price, $stock, $cover);
                 if(mysqli_stmt_execute($insert_stmt)) {
                     $response['status'] = 'success';
                     $response['message'] = 'Product added successfuly!';

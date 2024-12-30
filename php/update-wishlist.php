@@ -8,9 +8,16 @@
     $user_id = $data->user_id;
     $product_id = $data->product_id;
     if($data->is_favorite) {
-        $insert = "INSERT INTO wishlist (user_id, product_id) VALUES (?, ?)";
+        $select = "SELECT MAX(id) FROM orders";
+        $select_stmt = mysqli_prepare($conn, $select);
+        mysqli_stmt_execute($select_stmt);
+        $res = mysqli_stmt_get_result($select_stmt);
+        $row = mysqli_fetch_assoc($res);
+        $max_id = $row['MAX(id)'];
+        $id = $max_id + 1;
+        $insert = "INSERT INTO wishlist (id, user_id, product_id) VALUES (?, ?, ?)";
         $insert_stmt = mysqli_prepare($conn, $insert);
-        mysqli_stmt_bind_param($insert_stmt, 'ii', $user_id, $product_id);
+        mysqli_stmt_bind_param($insert_stmt, 'iii', $id, $user_id, $product_id);
         if(mysqli_stmt_execute($insert_stmt)) $executed = true;
         else $executed = false;
     }
@@ -21,6 +28,7 @@
         if(mysqli_stmt_execute($delete_stmt)) $executed = true;
         else $executed = false;
     }
+    mysqli_free_result($res);
     if($executed) echo json_encode(['success' => true]);
     else echo json_encode(['success' => false]);
 ?>

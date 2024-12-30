@@ -11,6 +11,14 @@
         mysqli_stmt_execute($update_stmt);
         header('location:http://localhost/OnlineMusicStore/php/cart-page.php');
     }
+
+    if(isset($_POST['empty_cart'])){
+        $delete = "DELETE FROM cart WHERE user_id = ?";
+        $delete_stmt = mysqli_prepare($conn, $delete);
+        mysqli_stmt_bind_param($delete_stmt, 'i', $user_id);
+        mysqli_stmt_execute($delete_stmt);
+        header('location:http://localhost/OnlineMusicStore/php/cart-page.php');
+    }
 ?>
 
 <!DOCTYPE html>
@@ -69,20 +77,25 @@
                         </div>
                     </form>
                 </div>
+                <?php
+                        }
+                    }
+                ?>
+                <?php
+                    if(mysqli_num_rows($res) == 0) echo '<h2 class="empty">No products added yet to show!</h2>';
+                    mysqli_free_result($res);
+                ?>
                 </div>
             <div class="final-total">
                 <p class="total"></p>
             </div>
             <div class="flex-btns">
                 <a href="http://localhost/OnlineMusicStore/php/shop-page.php" class="btn">Back to Shop</a>
+                <form action="cart-page.php" method="POST">
+                    <input type="submit" name="empty_cart" class="btn" value="Empty cart">
+                </form>
                 <a href="http://localhost/OnlineMusicStore/php/place-order-page.php" class="btn">Place Order</a>
             </div>
-                <?php
-                        }
-                    }
-                    else echo '<h2 class="empty">No products added yet to show!</h2>';
-                    mysqli_free_result($res);
-                ?>
         </section>
         <?php include 'footer.php'; ?>
         <script type="text/javascript" src="../javascript/check-like.js"></script>
