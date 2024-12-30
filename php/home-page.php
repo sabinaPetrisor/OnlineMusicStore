@@ -2,6 +2,7 @@
     include 'config.php';
     session_start();
     if (isset($_SESSION['user_id'])) $user_id = $_SESSION['user_id'];
+    else $user_id = 53;
     if(isset($_POST['cart_add'])) {
         $select = "SELECT MAX(id) FROM cart";
         $select_stmt = mysqli_prepare($conn, $select);

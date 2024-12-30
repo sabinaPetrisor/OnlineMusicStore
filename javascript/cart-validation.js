@@ -10,15 +10,20 @@ function calculateTotalPriceOfAllProducts(){
     $(".box-subcontainer").each(function(){
         var price = parseFloat($(this).find(".price_hidden").val());
         var quantity = parseInt($(this).find(".box").val());
-        var subtotal = price * quantity;
-        console.log("subtotal in function is = " + subtotal);
-        /*var product_price = parseFloat($(this).find("#price_hidden").data("price"));
-        console.log("product_price = " + product_price);
-        var quantity = parseInt($(this).find(".quantity").val());
-        console.log("quantity = " + quantity);
-        var product_total = product_price * quantity;*/
-        total += subtotal;
-        $(".final-total .total").text("Grand Total: " + total + "€");
+        if(!isNaN(quantity) && quantity > 0){
+            var subtotal = price * quantity;
+            console.log("subtotal in function is = " + subtotal);
+            /*var product_price = parseFloat($(this).find("#price_hidden").data("price"));
+            console.log("product_price = " + product_price);
+            var quantity = parseInt($(this).find(".quantity").val());
+            console.log("quantity = " + quantity);
+            var product_total = product_price * quantity;*/
+            total += subtotal;
+            $(".final-total .total").text("Grand Total: " + total + "€");
+        }
+        else {
+            $(".final-total .total").text("Grand Total: " + total + "€");
+        }
     });
 }
 
@@ -37,18 +42,31 @@ $(document).ready(function(){
                 error.insertAfter(element);
              }
         });
-        $(".box").on("input", function() {
-            var currentForm = $(this).closest(".cart-form");
-            if(currentForm.valid()) {
-                var price = parseFloat(currentForm.find(".price_hidden").val());
-                var subtotal = price * parseInt($(this).val());
-                console.log("subtotal = "+ subtotal);
-                //console.log("price/unit = "+price);
-                //var product_total_price = price * parseInt($(this).val());
-                calculateTotalPriceOfAllProducts();
-                $(this).closest(".box-subcontainer").find(".subtotal").text("Total price: " + subtotal + "€");
-                //calculateTotalPriceOfAllProducts();
-            }
-        });
+        var currentForm = $(this);
+        if(currentForm.valid()) {
+            if(!$(".flex-btns .place-order").is(":visible")) $(".flex-btns .place-order").show();
+            $(".box").on("input", function() {
+                var currentForm = $(this).closest(".cart-form");
+                if(currentForm.valid()) {
+                    if(!$(".flex-btns .place-order").is(":visible")) $(".flex-btns .place-order").show();
+                    var price = parseFloat(currentForm.find(".price_hidden").val());
+
+                    var subtotal = price * parseInt($(this).val());
+                    console.log("subtotal = "+ subtotal);
+                    //console.log("price/unit = "+price);
+                    //var product_total_price = price * parseInt($(this).val());
+                    calculateTotalPriceOfAllProducts();
+                    $(this).closest(".box-subcontainer").find(".subtotal").text("Total price: " + subtotal + "€");
+                    //calculateTotalPriceOfAllProducts();
+                }
+                else {
+                    $(".flex-btns .place-order").hide();
+                    $(this).closest(".box-subcontainer").find(".subtotal").text("Total price: ");
+                }
+            });
+        }
+        else{
+            $(".place-order").hide();
+        }
     });
 });

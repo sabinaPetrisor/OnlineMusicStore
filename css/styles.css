@@ -417,6 +417,13 @@ label.error, .form-container label{
   color: dimgray;
 }
 
+.empty-container{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
 .update-product .update-form img{
   height: 10rem;
   width: 10rem;
@@ -562,6 +569,19 @@ label.error, .form-container label{
   align-items: center;
   justify-content: center;
   flex-direction: row;
+}
+
+.cart .flex-btns form{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+  width: 100%;
+}
+
+.cart .flex-btns form > * {
+  margin-left: 2rem;
+  margin-right: 2rem;
 }
 
 .cart .flex-btns > *{

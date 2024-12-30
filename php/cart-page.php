@@ -2,6 +2,7 @@
     include 'config.php';
     session_start();
     if (isset($_SESSION['user_id'])) $user_id = $_SESSION['user_id'];
+    else $user_id = 53;
     if(isset($_POST['modify_quantity'])){
         $product_id = (int) $_POST['product_id_hidden'];
         $quantity = (int) $_POST['quantity'];
@@ -12,6 +13,9 @@
         header('location:http://localhost/OnlineMusicStore/php/cart-page.php');
     }
 
+    if(isset($_POST['back'])){
+        header('location:http://localhost/OnlineMusicStore/php/shop-page.php');
+    }
     if(isset($_POST['empty_cart'])){
         $delete = "DELETE FROM cart WHERE user_id = ?";
         $delete_stmt = mysqli_prepare($conn, $delete);
@@ -34,7 +38,7 @@
     </head>
     <body>
         <?php 
-            if(!empty($user_id)) {
+            if($user_id != 53) {
                 include 'header-logged-in.php';
             }
             else include 'header-not-logged-in.php';
@@ -56,7 +60,7 @@
                     <div class="icons">
                         <a href="product-page.php?title=<?php echo $product['title']; ?>&artist=<?php echo $product['artist']; ?>" class="fas fa-eye"></a>
                         <?php 
-                            if(!empty($user_id)) { 
+                            if($user_id != 53) { 
                                 echo '<i class="fa-solid fa-heart" data-user-id='.$user_id.' data-product-id='.$product['id'].'></i>';
                             }
                         ?>
@@ -79,23 +83,34 @@
                 </div>
                 <?php
                         }
-                    }
                 ?>
-                <?php
-                    if(mysqli_num_rows($res) == 0) echo '<h2 class="empty">No products added yet to show!</h2>';
-                    mysqli_free_result($res);
-                ?>
-                </div>
-            <div class="final-total">
+                <div class="final-total">
                 <p class="total"></p>
+                </div>
+                <div class="flex-btns">
+                    <!--<a href="http://localhost/OnlineMusicStore/php/shop-page.php" class="btn">Back to Shop</a>-->
+                    <form action="cart-page.php" method="POST">
+                        <input type="submit" name="back" class="btn" value="Back to Shop">
+                        <input type="submit" name="empty_cart" class="btn" value="Empty cart">
+                        <input type="submit" class="btn place-order" value="Place Order">
+                    </form>
+                </div>
             </div>
-            <div class="flex-btns">
-                <a href="http://localhost/OnlineMusicStore/php/shop-page.php" class="btn">Back to Shop</a>
-                <form action="cart-page.php" method="POST">
-                    <input type="submit" name="empty_cart" class="btn" value="Empty cart">
-                </form>
-                <a href="http://localhost/OnlineMusicStore/php/place-order-page.php" class="btn">Place Order</a>
-            </div>
+            <?php
+                }
+                else echo '
+                </div>
+                <div class="empty-container">
+                    <h2 class="empty">No products added to cart!</h2>
+                    <div class="flex-btns">
+                        <form action="cart-page.php" method="POST">
+                            <input type="submit" name="back" class="btn" value="Back to Shop">
+                        </form>
+                    </div>
+                </div>
+                ';
+                mysqli_free_result($res);
+            ?>
         </section>
         <?php include 'footer.php'; ?>
         <script type="text/javascript" src="../javascript/check-like.js"></script>
