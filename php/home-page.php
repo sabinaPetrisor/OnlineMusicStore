@@ -4,18 +4,34 @@
     if (isset($_SESSION['user_id'])) $user_id = $_SESSION['user_id'];
     else $user_id = 53;
     if(isset($_POST['cart_add'])) {
-        $select = "SELECT MAX(id) FROM cart";
+        $cart_prod_id = (int) $_POST['product_id_hidden'];
+        $select = "SELECT * FROM cart WHERE user_id = ? AND product_id = ?";
         $select_stmt = mysqli_prepare($conn, $select);
+        mysqli_stmt_bind_param($select_stmt, 'ii', $user_id, $cart_prod_id);
         mysqli_stmt_execute($select_stmt);
         $res = mysqli_stmt_get_result($select_stmt);
-        $row = mysqli_fetch_assoc($res);
-        $max_id = $row['MAX(id)'];
-        $id = $max_id + 1;
-        $cart_prod_id = (int) $_POST['product_id_hidden'];
-        $insert = "INSERT INTO cart (id, user_id, product_id) VALUES (?, ?, ?)";
-        $insert_stmt = mysqli_prepare($conn, $insert);
-        mysqli_stmt_bind_param($insert_stmt, 'iii', $id, $user_id, $cart_prod_id);
-        mysqli_stmt_execute($insert_stmt);
+        if(mysqli_num_rows($res) == 1){
+            $cart_prod = mysqli_fetch_assoc($res);
+            $quantity = $cart_prod['quantity'] + 1;
+            $update = "UPDATE cart SET quantity = ? WHERE user_id = ? AND product_id = ?";
+            $update_stmt = mysqli_prepare($conn, $update);
+            mysqli_stmt_bind_param($update_stmt, 'iii', $quantity, $user_id, $cart_prod_id);
+            mysqli_stmt_execute($update_stmt);
+        }
+        else{
+            $select = "SELECT MAX(id) FROM cart";
+            $select_stmt = mysqli_prepare($conn, $select);
+            mysqli_stmt_execute($select_stmt);
+            $res = mysqli_stmt_get_result($select_stmt);
+            $row = mysqli_fetch_assoc($res);
+            $max_id = $row['MAX(id)'];
+            $id = $max_id + 1;
+            $insert = "INSERT INTO cart (id, user_id, product_id) VALUES (?, ?, ?)";
+            $insert_stmt = mysqli_prepare($conn, $insert);
+            mysqli_stmt_bind_param($insert_stmt, 'iii', $id, $user_id, $cart_prod_id);
+            mysqli_stmt_execute($insert_stmt);
+        }
+        mysqli_free_result($res);
         header('location:http://localhost/OnlineMusicStore/php/home-page.php');
     }
 ?>
@@ -55,7 +71,7 @@
                 <div class="icons">
                     <a href="product-page.php?title=<?php echo $product['title']; ?>&artist=<?php echo $product['artist']; ?>" class="fas fa-eye"></a>
                     <?php 
-                        if(!empty($user_id)) { 
+                        if($user_id != 53) { 
                             echo '<i class="fa-solid fa-heart" data-user-id='.$user_id.' data-product-id='.$product['id'].'></i>';
                         }
                     ?>
@@ -69,8 +85,8 @@
                 <form action="home-page.php" method="POST">
                     <input type="hidden" name="product_id_hidden" value="<?php echo $product['id']; ?>">
                     <div class="buttons">
-                    <input type="submit" name="cart_add" class="btn" value="Add to Cart">
-                </div>
+                        <input type="submit" name="cart_add" class="btn" value="Add to Cart">
+                    </div>
                 </form>
             </div>
             <?php

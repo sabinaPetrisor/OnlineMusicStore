@@ -2,15 +2,51 @@
     include 'config.php';
     session_start();
     if (isset($_SESSION['user_id'])) $user_id = $_SESSION['user_id'];
+    else $user_id = 53;
     if(isset($_GET['title']) && isset($_GET['artist'])) {
-        $title = $_GET['title'];
-        $artist = $_GET['artist'];
+        $title = urldecode($_GET['title']);
+        $artist = urldecode($_GET['artist']);
+        $title = html_entity_decode($title);
+        $artist = html_entity_decode($artist);
+        $title = htmlspecialchars($title, ENT_QUOTES);
+        $artist = htmlspecialchars($artist, ENT_QUOTES);
         $select = "SELECT * FROM products WHERE title = ? AND artist = ?";
         $select_stmt = mysqli_prepare($conn, $select);
         mysqli_stmt_bind_param($select_stmt, 'ss', $title, $artist);
         mysqli_stmt_execute($select_stmt);
         $res = mysqli_stmt_get_result($select_stmt);
         $product = mysqli_fetch_assoc($res);
+    }
+    if(isset($_POST['cart_add'])) {
+        $cart_prod_id = (int) $_POST['product_id_hidden'];
+        $select = "SELECT * FROM cart WHERE user_id = ? AND product_id = ?";
+        $select_stmt = mysqli_prepare($conn, $select);
+        mysqli_stmt_bind_param($select_stmt, 'ii', $user_id, $cart_prod_id);
+        mysqli_stmt_execute($select_stmt);
+        $res = mysqli_stmt_get_result($select_stmt);
+        if(mysqli_num_rows($res) == 1){
+            $cart_prod = mysqli_fetch_assoc($res);
+            $quantity = $cart_prod['quantity'] + 1;
+            $update = "UPDATE cart SET quantity = ? WHERE user_id = ? AND product_id = ?";
+            $update_stmt = mysqli_prepare($conn, $update);
+            mysqli_stmt_bind_param($update_stmt, 'iii', $quantity, $user_id, $cart_prod_id);
+            mysqli_stmt_execute($update_stmt);
+        }
+        else{
+            $select = "SELECT MAX(id) FROM cart";
+            $select_stmt = mysqli_prepare($conn, $select);
+            mysqli_stmt_execute($select_stmt);
+            $res = mysqli_stmt_get_result($select_stmt);
+            $row = mysqli_fetch_assoc($res);
+            $max_id = $row['MAX(id)'];
+            $id = $max_id + 1;
+            $insert = "INSERT INTO cart (id, user_id, product_id) VALUES (?, ?, ?)";
+            $insert_stmt = mysqli_prepare($conn, $insert);
+            mysqli_stmt_bind_param($insert_stmt, 'iii', $id, $user_id, $cart_prod_id);
+            mysqli_stmt_execute($insert_stmt);
+        }
+        //mysqli_free_result($res);
+        header('location:http://localhost/OnlineMusicStore/php/product-page.php?title='.str_replace('+', '%20', urlencode($title)).'&artist='.str_replace('+', '%20', urlencode($artist)));
     }
     
 ?>
@@ -27,7 +63,7 @@
     </head>
     <body>
         <?php 
-            if(!empty($user_id)) {
+            if($user_id != 53) {
                 include 'header-logged-in.php';
             }
             else include 'header-not-logged-in.php';
@@ -38,14 +74,19 @@
             <div class="product-details">
                 <div class="img-and-fav-button">
                     <img src="../covers/<?php echo $product['cover']; ?>" alt="">
-                    <i class="fa-solid fa-heart" data-user-id=<?php echo $user_id; ?> data-product-id=<?php echo $product['id']; ?>></i>
+                    <?php 
+                        if($user_id != 53) echo '<i class="fa-solid fa-heart" data-user-id='.$user_id.' data-product-id='.$product['id'].'></i>';
+                    ?>
                 </div>
                 <div class="price-and-stock">
                     <p class="lbl">Price:</p>
                     <p class="content"><?php echo $product['price']; ?>€</p>
-                    <div class="buttons">
-                        <a href="#" class="btn">Add to Cart</a>
-                    </div>
+                    <form action="product-page.php?title=<?php echo $product['title']; ?>&artist=<?php echo $product['artist'];?>" method="POST">
+                        <input type="hidden" name="product_id_hidden" value="<?php echo $product['id']; ?>">
+                        <div class="buttons">
+                            <input type="submit" name="cart_add" class="btn" value="Add to Cart">
+                        </div>
+                    </form>
                     <p class="lbl">Stock:</p>
                     <p class="content"><?php echo $product['stock']; ?></p>
                 </div>

@@ -45,10 +45,12 @@ $(document).ready(function(){
         var currentForm = $(this);
         if(currentForm.valid()) {
             if(!$(".flex-btns .place-order").is(":visible")) $(".flex-btns .place-order").show();
+            if($(this).find(".btn").prop("disabled", true)) $(this).find(".btn").prop("disabled", false);
             $(".box").on("input", function() {
                 var currentForm = $(this).closest(".cart-form");
                 if(currentForm.valid()) {
                     if(!$(".flex-btns .place-order").is(":visible")) $(".flex-btns .place-order").show();
+                    if($(currentForm).find(".btn").prop("disabled", true)) $(currentForm).find(".btn").prop("disabled", false);
                     var price = parseFloat(currentForm.find(".price_hidden").val());
 
                     var subtotal = price * parseInt($(this).val());
@@ -61,12 +63,14 @@ $(document).ready(function(){
                 }
                 else {
                     $(".flex-btns .place-order").hide();
+                    $(currentForm).find(".btn").prop("disabled", true);
                     $(this).closest(".box-subcontainer").find(".subtotal").text("Total price: ");
                 }
             });
         }
         else{
             $(".place-order").hide();
+            $(currentForm).find(".btn").prop("disabled", true);
         }
     });
 });

@@ -84,17 +84,17 @@
                 <?php
                         }
                 ?>
-                <div class="final-total">
-                <p class="total"></p>
-                </div>
-                <div class="flex-btns">
-                    <!--<a href="http://localhost/OnlineMusicStore/php/shop-page.php" class="btn">Back to Shop</a>-->
-                    <form action="cart-page.php" method="POST">
-                        <input type="submit" name="back" class="btn" value="Back to Shop">
-                        <input type="submit" name="empty_cart" class="btn" value="Empty cart">
-                        <input type="submit" class="btn place-order" value="Place Order">
-                    </form>
-                </div>
+            </div>
+            <div class="final-total">
+            <p class="total"></p>
+            </div>
+            <div class="flex-btns">
+                <!--<a href="http://localhost/OnlineMusicStore/php/shop-page.php" class="btn">Back to Shop</a>-->
+                <form action="cart-page.php" method="POST">
+                    <input type="submit" name="back" class="btn" value="Back to Shop">
+                    <input type="submit" name="empty_cart" class="btn" value="Empty cart">
+                    <input type="submit" class="btn place-order" value="Place Order">
+                </form>
             </div>
             <?php
                 }
