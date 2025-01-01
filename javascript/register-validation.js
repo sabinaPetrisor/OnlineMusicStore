@@ -51,7 +51,7 @@ $(document).ready(function(){
             dataForm = new FormData(form);
             $.ajax({
                 method: "POST",
-                url: 'http://localhost/OnlineMusicStore/php/register.php',
+                url: 'http://localhost/OnlineMusicStore/php/register-page.php',
                 data: dataForm,
                 processData: false,
                 contentType: false,

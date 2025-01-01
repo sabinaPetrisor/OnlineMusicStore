@@ -31,6 +31,9 @@
         mysqli_stmt_execute($delete_stmt);
         header('location:http://localhost/OnlineMusicStore/php/cart-page.php');
     }
+    if(isset($_POST['place_order'])){
+        header('location:http://localhost/OnlineMusicStore/php/place-order-page.php');
+    }
 ?>
 
 <!DOCTYPE html>
@@ -101,7 +104,7 @@
                 <form action="cart-page.php" method="POST">
                     <input type="submit" name="back" class="btn" value="Back to Shop">
                     <input type="submit" name="empty_cart" class="btn" value="Empty cart">
-                    <input type="submit" class="btn place-order" value="Place Order">
+                    <input type="submit" name="place_order" class="btn place-order" value="Place Order">
                 </form>
             </div>
             <?php

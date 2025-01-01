@@ -8,7 +8,7 @@
     $user_id = $data->user_id;
     $product_id = $data->product_id;
     if($data->is_favorite) {
-        $select = "SELECT MAX(id) FROM orders";
+        $select = "SELECT MAX(id) FROM wishlist";
         $select_stmt = mysqli_prepare($conn, $select);
         mysqli_stmt_execute($select_stmt);
         $res = mysqli_stmt_get_result($select_stmt);

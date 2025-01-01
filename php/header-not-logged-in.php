@@ -4,8 +4,8 @@
         <nav class="navbar">
             <a href="home-page.php">Home</a>
             <a href="http://localhost/OnlineMusicStore/php/shop-page.php">Shop</a>
-            <a href="http://localhost/OnlineMusicStore/html/login-page.html">Login</a>
-            <a href="http://localhost/OnlineMusicStore/html/register-page.html">Register</a>
+            <a href="http://localhost/OnlineMusicStore/php/login-page.php">Login</a>
+            <a href="http://localhost/OnlineMusicStore/php/register-page.php">Register</a>
         </nav>
         <div class="icons">
             <div id="menu-btn" class="fas fa-bars"></div>

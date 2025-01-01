@@ -2,6 +2,7 @@
     include 'config.php';
     session_start();
     if (isset($_SESSION['user_id'])) $user_id = $_SESSION['user_id'];
+    else $user_id = 53;
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $response = array();
         $select = "SELECT c.quantity, p.title, p.artist, p.price FROM cart AS c JOIN products AS p ON c.product_id = p.id WHERE user_id = ?";
@@ -87,7 +88,7 @@
     </head>
     <body>
         <?php 
-            if(!empty($user_id)) {
+            if($user_id != 53) {
                 include 'header-logged-in.php';
             }
             else include 'header-not-logged-in.php';
@@ -137,7 +138,7 @@
                             mysqli_stmt_execute($select_stmt);
                             $res = mysqli_stmt_get_result($select_stmt);
                             $user = mysqli_fetch_assoc($res);
-                            if(empty($user_id)) echo '<input type="text" name="email" class="box" id="email" placeholder="Enter your email" autocomplete="off">';
+                            if($user_id == 53) echo '<input type="text" name="email" class="box" id="email" placeholder="Enter your email" autocomplete="off">';
                             else echo '<input type="text" name="email" class="box" id="email" placeholder="Enter your email" value="'.$user['email'].'">';
                         ?>
                         <label for="country">Country:</label>

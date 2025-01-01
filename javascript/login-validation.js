@@ -27,7 +27,7 @@ $(document).ready(function(){
         formData.append('password', $("#password").val());*/
             $.ajax({
                 method: "POST",
-                url: 'http://localhost/OnlineMusicStore/php/login.php',
+                url: 'http://localhost/OnlineMusicStore/php/login-page.php',
                 data: formData,
                 processData: false,
                 contentType: false,
