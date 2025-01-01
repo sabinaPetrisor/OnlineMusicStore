@@ -49,7 +49,7 @@
     </head>
     <body>
         <?php 
-            if(!empty($user_id)) {
+            if($user_id != 53) {
                 include 'header-logged-in.php';
             }
             else include 'header-not-logged-in.php';
@@ -70,7 +70,7 @@
                     <div class="icons">
                         <a href="product-page.php?title=<?php echo $product['title']; ?>&artist=<?php echo $product['artist']; ?>" class="fas fa-eye"></a>
                         <?php 
-                            if(!empty($user_id)) { 
+                            if($user_id != 53) { 
                                 echo '<i class="fa-solid fa-heart" data-user-id='.$user_id.' data-product-id='.$product['id'].'></i>';
                             }
                         ?>

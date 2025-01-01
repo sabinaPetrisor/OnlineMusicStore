@@ -50,7 +50,7 @@
 
     <body>
     <?php 
-        if(!empty($user_id)) {
+        if($user_id != 53) {
             include 'header-logged-in.php';
         }
         else include 'header-not-logged-in.php';

@@ -6,10 +6,18 @@
     if(isset($_POST['modify_quantity'])){
         $product_id = (int) $_POST['product_id_hidden'];
         $quantity = (int) $_POST['quantity'];
-        $update = "UPDATE cart SET quantity = ? WHERE user_id = ? AND product_id = ?";
-        $update_stmt = mysqli_prepare($conn, $update);
-        mysqli_stmt_bind_param($update_stmt, 'iii', $quantity, $user_id, $product_id);
-        mysqli_stmt_execute($update_stmt);
+        if($quantity == 0) {
+            $delete = "DELETE FROM cart WHERE product_id = ?";
+            $delete_stmt = mysqli_prepare($conn, $delete);
+            mysqli_stmt_bind_param($delete_stmt, 'i', $product_id);
+            mysqli_stmt_execute($delete_stmt);
+        }
+        else{
+            $update = "UPDATE cart SET quantity = ? WHERE user_id = ? AND product_id = ?";
+            $update_stmt = mysqli_prepare($conn, $update);
+            mysqli_stmt_bind_param($update_stmt, 'iii', $quantity, $user_id, $product_id);
+            mysqli_stmt_execute($update_stmt);
+        }
         header('location:http://localhost/OnlineMusicStore/php/cart-page.php');
     }
 
@@ -75,7 +83,7 @@
                         <input type="hidden" name="price_hidden" class="price_hidden" value="<?php echo $product['price']; ?>">
                         <input type="hidden" name="stock_hidden" class="stock_hidden" value="<?php echo $product['stock']; ?>">
                         <label for="quantity">Quantity:</label>
-                        <input type="number" name="quantity" min="1" class="box" placeholder="Enter quantity" value="<?php echo $product['quantity']; ?>">
+                        <input type="number" name="quantity" min="0" class="box" placeholder="Enter quantity" value="<?php echo $product['quantity']; ?>">
                         <div class="buttons">
                             <input type="submit" name="modify_quantity" class="btn" value="Modify quantity">
                         </div>

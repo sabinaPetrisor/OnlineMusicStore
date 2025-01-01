@@ -1,6 +1,11 @@
 <?php
     include 'config.php';
     session_start();
+    if($_SESSION['user_id'] == 53){
+        //session_start();
+        session_unset();
+        session_destroy();
+    }
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $response = array();
         $email = htmlspecialchars($_POST['email'], ENT_QUOTES);
