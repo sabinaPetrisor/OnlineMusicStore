@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Gazdă: 127.0.0.1
--- Timp de generare: dec. 30, 2024 la 12:22 AM
+-- Timp de generare: ian. 10, 2025 la 12:51 PM
 -- Versiune server: 10.4.32-MariaDB
 -- Versiune PHP: 8.2.12
 
@@ -39,10 +39,8 @@ CREATE TABLE `cart` (
 --
 
 INSERT INTO `cart` (`id`, `user_id`, `product_id`, `quantity`) VALUES
-(1, 52, 11, 2),
-(2, 52, 3, 1),
-(3, 52, 6, 1),
-(4, 52, 7, 2);
+(1, 57, 5, 1),
+(2, 57, 7, 1);
 
 -- --------------------------------------------------------
 
@@ -139,7 +137,8 @@ CREATE TABLE `orders` (
 --
 
 INSERT INTO `orders` (`id`, `number`, `user_id`, `first_name`, `last_name`, `email`, `address`, `country_name`, `phone_number`, `payment_method`, `products_list`, `total_price`, `placed_on`, `payment_status`) VALUES
-(1, '0000000001', 52, 'Nora', 'Wagner', 'user52@a.b', 'Simling 96, 8 OG, 0757, Berndorf bei Salzburg, Wien', 'Austria', '+43336002985', 'card', 'BADLANDS x 1', 10, '2024-12-19 22:00:00', 'completed');
+(1, '0000000001', 52, 'Nora', 'Wagner', 'user52@a.b', 'Simling 96, 8 OG, 0757, Berndorf bei Salzburg, Wien', 'Austria', '+43336002985', 'card', 'BADLANDS x 1', 10, '2024-12-19 22:00:00', 'completed'),
+(2, '0000000002', 52, 'Britta', 'Weis', 'britta.weis@a.b', 'Buschstrasse 98, 8 OG, 47166, Duisburg, North Rhine-Westphalia', 'Germany', '+490203544430', 'Credit car', 'i am &gt; i was - 21 Savage x 2, Expectations - Bebe Rexha x 1, FREE 6LACK - 6LACK x 1, My Favourite Clothes - RINI x 2', 62, '2024-12-29 23:45:25', 'pending');
 
 -- --------------------------------------------------------
 
@@ -250,7 +249,12 @@ INSERT INTO `users` (`id`, `username`, `email`, `password`, `profile_picture`, `
 (50, 'user50', 'user50@a.b', '$2y$10$PO.8fuooZ2CTWqIKmDnhFOKLQebWKTdUFRjdVypY.K4FoKt0B3h.u', 'default-profile-pic.png', 'user'),
 (51, 'user51', 'user51@a.b', '$2y$10$pcT2PQ3eCl/L.Lyw9P9OXe6pOuzA7FruPMCHj1Yw.An.ab30w.yHW', '676d1ffde0c14_pexels-bertellifotografia-3792581.jpg', 'admin'),
 (52, 'user52', 'user52@a.b', '$2y$10$OCpDh3T.z3./L3FWjErfPe62VY0w/Z5wappNwQpSMZqNsTFpA91Ou', '6769828f102a3_4k-beautiful-colorful-abstract-wallpaper-photo.jpg', 'user'),
-(53, 'NULL', 'NULL', 'NULL', 'NULL', 'user');
+(53, 'NULL', 'NULL', 'NULL', 'NULL', 'user'),
+(54, 'user54', 'user54@a.b', '$2y$10$g0h6ONKRbts81LtDTmSXrOKiO.Ku6qP48K.D6JOVps6PY9YZnTou6', 'default-profile-pic.png', 'user'),
+(55, 'user55', 'user55@a.b', '$2y$10$U.LnhXKU71XHLR73Ey68l.TSBfg/xTOuVOli7lA2mdozwQT92CNaS', 'default-profile-pic.png', 'user'),
+(56, 'user56', 'user56@a.b', '$2y$10$09Fegj2DmXk4PHb9LgtGyOwmpx3o762gv7bM.wW2QXM1joRzblPty', 'default-profile-pic.png', 'user'),
+(57, 'user57', 'user57@a.b', '$2y$10$4ZDBUYI.crlPrg0L.iXzB.WHryHvPG2zr1lJ4VxX/Yh7RIwsn3u7C', 'default-profile-pic.png', 'user'),
+(58, 'user58', 'user58@a.b', '$2y$10$hUcg9D2DM4cI.tLlHElwC.N57jMLMDq.nxjt/V/1cFsVVfeawDHke', 'default-profile-pic.png', 'user');
 
 -- --------------------------------------------------------
 
@@ -271,7 +275,10 @@ CREATE TABLE `wishlist` (
 INSERT INTO `wishlist` (`id`, `user_id`, `product_id`) VALUES
 (1, 52, 3),
 (2, 52, 5),
-(3, 52, 11);
+(3, 52, 11),
+(4, 57, 5),
+(5, 57, 6),
+(6, 57, 7);
 
 --
 -- Indexuri pentru tabele eliminate
