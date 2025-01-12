@@ -5,18 +5,34 @@
 
     if (isset($_POST['submit'])) {
         $update_id = $_POST['order_id_hidden'];
-        $select = "SELECT payment_status FROM orders WHERE id = ?";
+        $select = "SELECT * FROM orders WHERE id = ?";
         $select_stmt = mysqli_prepare($conn, $select);
         mysqli_stmt_bind_param($select_stmt, 'i', $update_id);
         mysqli_stmt_execute($select_stmt);
         $res = mysqli_stmt_get_result($select_stmt);
         $order = mysqli_fetch_assoc($res);
-        $payment_status = $_POST['payment_status'];
-        if($payment_status !== $order['payment_status']) {
-            $update = "UPDATE orders SET payment_status = ? WHERE id = ?";
+        $status = $_POST['status'];
+        if($status !== $order['status']) {
+            $update = "UPDATE orders SET status = ? WHERE id = ?";
             $update_stmt = mysqli_prepare($conn, $update);
-            mysqli_stmt_bind_param($update_stmt, 'si', $payment_status, $update_id);
+            mysqli_stmt_bind_param($update_stmt, 'si', $status, $update_id);
             mysqli_stmt_execute($update_stmt);
+            if($status === 'completed'){
+                preg_match_all('/\d+\sx\s\d+/', $order['products_list'], $matches);
+                foreach($matches[0] as $match){
+                    //var_dump($match);
+                    preg_match('/^\d+/', $match, $product_id);
+                    $product_id = (int) $product_id[0];
+                    preg_match('/\d+$/', $match, $stock);
+                    $stock = (int) $stock[0];
+                    //var_dump($match.PHP_EOL.$product_id.PHP_EOL.$stock);
+                    $update = "UPDATE products SET stock = stock - ? WHERE id = ?";
+                    $update_stmt = mysqli_prepare($conn, $update);
+                    mysqli_stmt_bind_param($update_stmt, 'ii', $stock, $product_id);
+                    mysqli_stmt_execute($update_stmt);
+                }
+            }
+            //var_dump($matches);
             header('location:http://localhost/OnlineMusicStore/php/admin-orders.php');
         }
         mysqli_free_result($res);
@@ -53,27 +69,31 @@
                     <p>Last name: <?php echo $order['last_name']; ?><p>
                     <p>Email: <?php echo $order['email']; ?><p>
                     <p>Address: <?php echo $order['address']; ?><p>
-                    <p>Country: <?php echo $order['country']; ?><p>
-                    <p>Phone number: <?php echo $order['country_code'].$order['phone_number']; ?><p>
+                    <p>Country: <?php echo $order['country_name']; ?><p>
+                    <p>Phone number: <?php echo $order['phone_number']; ?><p>
                     <p>Payment method: <?php echo $order['payment_method']; ?><p>
                     <p>Products: <?php echo $order['products_list']; ?><p>
                     <p>Total price: <?php echo $order['total_price']; ?>€<p>
                     <p>Placed on: <?php echo $order['placed_on']; ?><p>
                     <form action="admin-orders.php" method="POST">
                         <input type="hidden" name="order_id_hidden" value="<?php echo $order['id']; ?>">
-                        <select name="payment_status" class="dropdown">
-                            <option value="" selected disabled><?php echo $order['payment_status']; ?></option>
+                        <?php
+                            if($order['status'] === 'completed') echo '<p>Status: Completed</p>';
+                            else { 
+                        ?>
+                        <select name="status" class="dropdown">
+                            <option value="" selected disabled><?php echo $order['status']; ?></option>
                             <option value="pending">pending</option>
                             <option value="completed">completed</option>
-                            <option value="canceled">canceled</option>
                         </select>
                         <input type="submit" value="Update Order" id="submit" name="submit" class="btn">
+                        <?php } ?>
                     </form>
                 </div>
                 <?php 
                         }       
                     }
-                    else echo '<h2 class="empty">No products added yet!</h2>';
+                    else echo '<h2 class="empty">No orders taken yet!</h2>';
                     mysqli_free_result($res);
                 ?>
             </div>

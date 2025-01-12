@@ -88,7 +88,10 @@
                         </div>
                     </form>
                     <p class="lbl">Stock:</p>
-                    <p class="content"><?php echo $product['stock']; ?></p>
+                    <?php
+                        if($product['stock'] == 0) echo '<p class="content">Out of stock</p>';
+                        else echo '<p class="content">'.$product['stock'].'</p>'; 
+                    ?>
                 </div>
             </div>
             <div class="all-details">

@@ -23,10 +23,10 @@
                 <div class="box-subcontainer">
                     <?php 
                         $pendings_total = 0;
-                        $select = "SELECT * FROM orders WHERE payment_status = ?";
+                        $select = "SELECT * FROM orders WHERE status = ?";
                         $select_stmt = mysqli_prepare($conn, $select);
-                        $payment_status = 'pending';
-                        mysqli_stmt_bind_param($select_stmt,'s', $payment_status);
+                        $status = 'pending';
+                        mysqli_stmt_bind_param($select_stmt,'s', $status);
                         if(mysqli_stmt_execute($select_stmt)) {
                             $res = mysqli_stmt_get_result($select_stmt);
                             $pendings_number = mysqli_num_rows($res);
@@ -50,10 +50,10 @@
                 <div class="box-subcontainer">
                     <?php 
                         $completed_total = 0;
-                        $select = "SELECT * FROM orders WHERE payment_status = ?";
+                        $select = "SELECT * FROM orders WHERE status = ?";
                         $select_stmt = mysqli_prepare($conn, $select);
-                        $payment_status = 'completed';
-                        mysqli_stmt_bind_param($select_stmt,'s', $payment_status);
+                        $status = 'completed';
+                        mysqli_stmt_bind_param($select_stmt,'s', $status);
                         if(mysqli_stmt_execute($select_stmt)) {
                             $res = mysqli_stmt_get_result($select_stmt);
                             $completed_number = mysqli_num_rows($res);

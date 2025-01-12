@@ -11,10 +11,10 @@
         mysqli_stmt_execute($select_stmt);
         $res = mysqli_stmt_get_result($select_stmt);
         $products = mysqli_fetch_all($res, MYSQLI_ASSOC);
-        $products_list = $products[0]['title'].' - '.$products[0]['artist'].' x '.$products[0]['quantity'];
+        $products_list = $products[0]['id'].' x '.$products[0]['quantity'];
         $total = $products[0]['price'] * $products[0]['quantity'];
         for($i = 1; $i < count($products); $i++) {
-            $products_list .= ', '.$products[$i]['title'].' - '.$products[$i]['artist'].' x '.$products[$i]['quantity'];
+            $products_list .= ', '.$products[$i]['title'].' - '.$products[$i]['artist'].' x '.$products[$i]['quantity'].PHP_EOL;
             $total += $products[$i]['price'] * $products[$i]['quantity'];
         }
         $select = "SELECT MAX(id) FROM orders";
