@@ -1,9 +1,3 @@
--- phpMyAdmin SQL Dump
--- version 5.2.1
--- https://www.phpmyadmin.net/
---
--- Gazdă: 127.0.0.1
--- Timp de generare: ian. 10, 2025 la 12:51 PM
 -- Versiune server: 10.4.32-MariaDB
 -- Versiune PHP: 8.2.12
 
@@ -40,7 +34,8 @@ CREATE TABLE `cart` (
 
 INSERT INTO `cart` (`id`, `user_id`, `product_id`, `quantity`) VALUES
 (1, 57, 5, 1),
-(2, 57, 7, 1);
+(2, 57, 7, 1),
+(3, 52, 3, 1);
 
 -- --------------------------------------------------------
 
@@ -125,20 +120,20 @@ CREATE TABLE `orders` (
   `address` varchar(500) NOT NULL,
   `country_name` varchar(100) NOT NULL,
   `phone_number` varchar(20) NOT NULL,
-  `payment_method` varchar(10) NOT NULL,
+  `payment_method` varchar(15) NOT NULL,
   `products_list` varchar(500) NOT NULL,
   `total_price` float NOT NULL,
   `placed_on` timestamp NOT NULL DEFAULT current_timestamp(),
-  `payment_status` varchar(20) NOT NULL DEFAULT 'pending'
+  `status` varchar(20) NOT NULL DEFAULT 'pending'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
 -- Eliminarea datelor din tabel `orders`
 --
 
-INSERT INTO `orders` (`id`, `number`, `user_id`, `first_name`, `last_name`, `email`, `address`, `country_name`, `phone_number`, `payment_method`, `products_list`, `total_price`, `placed_on`, `payment_status`) VALUES
-(1, '0000000001', 52, 'Nora', 'Wagner', 'user52@a.b', 'Simling 96, 8 OG, 0757, Berndorf bei Salzburg, Wien', 'Austria', '+43336002985', 'card', 'BADLANDS x 1', 10, '2024-12-19 22:00:00', 'completed'),
-(2, '0000000002', 52, 'Britta', 'Weis', 'britta.weis@a.b', 'Buschstrasse 98, 8 OG, 47166, Duisburg, North Rhine-Westphalia', 'Germany', '+490203544430', 'Credit car', 'i am &gt; i was - 21 Savage x 2, Expectations - Bebe Rexha x 1, FREE 6LACK - 6LACK x 1, My Favourite Clothes - RINI x 2', 62, '2024-12-29 23:45:25', 'pending');
+INSERT INTO `orders` (`id`, `number`, `user_id`, `first_name`, `last_name`, `email`, `address`, `country_name`, `phone_number`, `payment_method`, `products_list`, `total_price`, `placed_on`, `status`) VALUES
+(1, '0000000001', 52, 'Nora', 'Wagner', 'user52@a.b', 'Simling 96, 8 OG, 0757, Berndorf bei Salzburg, Wien', 'Austria', '+43336002985', 'Credit card', '4 x 1', 10, '2024-12-19 22:00:00', 'completed'),
+(2, '0000000002', 52, 'Britta', 'Weis', 'britta.weis@a.b', 'Buschstrasse 98, 8 OG, 47166, Duisburg, North Rhine-Westphalia', 'Germany', '+490203544430', 'Credit card', '11 x 2, 3 x 1, 6 x 1, 7 x 2', 62, '2024-12-29 23:45:25', 'completed');
 
 -- --------------------------------------------------------
 
@@ -151,7 +146,7 @@ CREATE TABLE `products` (
   `title` varchar(200) NOT NULL,
   `artist` varchar(200) NOT NULL,
   `category` varchar(100) NOT NULL,
-  `genre_list` varchar(50) NOT NULL,
+  `genre_list` varchar(300) NOT NULL,
   `tracklist` varchar(500) NOT NULL,
   `release_date` varchar(20) NOT NULL,
   `price` float NOT NULL,
@@ -164,18 +159,19 @@ CREATE TABLE `products` (
 --
 
 INSERT INTO `products` (`id`, `title`, `artist`, `category`, `genre_list`, `tracklist`, `release_date`, `price`, `stock`, `cover`) VALUES
-(1, 'Narrated For You', 'Alec Benjamin', 'Mixtape', 'Rock, Pop', '1.     If We Have Each Other\r\n2.	Water Fountain\r\n3.	Annabelle&#039;s Homework\r\n4.	Let Me Down Slowly\r\n5.	Swim\r\n6.	Boy in the Bubble\r\n7.	Steve\r\n8.	Gotta Be a Reason\r\n9.	Outrunning Karma\r\n10.	If I Killed Someone for You\r\n11.	Death of a Hero\r\n12.	1994', '2018-11-16', 23, 5, '676a87d3c2a11_alec-benjamin-narrated-for-you-cover.png'),
+(1, 'Narrated For You', 'Alec Benjamin', 'Mixtape', 'Rock, Pop', '1.     If We Have Each Other\r\n2.	Water Fountain\r\n3.	Annabelle&#039;s Homework\r\n4.	Let Me Down Slowly\r\n5.	Swim\r\n6.	Boy in the Bubble\r\n7.	Steve\r\n8.	Gotta Be a Reason\r\n9.	Outrunning Karma\r\n10.	If I Killed Someone for You\r\n11.	Death of a Hero\r\n12.	1994', '2018-11-16', 23, 15, '676a87d3c2a11_alec-benjamin-narrated-for-you-cover.png'),
 (2, 'TOO YOUNG TO BE SAD', 'Tate McRae', 'EP', 'Rock, Pop', '1.	bad ones\r\n2.	rubberband\r\n3.	slower\r\n4.	r u ok\r\n5.	you broke me first\r\n6.	wish i loved you in the 90s', '2021-03-26', 16, 2, '676b21dc50901_tate-mcrae-too-young-to-be-sad-cover.png'),
-(3, 'Expectations', 'Bebe Rexha', 'Studio Album', 'Pop', '1. Ferrari\r\n2. I&#039;m a Mess\r\n3. 2 Souls on Fire (Ft. Quavo)\r\n4. Shining Star\r\n5. Knees\r\n6. I Got You\r\n7. Self Control\r\n8. Sad\r\n9. Mine\r\n10. Steady (Ft. Tory Lanez)\r\n11. Don&#039;t Get Any Closer\r\n12. Grace\r\n13. Pillow\r\n14. Meant to Be (Ft. Florida Georgia Line)', '2018-06-22', 14, 3, '676a88d4bd1d7_bebe-rexha-expectations-cover.png'),
+(3, 'Expectations', 'Bebe Rexha', 'Studio Album', 'Pop', '1. Ferrari\r\n2. I&#039;m a Mess\r\n3. 2 Souls on Fire (Ft. Quavo)\r\n4. Shining Star\r\n5. Knees\r\n6. I Got You\r\n7. Self Control\r\n8. Sad\r\n9. Mine\r\n10. Steady (Ft. Tory Lanez)\r\n11. Don&#039;t Get Any Closer\r\n12. Grace\r\n13. Pillow\r\n14. Meant to Be (Ft. Florida Georgia Line)', '2018-06-22', 14, 1, '676a88d4bd1d7_bebe-rexha-expectations-cover.png'),
 (4, 'BADLANDS', 'Halsey', 'Studio Album', 'Pop', '1. Castle\r\n2. Hold Me Down\r\n3. New Americana\r\n4. Drive\r\n5. Roman Holiday\r\n6. Colors\r\n7. Coming Down\r\n8. Haunting\r\n9. Control\r\n10. Young God\r\n11. Ghost', '2015-08-28', 10, 2, '676a8aa627e97_halsey-badlands-cover.png'),
 (5, 'Dream Awake', 'Black Atlass', 'Studio Album', 'R&amp;B', '1. Never Enough\r\n2. Do For Love\r\n3. Night After Night\r\n4. Sin City\r\n5. Lie To Me\r\n6. By My Side by Black Atlass &amp; SONIA\r\n7. Show Me\r\n8. On Your Mind\r\n9. Weak\r\n10. Drip\r\n11. Lavender\r\n12. Close Your Eyes', '2020-04-03', 17, 7, '676d926668dca_black-atlass-dream-awake-cover.png'),
-(6, 'FREE 6LACK', '6LACK', 'Studio Album', 'R&amp;B', '1. Never Know\r\n2. Rules\r\n3. PRBLMS\r\n4. Free\r\n5. Learn Ya\r\n6. MTFU\r\n7. Luving U\r\n8. Gettin&#039; Old\r\n9. Worst Luck\r\n10. Ex Calling\r\n11. Alone / EA6\r\n12. Glock Six\r\n13. In Between (Ft. BANKS)\r\n14. One Way (Ft. T-Pain)', '2018-11-18', 20, 2, '676d9d0b5c411_6lack-free-6lack-cover.png'),
-(7, 'My Favourite Clothes', 'RINI', 'Single', 'R&amp;B', '1. My Favourite Clothes', '2018-01-06', 10, 5, '676e85f2372f8_rini-my-favorite-clothes-cover.png'),
+(6, 'FREE 6LACK', '6LACK', 'Studio Album', 'R&amp;B', '1. Never Know\r\n2. Rules\r\n3. PRBLMS\r\n4. Free\r\n5. Learn Ya\r\n6. MTFU\r\n7. Luving U\r\n8. Gettin&#039; Old\r\n9. Worst Luck\r\n10. Ex Calling\r\n11. Alone / EA6\r\n12. Glock Six\r\n13. In Between (Ft. BANKS)\r\n14. One Way (Ft. T-Pain)', '2018-11-18', 20, 0, '676d9d0b5c411_6lack-free-6lack-cover.png'),
+(7, 'My Favourite Clothes', 'RINI', 'Single', 'R&amp;B', '1. My Favourite Clothes', '2018-01-06', 10, 1, '676e85f2372f8_rini-my-favorite-clothes-cover.png'),
 (8, 'The Off-Season', 'J. Cole', 'Studio Album', 'Rap', '1. 9 5 . s o u t h\r\n2. ​a m a r i\r\n3. ​m y . l i f e by J. Cole, 21 Savage &amp; Morray\r\n4. ​a p p l y i n g . p r e s s u r e\r\n5. ​p u n c h i n ’ . t h e . c l o c k\r\n6. 1 0 0 . m i l ’ by J. Cole &amp; Bas\r\n7. ​p r i d e . i s . t h e . d e v i l by J. Cole &amp; Lil Baby\r\n8. l e t . g o . m y . h a n d by J. Cole, Bas &amp; 6LACK\r\n9. i n t e r l u d e\r\n10. t h e . c l i m b . b a c k\r\n11. ​c l o s e\r\n12. h u n g e r . o n . h i l l s i d e by J. Cole &amp; Bas', '2021-05-14', 14, 3, '676e882a2c6b4_jcole-the-off-season-cover.png'),
 (9, 'If Not Now, When?', 'Russ', 'EP', 'Rap', '1. Star\r\n2. Waves\r\n3. Back From London Freestyle\r\n4. Never Again', '2022-04-26', 11, 6, '676e8a166b383_russ-if-not-now-when-cover.png'),
 (10, 'TESTING', 'A$AP Rocky', 'Studio Album', 'Rap', '1. Distorted Records\r\n2. A$AP Forever REMIX (Ft. Kid Cudi, Moby &amp; T.I.)\r\n3. Tony Tone\r\n4. Fukk Sleep (Ft. FKA twigs)\r\n5. Praise the Lord (Da Shine) (Ft. Skepta)\r\n6. CALLDROPS (Ft. Kodak Black)\r\n7. Buck Shots\r\n8. Gunz N Butter (Ft. Juicy J)\r\n9. Brotha Man (Ft. French Montana)\r\n10. OG Beeper\r\n11. Kids Turned Out Fine\r\n12. Hun43rd (Ft. Devonté Hynes)\r\n13. Changes\r\n14. Black Tux, White Collar\r\n15. Purity (Ft. Frank Ocean)', '2018-05-25', 20, 3, '676e8dd4dcbea_asap-rocky-testing-cover.png'),
-(11, 'i am &gt; i was', '21 Savage', 'Studio Album', 'Rap, Trap', '1. a lot (Ft. J. Cole)\r\n2. break da law\r\n3. a&amp;t (Ft. Yung Miami)\r\n4. out for the night\r\n5. gun smoke\r\n6. 1.5 (Ft. Offset)\r\n7. all my friends (Ft. Post Malone)\r\n8. can’t leave without it (Ft. Gunna &amp; Lil Baby)\r\n9. asmr\r\n10. ball w/o you\r\n11. good day (Ft. Project Pat &amp; ScHoolboy Q)\r\n12. pad lock\r\n13. monster (Ft. Childish Gambino)\r\n14. letter 2 my momma\r\n15. 4L (Ft. Young Nudy)', '2019-12-21', 18, 4, '676e8d5eb2be2_21-savage-i-am-i-was-cover.png'),
-(12, 'CrasH Talk', 'ScHoolboy Q', 'Studio Album', 'Rap', '1. Gang Gang\r\n2. Tales\r\n3. CHopstix by ScHoolboy Q &amp; Travis Scott\r\n4. Numb Numb Juice\r\n5. Drunk (Ft. 6LACK)\r\n6. Lies (Ft. Ty Dolla $ign &amp; YG)\r\n7. 5200\r\n8. Black Folk\r\n9. Floating (Ft. 21 Savage)\r\n10. Dangerous (Ft. Kid Cudi)\r\n11. Die Wit Em\r\n12. CrasH\r\n13. Water (Ft. Lil Baby)\r\n14. Attention', '2019-04-26', 15, 5, '676e8f0591b85_schoolboy-q-crash-talk-cover.png');
+(11, 'i am &gt; i was', '21 Savage', 'Studio Album', 'Rap, Trap', '1. a lot (Ft. J. Cole)\r\n2. break da law\r\n3. a&amp;t (Ft. Yung Miami)\r\n4. out for the night\r\n5. gun smoke\r\n6. 1.5 (Ft. Offset)\r\n7. all my friends (Ft. Post Malone)\r\n8. can’t leave without it (Ft. Gunna &amp; Lil Baby)\r\n9. asmr\r\n10. ball w/o you\r\n11. good day (Ft. Project Pat &amp; ScHoolboy Q)\r\n12. pad lock\r\n13. monster (Ft. Childish Gambino)\r\n14. letter 2 my momma\r\n15. 4L (Ft. Young Nudy)', '2019-12-21', 18, 1, '676e8d5eb2be2_21-savage-i-am-i-was-cover.png'),
+(12, 'CrasH Talk', 'ScHoolboy Q', 'Studio Album', 'Rap', '1. Gang Gang\r\n2. Tales\r\n3. CHopstix by ScHoolboy Q &amp; Travis Scott\r\n4. Numb Numb Juice\r\n5. Drunk (Ft. 6LACK)\r\n6. Lies (Ft. Ty Dolla $ign &amp; YG)\r\n7. 5200\r\n8. Black Folk\r\n9. Floating (Ft. 21 Savage)\r\n10. Dangerous (Ft. Kid Cudi)\r\n11. Die Wit Em\r\n12. CrasH\r\n13. Water (Ft. Lil Baby)\r\n14. Attention', '2019-04-26', 15, 5, '676e8f0591b85_schoolboy-q-crash-talk-cover.png'),
+(13, 'Remember (Remix) (Feat. Hailey Knox)', 'Russ', 'Single', 'R&amp;B', '1. Remember (Remix) (Feat. Hailey Knox)', '2022-01-21', 5, 2, '678414470c1fb_russ-remeber.png');
 
 -- --------------------------------------------------------
 
